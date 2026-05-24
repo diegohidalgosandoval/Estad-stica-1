@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Estadística 1 · UDEP Lima · 2026-I</title>
+<meta name="description" content="Biblioteca de estudio para Estadística 1 — Universidad de Piura, Campus Lima — Prof. Hugo Agurto, 2026-I">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Karla:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     SISTEMA DE DISEÑO — MODO CLARO (DEFAULT)
+     ============================================ */
+  :root,
+  [data-theme="light"] {
+    --paper:        #fdfaf3;
+    --paper-soft:   #faf6ec;
+    --cream:        #f5efe0;
+    --cream-light:  #faf6ec;
+    --cream-dark:   #ebe3cf;
+    --navy:         #1a2845;
+    --navy-light:   #2d3e5f;
+    --navy-soft:    #4a5d80;
+    --burgundy:     #722f37;
+    --burgundy-light: #8c3d47;
+    --burgundy-soft:  rgba(114, 47, 55, 0.08);
+    --gold:         #b08d4f;
+    --gold-light:   #c9a878;
+    --gray-warm:    #6b6453;
+    --gray-soft:    #a59c87;
+    --line:         #d4ccb8;
+    --shadow-soft:  0 4px 20px rgba(26, 40, 69, 0.06);
+    --shadow-hover: 0 12px 36px rgba(26, 40, 69, 0.12);
+    --shadow-burgundy: 0 4px 20px rgba(114, 47, 55, 0.15);
+    --shadow-burgundy-hover: 0 12px 40px rgba(114, 47, 55, 0.25);
+    --texture-1:    rgba(176, 141, 79, 0.03);
+    --texture-2:    rgba(114, 47, 55, 0.03);
+  }
+
+  /* ============================================
+     SISTEMA DE DISEÑO — MODO OSCURO
+     ============================================ */
+  [data-theme="dark"] {
+    --paper:        #0f1626;
+    --paper-soft:   #131c30;
+    --cream:        #1a2438;
+    --cream-light:  #1f2a42;
+    --cream-dark:   #0a111f;
+    --navy:         #f0e9d6;
+    --navy-light:   #e0d8c3;
+    --navy-soft:    #c4baa3;
+    --burgundy:     #d68891;
+    --burgundy-light: #e8a0a8;
+    --burgundy-soft:  rgba(214, 136, 145, 0.12);
+    --gold:         #d4b075;
+    --gold-light:   #e8c896;
+    --gray-warm:    #a89e87;
+    --gray-soft:    #7a7160;
+    --line:         #2a3450;
+    --shadow-soft:  0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.5);
+    --shadow-burgundy: 0 4px 20px rgba(214, 136, 145, 0.15);
+    --shadow-burgundy-hover: 0 12px 40px rgba(214, 136, 145, 0.25);
+    --texture-1:    rgba(212, 176, 117, 0.04);
+    --texture-2:    rgba(214, 136, 145, 0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Karla', -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--navy);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, var(--texture-1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, var(--texture-2) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============================================
+     THEME TOGGLE
+     ============================================ */
+  .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--paper-soft);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .theme-toggle:hover {
+    transform: scale(1.08) rotate(15deg);
+    background: var(--cream-light);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+  }
+
+  .icon-sun, .icon-moon {
+    position: absolute;
+  }
+
+  [data-theme="light"] .icon-moon { opacity: 1; transform: rotate(0deg); }
+  [data-theme="light"] .icon-sun  { opacity: 0; transform: rotate(-90deg); }
+  [data-theme="dark"]  .icon-moon { opacity: 0; transform: rotate(90deg); }
+  [data-theme="dark"]  .icon-sun  { opacity: 1; transform: rotate(0deg); }
+
+  /* ============================================
+     HERO
+     ============================================ */
+  .hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(180deg, var(--paper-soft) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--burgundy);
+    font-weight: 500;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+    position: relative;
+  }
+
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  .hero-divider::before { left: -20px; }
+  .hero-divider::after  { right: -20px; }
+
+  .hero-meta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--gray-warm);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-meta-secondary {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--gray-soft);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+  }
+
+  /* ============================================
+     ESTADOS — LOADING / ERROR / CONFIG
+     ============================================ */
+  .state-box {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .state-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .state-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .state-message {
+    font-size: 0.95rem;
+    color: var(--gray-warm);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .state-code {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    background: var(--cream);
+    color: var(--burgundy);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+
+  .loading-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 0 4px;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .loading-pulse:nth-child(2) { animation-delay: 0.2s; }
+  .loading-pulse:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ============================================
+     DESTACADO — EXAMEN PARCIAL
+     ============================================ */
+  .featured-section { padding: 4rem 2rem 2rem; }
+
+  .featured-card {
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-light) 100%);
+    color: #f5efe0;
+    padding: 3rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-burgundy);
+  }
+
+  [data-theme="dark"] .featured-card {
+    color: #1a2438;
+  }
+  [data-theme="dark"] .featured-card .featured-title,
+  [data-theme="dark"] .featured-card .featured-description {
+    color: #0f1626;
+  }
+  [data-theme="dark"] .featured-card .featured-eyebrow,
+  [data-theme="dark"] .featured-card .featured-arrow {
+    color: #722f37;
+  }
+
+  .featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-burgundy-hover);
+  }
+
+  .featured-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(245, 239, 224, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .featured-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c9a878;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .featured-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #faf6ec;
+  }
+
+  .featured-title em {
+    font-style: italic;
+    color: #c9a878;
+  }
+
+  .featured-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 224, 0.85);
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+  }
+
+  .featured-arrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #c9a878;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.3s ease;
+  }
+
+  .featured-card:hover .featured-arrow { gap: 1rem; }
+
+  /* ============================================
+     CAPÍTULOS
+     ============================================ */
+  .chapter-section { padding: 4rem 2rem 2rem; }
+
+  .chapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chapter-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 4rem;
+    font-weight: 400;
+    color: var(--burgundy);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .chapter-title-block { flex: 1; }
+
+  .chapter-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .chapter-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gray-warm);
+    margin-top: 0.5rem;
+  }
+
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .material-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+
+  .material-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+  }
+
+  .material-card:hover {
+    border-color: var(--navy-soft);
+    background: var(--cream-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .material-card:hover::before { transform: scaleY(1); }
+
+  .material-card.deep::before { background: var(--burgundy); }
+
+  .material-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 1rem;
+    color: var(--navy);
+    transition: color 0.3s ease;
+  }
+
+  .material-card.deep .material-icon { color: var(--burgundy); }
+  .material-card:hover .material-icon { color: var(--burgundy); }
+
+  .material-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .material-card.deep .material-tag { color: var(--burgundy-light); }
+
+  .material-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .material-description {
+    font-size: 0.875rem;
+    color: var(--gray-warm);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .material-filename {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gray-soft);
+    margin-top: auto;
+    margin-bottom: 0.75rem;
+    word-break: break-all;
+    opacity: 0.7;
+  }
+
+  .material-arrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.3s ease;
+  }
+
+  .material-card:hover .material-arrow {
+    gap: 0.7rem;
+    color: var(--burgundy);
+  }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  .footer {
+    margin-top: 5rem;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    background: var(--paper-soft);
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+
+  .footer-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 1.5rem;
+  }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gray-warm);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gray-soft);
+    text-transform: uppercase;
+  }
+
+  .footer-link {
+    color: var(--gold);
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .footer-link:hover { border-bottom-color: var(--gold); }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 768px) {
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .container { padding: 0 1.25rem; }
+    .theme-toggle { top: 1rem; right: 1rem; }
+    
+    .chapter-header {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    
+    .chapter-number { font-size: 3rem; }
+    .chapter-title { font-size: 1.75rem; }
+    .featured-card { padding: 2rem 1.5rem; }
+    .featured-title { font-size: 1.75rem; }
+    .materials-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     THEME TOGGLE
+     ============================================ -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <line x1="12" y1="2" x2="12" y2="4"/>
+    <line x1="12" y1="20" x2="12" y2="22"/>
+    <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/>
+    <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+    <line x1="2" y1="12" x2="4" y2="12"/>
+    <line x1="20" y1="12" x2="22" y2="12"/>
+    <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/>
+    <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+  </svg>
+</button>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Biblioteca académica</div>
+    <h1 class="hero-title">Estadística <em>I</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-meta">Universidad de Piura · Campus Lima</p>
+    <p class="hero-meta-secondary">2026 – I &nbsp;·&nbsp; Prof. Hugo Agurto</p>
+  </div>
+</header>
+
+<!-- ============================================
+     CONTENIDO DINÁMICO
+     ============================================ -->
+<main id="library-content">
+  <div class="state-box">
+    <div class="state-eyebrow">
+      Cargando
+      <span class="loading-pulse"></span>
+      <span class="loading-pulse"></span>
+      <span class="loading-pulse"></span>
+    </div>
+    <p class="state-title">Organizando tu biblioteca</p>
+    <p class="state-message">Consultando los archivos del repositorio…</p>
+  </div>
+</main>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-divider"></div>
+    <p class="footer-text">Biblioteca de estudio personal — Pingüino</p>
+    <p class="footer-meta">
+      Estadística I · UDEP Lima · 2026 – I
+      &nbsp;·&nbsp;
+      <a class="footer-link" id="refresh-link">Refrescar biblioteca</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ============================================
+     SCRIPT
+     ============================================ -->
+<script>
+/* ════════════════════════════════════════════════════════════════
+   ⚙️  CONFIGURACIÓN — Edita SOLAMENTE estos dos valores
+   ════════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  github: {
+    owner:  'diegohidalgosandoval',   // ← tu nombre de usuario en GitHub
+    repo:   'Estad-stica-1',          // ← el nombre exacto del repositorio
+    branch: 'main'                    // cambia a 'master' si tu rama es esa
+  },
+  cacheMinutes: 60,                   // tiempo de cache local (sin volver a llamar API)
+  cacheKey:     'estadistica1_library_v1'
+};
+
+/* ════════════════════════════════════════════════════════════════
+   📚  DICCIONARIO DE TÍTULOS DE CAPÍTULO
+   Si en el futuro agregas Cap 4, 5, etc., solo añade aquí
+   ════════════════════════════════════════════════════════════════ */
+const CHAPTER_TITLES = {
+  1: { roman: 'I',   title: 'Introducción a la estadística',
+       subtitle: 'Conceptos fundacionales, variables y escalas de medición' },
+  2: { roman: 'II',  title: 'Organización, resumen y presentación de datos',
+       subtitle: 'Tablas de frecuencias, medidas descriptivas y representación gráfica' },
+  3: { roman: 'III', title: 'Probabilidad',
+       subtitle: 'Conteo, axiomas, probabilidad condicional, Bayes y particiones' },
+  4: { roman: 'IV',  title: 'Distribuciones de probabilidad discreta',
+       subtitle: 'Binomial, Poisson, hipergeométrica y aplicaciones' },
+  5: { roman: 'V',   title: 'Distribuciones de probabilidad continua',
+       subtitle: 'Normal, exponencial, uniforme y teorema central del límite' },
+  6: { roman: 'VI',  title: 'Inferencia estadística',
+       subtitle: 'Estimación, intervalos de confianza y pruebas de hipótesis' }
+};
+
+/* ════════════════════════════════════════════════════════════════
+   🌗  THEME MANAGER
+   ════════════════════════════════════════════════════════════════ */
+class ThemeManager {
+  constructor() {
+    this.toggleBtn = document.getElementById('theme-toggle');
+    this.init();
+  }
+  init() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = saved || (prefersDark ? 'dark' : 'light');
+    this.apply(theme);
+    this.toggleBtn?.addEventListener('click', () => this.toggle());
+  }
+  apply(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+  toggle() {
+    const current = document.documentElement.getAttribute('data-theme');
+    this.apply(current === 'dark' ? 'light' : 'dark');
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   📂  LIBRARY ORGANIZER — Auto-organización vía GitHub API
+   ════════════════════════════════════════════════════════════════ */
+class LibraryOrganizer {
+  constructor(config) {
+    this.config = config;
+    this.container = document.getElementById('library-content');
+  }
+
+  async init(force = false) {
+    if (!this.isConfigured()) { this.renderConfigInstructions(); return; }
+    if (!force) {
+      const cached = this.getCache();
+      if (cached) { this.render(cached); return; }
+    }
+    this.renderLoading();
+    try {
+      const files = await this.fetchRepoTree();
+      const organized = this.organize(files);
+      this.setCache(organized);
+      this.render(organized);
+    } catch (err) {
+      console.error(err);
+      this.renderError(err);
+    }
+  }
+
+  isConfigured() {
+    const { owner, repo } = this.config.github;
+    return owner && owner !== 'TU_USUARIO_GITHUB' && repo && repo !== 'TU_REPOSITORIO';
+  }
+
+  /* ─── Caché en localStorage ─── */
+  getCache() {
+    try {
+      const raw = localStorage.getItem(this.config.cacheKey);
+      if (!raw) return null;
+      const { timestamp, data } = JSON.parse(raw);
+      const ageMs = Date.now() - timestamp;
+      if (ageMs > this.config.cacheMinutes * 60 * 1000) return null;
+      return data;
+    } catch { return null; }
+  }
+  setCache(data) {
+    try {
+      localStorage.setItem(this.config.cacheKey, JSON.stringify({
+        timestamp: Date.now(), data
+      }));
+    } catch {}
+  }
+  clearCache() { localStorage.removeItem(this.config.cacheKey); }
+
+  /* ─── Llamada a GitHub API ─── */
+  async fetchRepoTree() {
+    const { owner, repo, branch } = this.config.github;
+    const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
+    if (!res.ok) {
+      if (res.status === 404) throw new Error('REPO_NOT_FOUND');
+      if (res.status === 403) throw new Error('RATE_LIMIT');
+      throw new Error(`HTTP_${res.status}`);
+    }
+    const data = await res.json();
+    return data.tree
+      .filter(item => item.type === 'blob' && item.path.toLowerCase().endsWith('.html'))
+      .filter(item => item.path.toLowerCase() !== 'index.html')
+      .map(item => item.path);
+  }
+
+  /* ─── Categorización automática ─── */
+  organize(paths) {
+    const result = { exam: null, chapters: {}, others: [] };
+
+    paths.forEach(path => {
+      const filename = path.split('/').pop().toLowerCase();
+      const lowerPath = path.toLowerCase();
+
+      // 1) Examen parcial (puede estar en raíz o en cualquier carpeta)
+      if (/examen[_-]?(parcial|final)?/i.test(filename)) {
+        result.exam = path; return;
+      }
+
+      // 2) Detectar número de capítulo en path o filename
+      const capMatch = lowerPath.match(/cap(?:itulo)?[_\-/]?(\d+)/);
+      if (!capMatch) { result.others.push(path); return; }
+      const capNum = parseInt(capMatch[1]);
+      if (!result.chapters[capNum]) result.chapters[capNum] = { theory: [], deep: null, others: [] };
+
+      // 3) Cheatsheet profundo
+      if (/cheatsheet/i.test(filename) && /profundo|deep/i.test(filename)) {
+        result.chapters[capNum].deep = path; return;
+      }
+
+      // 4) Teoría con número de parte
+      const parteMatch = filename.match(/parte[_-]?(\d+)/i);
+      if (parteMatch && !/cheatsheet/i.test(filename)) {
+        result.chapters[capNum].theory.push({ path, parte: parseInt(parteMatch[1]) });
+        return;
+      }
+
+      // 5) Otros cheatsheets del capítulo
+      if (/cheatsheet/i.test(filename)) {
+        result.chapters[capNum].others.push(path);
+        return;
+      }
+
+      // 6) Teoría sin parte
+      result.chapters[capNum].theory.push({ path, parte: null });
+    });
+
+    // Ordenar partes dentro de cada capítulo
+    Object.values(result.chapters).forEach(ch => {
+      ch.theory.sort((a, b) => (a.parte ?? 99) - (b.parte ?? 99));
+    });
+
+    return result;
+  }
+
+  /* ─── Render principal ─── */
+  render(data) {
+    let html = '';
+    if (data.exam) html += this.renderExam(data.exam);
+
+    const sortedNums = Object.keys(data.chapters).map(Number).sort((a, b) => a - b);
+    sortedNums.forEach(n => { html += this.renderChapter(n, data.chapters[n]); });
+
+    if (data.others && data.others.length > 0) html += this.renderOthers(data.others);
+
+    if (!html) html = this.renderEmpty();
+    this.container.innerHTML = html;
+  }
+
+  renderExam(path) {
+    return `
+      <section class="featured-section">
+        <div class="container">
+          <a href="${path}" class="featured-card">
+            <div class="featured-eyebrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.39 8.26L21 9.27L16 14.14L17.18 21L12 17.77L6.82 21L8 14.14L3 9.27L9.61 8.26L12 2Z"/>
+              </svg>
+              Preparación examen parcial
+            </div>
+            <h2 class="featured-title">Cheatsheet <em>de examen parcial</em></h2>
+            <p class="featured-description">
+              Referencia rápida unificada: fórmulas clave, radar de tipos de problema,
+              triggers de identificación y checklist de estrategia.
+            </p>
+            <span class="featured-arrow">Abrir documento →</span>
+          </a>
+        </div>
+      </section>`;
+  }
+
+  renderChapter(num, ch) {
+    const info = CHAPTER_TITLES[num] || {
+      roman: String(num),
+      title: `Capítulo ${num}`,
+      subtitle: 'Materiales del capítulo'
+    };
+
+    let cards = '';
+
+    // Teoría
+    ch.theory.forEach((t, idx) => {
+      const partLabel = t.parte ? `Parte ${t.parte}` : 'Teoría';
+      const titleText = t.parte
+        ? `Cap. ${num} — Parte ${t.parte}`
+        : `Capítulo ${num} — Teoría`;
+      cards += this.renderCard({
+        path: t.path,
+        tag: `Teoría${t.parte ? ' · Parte ' + t.parte : ' completa'}`,
+        title: titleText,
+        description: 'Desarrollo conceptual, ejemplos resueltos y diagramas explicativos.',
+        type: 'theory'
+      });
+    });
+
+    // Cheatsheet profundo
+    if (ch.deep) {
+      cards += this.renderCard({
+        path: ch.deep,
+        tag: 'Cheatsheet profundo',
+        title: `Cap. ${num} — Conceptos en profundidad`,
+        description: 'Tarjetas conceptuales: variables, intuición, demostraciones, identificación y uso en examen.',
+        type: 'deep'
+      });
+    }
+
+    // Otros materiales del capítulo
+    ch.others.forEach(p => {
+      const fname = p.split('/').pop().replace(/\.html$/i, '').replace(/_/g, ' ');
+      cards += this.renderCard({
+        path: p,
+        tag: 'Material adicional',
+        title: this.titleCase(fname),
+        description: 'Material complementario del capítulo.',
+        type: 'deep'
+      });
+    });
+
+    return `
+      <section class="chapter-section" id="cap${num}">
+        <div class="container">
+          <div class="chapter-header">
+            <div class="chapter-number">${info.roman}</div>
+            <div class="chapter-title-block">
+              <div class="chapter-eyebrow">Capítulo ${this.numberWord(num)}</div>
+              <h2 class="chapter-title">${info.title}</h2>
+              <p class="chapter-subtitle">${info.subtitle}</p>
+            </div>
+          </div>
+          <div class="materials-grid">${cards}</div>
+        </div>
+      </section>`;
+  }
+
+  renderOthers(paths) {
+    let cards = '';
+    paths.forEach(p => {
+      const fname = p.split('/').pop().replace(/\.html$/i, '').replace(/[_-]/g, ' ');
+      cards += this.renderCard({
+        path: p,
+        tag: 'Otro',
+        title: this.titleCase(fname),
+        description: 'Documento sin categoría reconocida automáticamente.',
+        type: 'theory'
+      });
+    });
+    return `
+      <section class="chapter-section">
+        <div class="container">
+          <div class="chapter-header">
+            <div class="chapter-number">+</div>
+            <div class="chapter-title-block">
+              <div class="chapter-eyebrow">Otros materiales</div>
+              <h2 class="chapter-title">Documentos adicionales</h2>
+              <p class="chapter-subtitle">Archivos que no siguen la convención de nombres por capítulo</p>
+            </div>
+          </div>
+          <div class="materials-grid">${cards}</div>
+        </div>
+      </section>`;
+  }
+
+  renderCard({ path, tag, title, description, type }) {
+    const fname = path.split('/').pop();
+    const iconTheory = `<svg class="material-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`;
+    const iconDeep = `<svg class="material-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>`;
+    const icon = type === 'deep' ? iconDeep : iconTheory;
+    const cls  = type === 'deep' ? 'material-card deep' : 'material-card';
+    return `
+      <a href="${path}" class="${cls}">
+        ${icon}
+        <div class="material-tag">${tag}</div>
+        <h3 class="material-title">${title}</h3>
+        <p class="material-description">${description}</p>
+        <div class="material-filename">${fname}</div>
+        <span class="material-arrow">Abrir →</span>
+      </a>`;
+  }
+
+  /* ─── Estados ─── */
+  renderLoading() {
+    this.container.innerHTML = `
+      <div class="state-box">
+        <div class="state-eyebrow">
+          Cargando
+          <span class="loading-pulse"></span>
+          <span class="loading-pulse"></span>
+          <span class="loading-pulse"></span>
+        </div>
+        <p class="state-title">Organizando tu biblioteca</p>
+        <p class="state-message">Consultando los archivos del repositorio en GitHub…</p>
+      </div>`;
+  }
+
+  renderConfigInstructions() {
+    this.container.innerHTML = `
+      <div class="state-box">
+        <div class="state-eyebrow">Configuración necesaria</div>
+        <p class="state-title">Edita los datos del repositorio</p>
+        <p class="state-message">
+          Abre <span class="state-code">index.html</span> y, en la sección
+          <span class="state-code">CONFIG</span> del script al final del archivo, reemplaza
+          <span class="state-code">TU_USUARIO_GITHUB</span> y
+          <span class="state-code">TU_REPOSITORIO</span> por los valores reales.
+          Tras hacer push, el índice se organizará solo.
+        </p>
+      </div>`;
+  }
+
+  renderError(err) {
+    let title = 'No se pudo cargar la biblioteca';
+    let msg = `Error técnico: <span class="state-code">${err.message}</span>`;
+    if (err.message === 'REPO_NOT_FOUND') {
+      title = 'Repositorio no encontrado';
+      msg = 'Revisa que <span class="state-code">owner</span>, <span class="state-code">repo</span> y <span class="state-code">branch</span> en la configuración sean correctos, y que el repositorio sea público.';
+    } else if (err.message === 'RATE_LIMIT') {
+      title = 'Límite temporal de la API';
+      msg = 'GitHub permite 60 consultas por hora desde tu IP. Espera un poco y vuelve a intentar; mientras tanto se muestra el último contenido en caché.';
+    }
+    this.container.innerHTML = `
+      <div class="state-box">
+        <div class="state-eyebrow">Atención</div>
+        <p class="state-title">${title}</p>
+        <p class="state-message">${msg}</p>
+      </div>`;
+  }
+
+  renderEmpty() {
+    return `
+      <div class="state-box">
+        <div class="state-eyebrow">Biblioteca vacía</div>
+        <p class="state-title">No se encontraron archivos HTML</p>
+        <p class="state-message">
+          El repositorio responde, pero no encontró archivos <span class="state-code">.html</span>
+          (aparte de index.html). Sube tus capítulos y cheatsheets, haz push, y refresca.
+        </p>
+      </div>`;
+  }
+
+  /* ─── Utilidades ─── */
+  titleCase(s) {
+    return s.replace(/\b\w/g, c => c.toUpperCase());
+  }
+  numberWord(n) {
+    return ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'][n] || String(n);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   🚀  INICIALIZACIÓN
+   ════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  new ThemeManager();
+  const lib = new LibraryOrganizer(CONFIG);
+  lib.init();
+  document.getElementById('refresh-link')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    lib.clearCache();
+    lib.init(true);
+  });
+});
+</script>
+
+</body>
+</html>
