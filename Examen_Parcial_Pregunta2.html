@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Parcial · Estadística 1 — Pregunta 2</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+/* ===== SISTEMA DE TEMAS ===== */
+:root{
+  --bg:#13171e;--bg-2:#1a202a;--surface:#212a36;--surface-2:#283342;--surface-3:#2f3b4c;
+  --ink:#ecebe3;--ink-soft:#b6b8b0;--ink-faint:#838d99;--line:#36404e;--line-soft:#2a3340;
+  --burgundy:#e58f99;--burgundy-deep:#cf6e7c;--gold:#e3bd72;--gold-deep:#caa356;
+  --teal:#6fbab4;--blue:#8cb0d8;--green:#86c08e;--red:#e8908a;
+  --shadow:rgba(0,0,0,.45);--code-bg:#1b232e;--hl:rgba(227,189,114,.13);
+}
+[data-theme="light"]{
+  --bg:#f1ece0;--bg-2:#f8f4e9;--surface:#fffdf6;--surface-2:#f3ecdb;--surface-3:#ebe3cf;
+  --ink:#222a37;--ink-soft:#525c6a;--ink-faint:#8a93a0;--line:#ddd3bd;--line-soft:#e6ddc8;
+  --burgundy:#8c2f3c;--burgundy-deep:#6f2330;--gold:#9a7320;--gold-deep:#7e5e16;
+  --teal:#2c7873;--blue:#2c5680;--green:#3c7a44;--red:#b23b2f;
+  --shadow:rgba(60,45,30,.13);--code-bg:#f3ecda;--hl:rgba(154,115,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:300px;flex-shrink:0;background:var(--bg-2);border-right:1px solid var(--line);
+  height:100vh;position:sticky;top:0;overflow-y:auto;padding:26px 20px 60px;
+  transition:margin-left .28s ease;}
+.sidebar::-webkit-scrollbar{width:9px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.sidebar h2{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:var(--burgundy);
+  font-weight:700;margin-bottom:3px;line-height:1.2;}
+.sidebar .sub{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;
+  letter-spacing:.13em;margin-bottom:22px}
+.nav-group{margin-bottom:10px}
+.nav-group-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:700;margin:14px 0 6px;padding-left:10px;}
+.sidebar a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  padding:7px 11px;border-radius:7px;border-left:2.5px solid transparent;transition:all .15s ease;}
+.sidebar a:hover{background:var(--surface);color:var(--ink)}
+.sidebar a.active{background:var(--surface-2);color:var(--burgundy);
+  border-left-color:var(--burgundy);font-weight:600;}
+.sidebar a.child{font-size:.86rem;padding-left:24px;color:var(--ink-faint)}
+.sidebar a.child:hover,.sidebar a.child.active{color:var(--ink)}
+body.nav-collapsed .sidebar{margin-left:-301px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:11px 30px;}
+.topbar .crumb{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.16rem;
+  color:var(--ink);flex:1;}
+.topbar .crumb b{color:var(--burgundy)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:8px 13px;
+  font-family:'Karla',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;}
+.btn:hover{background:var(--surface-2);color:var(--ink);border-color:var(--burgundy)}
+.btn svg{width:16px;height:16px}
+.content{max-width:940px;margin:0 auto;width:100%;padding:38px 40px 120px;
+  transition:max-width .28s ease;}
+body.nav-collapsed .content{max-width:1180px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.55rem;font-weight:700;
+  line-height:1.12;color:var(--ink);margin-bottom:6px;}
+.doc-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);
+  border-radius:30px;padding:4px 14px;margin-bottom:18px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  color:var(--burgundy);margin:8px 0 6px;line-height:1.18;}
+h3{font-family:'Karla',sans-serif;font-size:1.22rem;font-weight:700;color:var(--ink);
+  margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+h4{font-size:1.04rem;font-weight:700;color:var(--gold-deep);margin:20px 0 7px}
+p{margin:11px 0}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--burgundy);font-style:italic}
+.section{margin:50px 0;padding-top:14px;border-top:1px dashed var(--line);}
+.section:first-of-type{border-top:none}
+.enunciado{background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--gold);border-radius:12px;padding:20px 24px;
+  margin:18px 0 26px;box-shadow:0 3px 14px var(--shadow);}
+.enunciado .lbl{font-size:.76rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+.enunciado p{margin:7px 0}
+.box{border-radius:12px;padding:17px 21px;margin:18px 0;border:1px solid var(--line);
+  background:var(--surface);}
+.box .box-title{font-weight:700;font-size:.97rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;}
+.box .box-title .ic{width:25px;height:25px;border-radius:7px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;}
+.box-teoria{border-left:4px solid var(--blue)}
+.box-teoria .ic{background:var(--blue);color:var(--bg)}.box-teoria .box-title{color:var(--blue)}
+.box-intuicion{border-left:4px solid var(--teal)}
+.box-intuicion .ic{background:var(--teal);color:var(--bg)}.box-intuicion .box-title{color:var(--teal)}
+.box-identifica{border-left:4px solid var(--gold)}
+.box-identifica .ic{background:var(--gold);color:var(--bg)}.box-identifica .box-title{color:var(--gold-deep)}
+.box-ojo{border-left:4px solid var(--red)}
+.box-ojo .ic{background:var(--red);color:var(--bg)}.box-ojo .box-title{color:var(--red)}
+.box-interpreta{border-left:4px solid var(--burgundy);
+  background:linear-gradient(180deg,var(--hl),transparent);}
+.box-interpreta .ic{background:var(--burgundy);color:var(--bg)}.box-interpreta .box-title{color:var(--burgundy)}
+.box-corrector{border-left:4px solid var(--green)}
+.box-corrector .ic{background:var(--green);color:var(--bg)}.box-corrector .box-title{color:var(--green)}
+.box-demo{border-left:4px solid var(--gold-deep);background:var(--code-bg)}
+.box-demo .ic{background:var(--gold-deep);color:var(--bg)}.box-demo .box-title{color:var(--gold-deep)}
+.step{display:flex;gap:15px;margin:16px 0;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;}
+.step .num{flex-shrink:0;width:33px;height:33px;border-radius:9px;background:var(--burgundy);
+  color:var(--bg);font-weight:800;font-size:1.02rem;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;}
+.step .step-body{flex:1;min-width:0}
+.step .step-body .st-title{font-weight:700;color:var(--ink);margin-bottom:3px}
+.step .step-body p:first-child{margin-top:0}.step .step-body p:last-child{margin-bottom:0}
+.why{font-size:.93rem;color:var(--ink-soft);background:var(--bg-2);border-radius:8px;
+  padding:9px 13px;margin:9px 0;border-left:3px solid var(--gold);}
+.why b{color:var(--gold-deep)}
+.formula{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:16px 20px;margin:15px 0;overflow-x:auto;text-align:center;}
+.formula.key{border-color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy) inset;}
+.result{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1.5px solid var(--burgundy);border-radius:12px;padding:15px 22px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;}
+.result .r-ic{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:var(--burgundy);
+  color:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.result .r-text{flex:1}
+.result .r-text .r-lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-faint);font-weight:700}
+.result .r-text .r-val{font-size:1.12rem;font-weight:700;color:var(--ink)}
+.result .r-text .r-val b{color:var(--burgundy);font-family:'JetBrains Mono',monospace}
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:11px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 13px;text-align:center;border:1px solid var(--line)}
+thead th{background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.85rem;}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody tr:hover{background:var(--surface)}
+td.lab{text-align:left;font-weight:600}
+.row-hl{background:var(--hl)!important}
+.row-hl td{font-weight:700;color:var(--burgundy)}
+tfoot td{background:var(--surface-2);font-weight:700;color:var(--ink)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em}
+.codeblock{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:15px 18px;margin:15px 0;font-family:'JetBrains Mono',monospace;font-size:.85rem;
+  color:var(--ink-soft);overflow-x:auto;white-space:pre;line-height:1.6;}
+.codeblock .cmd{color:var(--teal);font-weight:700}
+.codeblock .out{color:var(--gold-deep)}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 12px;margin:22px 0;}
+.figure svg{display:block;width:100%;height:auto}
+.figure .fig-cap{font-size:.85rem;color:var(--ink-faint);text-align:center;
+  margin-top:8px;font-style:italic;}
+.figure .fig-title{font-size:.92rem;font-weight:700;color:var(--gold-deep);
+  text-align:center;margin-bottom:6px;}
+.s-axis{stroke:var(--ink-faint);stroke-width:1.6}
+.s-grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.s-txt{fill:var(--ink-soft);font-family:'Karla',sans-serif;font-size:13px}
+.s-txt-sm{fill:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.s-txt-b{fill:var(--ink);font-family:'Karla',sans-serif;font-size:13px;font-weight:700}
+ul.clean{list-style:none;margin:11px 0}
+ul.clean li{padding:5px 0 5px 26px;position:relative}
+ul.clean li::before{content:"▸";position:absolute;left:4px;color:var(--burgundy);font-weight:700;}
+ol.steps{margin:11px 0 11px 22px}
+ol.steps li{padding:4px 0;margin-left:6px}
+.tag-q{display:inline-block;background:var(--burgundy);color:var(--bg);font-weight:700;
+  font-size:.8rem;padding:2px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+kbd{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+.callout-final{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1px solid var(--burgundy);border-radius:14px;padding:24px 26px;margin:26px 0;}
+@media print{
+  .sidebar,.topbar{display:none!important}
+  body{background:#fff;color:#1a1a1a;font-size:11pt}
+  .content{max-width:100%;padding:0}
+  .section{page-break-inside:avoid;border-top:1px solid #ccc}
+  .figure,.step,.box,.result,.enunciado,.tbl-wrap,.codeblock{page-break-inside:avoid;box-shadow:none}
+}
+@media (max-width:560px){
+  .content{padding:24px 16px 90px}.topbar{padding:10px 14px}
+  h1{font-size:1.9rem}h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <h2>Estadística&nbsp;1</h2>
+  <div class="sub">Examen Parcial · UDEP</div>
+  <div class="nav-group">
+    <a href="#inicio" class="active">Portada y cómo estudiar esto</a>
+    <a href="#contexto">Contexto y salida de R</a>
+    <a href="#scale">Concepto base: la función scale()</a>
+    <a href="#mapa">Mapa de la Pregunta 2</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 2a · 1,5 p</div>
+    <a href="#p2a" class="child">Detección de atípicos</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 2b · 1 p</div>
+    <a href="#p2b" class="child">Curtosis (después)</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 2c · 1,5 p</div>
+    <a href="#p2c" class="child">Asimetría (antes)</a>
+  </div>
+  <div class="nav-group">
+    <a href="#corrector">Lo que el corrector exige</a>
+    <a href="#sintesis">Síntesis de respuestas</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="btn" id="navToggle" title="Mostrar / ocultar barra lateral">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <span id="navLabel">Ocultar panel</span>
+    </button>
+    <div class="crumb">Examen Parcial · <b>Pregunta 2</b> — Medidas de forma e interpretación de R</div>
+    <button class="btn" id="themeToggle" title="Cambiar modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/>
+      </svg>
+      <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+
+  <main class="content">
+
+  <!-- ===== PORTADA ===== -->
+  <section id="inicio">
+    <div class="doc-tag">Resolución pedagógica · Pregunta 2 de 4</div>
+    <h1>Pregunta&nbsp;2 — Inventario excedente y un algoritmo de IA</h1>
+    <p style="font-size:1.08rem;color:var(--ink-soft)">
+      Esta pregunta es de otra naturaleza que la 1: casi no te pide <em>calcular</em>,
+      te pide <strong>leer e interpretar</strong> lo que el software R ya produjo.
+      Cubre tres <strong>medidas de forma</strong> de una distribución: valores
+      atípicos (vía estandarización), curtosis y asimetría.</p>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>Cómo usar este documento</div>
+      <ul class="clean">
+        <li><kbd>Ocultar panel</kbd> esconde la navegación y ensancha el contenido
+        para tu pantalla de 16″; <kbd>Modo claro / oscuro</kbd> cambia el tema.
+        Ambas preferencias se recuerdan.</li>
+        <li>Cada apartado sigue el recorrido: <strong>enunciado → identificación →
+        teoría desde cero → desarrollo paso a paso → interpretación → errores
+        frecuentes → checklist del corrector</strong>.</li>
+        <li>Antes de los tres apartados hay una sección clave —
+        <strong>"La función scale()"</strong>— que es la base teórica de toda la
+        pregunta. No la saltes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CONTEXTO ===== -->
+  <section class="section" id="contexto">
+    <h2>Contexto y salida de R</h2>
+    <p>Una multinacional de retail probó en 2025 un <strong>algoritmo de inteligencia
+    artificial</strong> para reducir el exceso de inventario en
+    <strong>15 centros de distribución</strong>. Se midió el stock sobrante
+    <em>antes</em> y <em>después</em> de implementar el algoritmo. En R se crearon
+    dos vectores:</p>
+    <ul class="clean">
+      <li><strong><span class="mono">antes</span></strong>: unidades excedentes
+      (en miles) en cada uno de los 15 centros <u>antes</u> del algoritmo.</li>
+      <li><strong><span class="mono">después</span></strong>: unidades excedentes
+      (en miles) <u>después</u> del algoritmo.</li>
+    </ul>
+    <p>Se aplicaron tres funciones de R: <span class="mono">median()</span>,
+    <span class="mono">kurtosis()</span> y <span class="mono">scale()</span>. Esta
+    es la salida (output) que arroja la consola:</p>
+
+    <div class="codeblock"><span class="cmd">&gt; median(antes)</span>
+<span class="out">[1] 48</span>
+<span class="cmd">&gt; median(despues)</span>
+<span class="out">[1] 21</span>
+<span class="cmd">&gt; kurtosis(antes)</span>
+<span class="out">[1] 2.440076</span>
+<span class="cmd">&gt; kurtosis(después)</span>
+<span class="out">[1] 3.083271</span>
+
+<span class="cmd">&gt; scale(antes)</span>          <span class="cmd">&gt; scale(después)</span>
+       [,1]                    [,1]
+ [1,] -0.55616422       [1,] -0.41616809
+ [2,]  0.37077615       [2,]  0.27744539
+ [3,] -0.15890406       [3,] -0.76297483
+ [4,]  1.43013656       [4,]  1.31786561
+ [5,] -1.35068453       [5,] -1.10978156
+ [6,] -0.68858427       [6,] -0.06936135
+ [7,]  0.76803630       [7,]  0.97105887
+ [8,]  0.10593604       [8,] -0.41616809
+ [9,] -0.95342437       [9,] -1.10978156
+[10,] -0.29132411      [10,]  0.27744539
+[11,]  1.16529646      [11,]  0.62425213
+[12,] -1.08584443      [12,] -0.76297483
+[13,]  2.09223682      [13,]  2.35828582
+[14,] -0.82100432      [14,] -1.10978156
+[15,] -0.02648401      [15,] -0.06936135
+<span class="out">attr(,"scaled:center") 49.2     attr(,"scaled:center") 21.2
+attr(,"scaled:scale")  7.551726 attr(,"scaled:scale")  2.88345</span></div>
+
+    <p>Conviene reorganizar los cuatro números resumen en una tabla limpia:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Dato que entrega R</th><th>Significado estadístico</th>
+          <th>antes</th><th>después</th></tr></thead>
+        <tbody>
+          <tr><td class="lab"><span class="mono">median()</span></td>
+            <td>Mediana (Me)</td><td class="mono">48</td><td class="mono">21</td></tr>
+          <tr><td class="lab"><span class="mono">kurtosis()</span></td>
+            <td>Coeficiente de curtosis</td>
+            <td class="mono">2,440076</td><td class="mono">3,083271</td></tr>
+          <tr class="row-hl"><td class="lab"><span class="mono">scale() → scaled:center</span></td>
+            <td>Media aritmética (x̄)</td>
+            <td class="mono">49,2</td><td class="mono">21,2</td></tr>
+          <tr><td class="lab"><span class="mono">scale() → scaled:scale</span></td>
+            <td>Desviación estándar (s)</td>
+            <td class="mono">7,551726</td><td class="mono">2,88345</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>El detalle más astuto del examen</div>
+      <p>Fíjate en la fila resaltada. <strong>En ningún lado dice "media".</strong>
+      La media aritmética está <u>escondida</u> dentro de la salida de
+      <span class="mono">scale()</span>, con el nombre técnico
+      <span class="mono">scaled:center</span>. Quien no sepa qué es
+      <span class="mono">scaled:center</span> no podrá resolver el apartado 2c. Esto
+      lo aclaramos a fondo en la siguiente sección.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONCEPTO scale() ===== -->
+  <section class="section" id="scale">
+    <h2>Concepto base · La función <span class="mono" style="font-size:.8em">scale()</span> y la estandarización</h2>
+    <p>Toda la Pregunta 2 gira en torno a entender qué hace
+    <span class="mono">scale()</span>. Vamos desde cero.</p>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición: ¿qué es "estandarizar" un dato?</div>
+      <p>Imagina que un centro tiene 60 mil unidades excedentes. ¿Es mucho o poco?
+      Solo no lo sabes: depende del promedio y de cuánto varían los demás centros.
+      <strong>Estandarizar</strong> responde la pregunta correcta: «¿a cuántas
+      desviaciones estándar del promedio está este dato?».</p>
+      <p>El resultado se llama <strong>valor estandarizado</strong>, <strong>puntuación
+      Z</strong> o <strong>puntaje típico</strong>, y se denota \(z\). Convierte
+      cualquier dato a una escala universal donde el 0 es el promedio y la unidad es
+      "una desviación estándar".</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La fórmula de estandarización</div>
+      <div class="formula key">\[ z_i=\dfrac{x_i-\bar{x}}{s} \]</div>
+      <p><strong>Simbología:</strong></p>
+      <ul class="clean">
+        <li><span class="mono">x<sub>i</sub></span> = el dato original (las unidades
+        excedentes de un centro).</li>
+        <li><span class="mono">x̄</span> = la media del conjunto.</li>
+        <li><span class="mono">s</span> = la desviación estándar del conjunto.</li>
+        <li><span class="mono">z<sub>i</sub></span> = el valor estandarizado.</li>
+      </ul>
+      <p><strong>Cómo se lee un valor de z:</strong></p>
+      <ul class="clean">
+        <li>El <strong>signo</strong> dice el lado: \(z>0\) → por encima del
+        promedio; \(z<0\) → por debajo.</li>
+        <li>La <strong>magnitud</strong> dice la distancia: \(z=1{,}5\) → el dato
+        está 1,5 desviaciones estándar por encima del promedio.</li>
+        <li>\(z=0\) → el dato es exactamente igual al promedio.</li>
+      </ul>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Qué entrega exactamente <span class="mono" style="font-size:.85em">scale()</span> en R</div>
+      <p>Cuando aplicas <span class="mono">scale(vector)</span>, R devuelve tres cosas:</p>
+      <ul class="clean">
+        <li><strong>La columna <span class="mono">[,1]</span></strong>: los 15
+        valores de \(z\), uno por cada dato original.</li>
+        <li><strong><span class="mono">attr(,"scaled:center")</span></strong>: el
+        valor que <em>restó</em> a cada dato. Como la fórmula resta \(\bar{x}\),
+        este atributo <strong>es la media</strong>.</li>
+        <li><strong><span class="mono">attr(,"scaled:scale")</span></strong>: el
+        valor por el que <em>dividió</em>. Como la fórmula divide entre \(s\), este
+        atributo <strong>es la desviación estándar</strong>.</li>
+      </ul>
+      <p>Es decir, <span class="mono">scale()</span> no solo estandariza: de paso te
+      regala la media y la desviación estándar. Por eso este examen no necesitó
+      pedir <span class="mono">mean()</span> ni <span class="mono">sd()</span> por
+      separado.</p>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>Para profundizar: invertir la fórmula</div>
+      <p>Si despejamos \(x_i\) de la fórmula de estandarización, podemos
+      <em>recuperar</em> el dato original a partir de su \(z\):</p>
+      <div class="formula">\[ x_i = \bar{x} + z_i\cdot s \]</div>
+      <p>Ejemplo con el centro nº 13 del vector "antes": su \(z=2{,}09223682\),
+      \(\bar{x}=49{,}2\), \(s=7{,}551726\):</p>
+      <div class="formula">
+        \[ x_{13}=49{,}2+2{,}09223682\times 7{,}551726\approx 49{,}2+15{,}8=65 \]
+      </div>
+      <p>Ese centro tenía 65 mil unidades excedentes. Esta inversión es útil para
+      verificar y para entender la forma de los datos.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La Regla Empírica: por qué z sirve para detectar atípicos</div>
+      <p>Para una distribución aproximadamente acampanada (forma de campana), la
+      <strong>regla empírica</strong> dice qué proporción de datos cae a cada
+      distancia del centro:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Dentro de…</th><th>Proporción aproximada de datos</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">x̄ ± 1s &nbsp;(|z| ≤ 1)</td><td>≈ 68%</td></tr>
+            <tr><td class="mono">x̄ ± 2s &nbsp;(|z| ≤ 2)</td><td>≈ 95%</td></tr>
+            <tr class="row-hl"><td class="mono">x̄ ± 3s &nbsp;(|z| ≤ 3)</td><td>≈ 99,7%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Un dato con \(|z|>3\) está más allá del 99,7%: ocurre en menos del 0,3% de
+      los casos. Es tan raro que se considera <strong>atípico</strong>. Esa es la
+      idea detrás del apartado 2a.</p>
+    </div>
+  </section>
+
+  <!-- ===== MAPA ===== -->
+  <section class="section" id="mapa">
+    <h2>Mapa de la Pregunta 2</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Qué te piden</th><th>Herramienta</th>
+          <th>Dato de R que usa</th><th>Puntos</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">2a</span></td>
+            <td class="lab">¿Hay atípicos en "después"?</td>
+            <td>Valores estandarizados (z) + criterio |z|&gt;3</td>
+            <td>columna de <span class="mono">scale(después)</span></td><td>1,5 p</td></tr>
+          <tr><td><span class="tag-q">2b</span></td>
+            <td class="lab">Curtosis de "después"</td>
+            <td>Coeficiente de curtosis vs. referencia 3</td>
+            <td><span class="mono">kurtosis(después)</span></td><td>1 p</td></tr>
+          <tr><td><span class="tag-q">2c</span></td>
+            <td class="lab">Asimetría de "antes"</td>
+            <td>Comparación media vs. mediana</td>
+            <td><span class="mono">median(antes)</span> y <span class="mono">scaled:center</span></td><td>1,5 p</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 2a ===================== -->
+  <section class="section" id="p2a">
+    <h2>Apartado 2a · Detección de mediciones atípicas</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>a)</strong> Basándose en el resultado de la función
+      <span class="mono">scale()</span> responda lo siguiente: ¿existen
+      <strong>mediciones atípicas</strong> de la cantidad de unidades excedentes
+      <strong>después</strong> de la implementación del algoritmo?
+      <strong>(1.5p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Identificación</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>¿Qué tipo de problema es?</div>
+      <p>El enunciado lo dice explícitamente: <em>"basándose en el resultado de la
+      función scale()"</em>. Es un problema de <strong>detección de valores
+      atípicos (outliers) mediante valores estandarizados</strong>. La palabra
+      <strong>"atípicas"</strong> = atípicos = outliers. Y nos restringen al vector
+      <span class="mono">después</span>.</p>
+      <p>La estrategia: revisar los 15 valores de \(z\) de
+      <span class="mono">scale(después)</span> y ver si alguno es "demasiado
+      extremo" según un criterio.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>El criterio del valor estandarizado para atípicos</div>
+      <div class="formula key">
+        \[ \text{Un dato es atípico (outlier) si }\;|z_i|>3 \]
+      </div>
+      <p><strong>Por qué 3:</strong> por la regla empírica, en una distribución
+      acampanada el 99,7% de los datos cumple \(|z|\le 3\). Un dato con \(|z|>3\) es
+      tan infrecuente (menos del 0,3%) que se considera anómalo, atípico.</p>
+      <div class="why" style="border-left-color:var(--red)">
+        <b>Nota de transparencia (importante):</b> el umbral es una
+        <u>convención</u>. El criterio estándar para "atípico/outlier" es
+        \(|z|>3\), y es el que usamos aquí. Algunos textos de estadística para
+        administración usan \(|z|>2\) para señalar valores "inusuales". Más abajo
+        verás <u>exactamente</u> qué cambiaría con cada criterio, para que apliques
+        el que tu profesor haya usado en clase.
+      </div>
+    </div>
+
+    <h3>Desarrollo</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Recorrer los 15 valores de z de "después"</div>
+      <p>Los valores estandarizados de <span class="mono">scale(después)</span> son:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Centro</th><th>z</th><th>|z|</th>
+            <th>Centro</th><th>z</th><th>|z|</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="mono">−0,4162</td><td class="mono">0,42</td>
+                <td>9</td><td class="mono">−1,1098</td><td class="mono">1,11</td></tr>
+            <tr><td>2</td><td class="mono">0,2774</td><td class="mono">0,28</td>
+                <td>10</td><td class="mono">0,2774</td><td class="mono">0,28</td></tr>
+            <tr><td>3</td><td class="mono">−0,7630</td><td class="mono">0,76</td>
+                <td>11</td><td class="mono">0,6243</td><td class="mono">0,62</td></tr>
+            <tr><td>4</td><td class="mono">1,3179</td><td class="mono">1,32</td>
+                <td>12</td><td class="mono">−0,7630</td><td class="mono">0,76</td></tr>
+            <tr><td>5</td><td class="mono">−1,1098</td><td class="mono">1,11</td>
+                <td class="row-hl"><b>13</b></td><td class="row-hl"><b class="mono">2,3583</b></td><td class="row-hl"><b class="mono">2,36</b></td></tr>
+            <tr><td>6</td><td class="mono">−0,0694</td><td class="mono">0,07</td>
+                <td>14</td><td class="mono">−1,1098</td><td class="mono">1,11</td></tr>
+            <tr><td>7</td><td class="mono">0,9711</td><td class="mono">0,97</td>
+                <td>15</td><td class="mono">−0,0694</td><td class="mono">0,07</td></tr>
+            <tr><td>8</td><td class="mono">−0,4162</td><td class="mono">0,42</td>
+                <td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Identificar el valor más extremo</div>
+      <p>Buscamos el \(z\) con mayor valor absoluto. Recorriendo la columna
+      <span class="mono">|z|</span>, el mayor es el del <strong>centro 13</strong>:</p>
+      <div class="formula">\[ |z|_{\max}=|2{,}35828582|=2{,}3583 \]</div>
+      <div class="why"><b>Por qué miramos el valor absoluto:</b> un atípico puede
+      ser anormalmente <u>alto</u> o anormalmente <u>bajo</u>. El módulo \(|z|\)
+      mide la distancia al promedio sin importar el lado. El más alejado de "después"
+      es el centro 13, a 2,36 desviaciones estándar por encima del promedio.</div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Comparar con el criterio |z| &gt; 3</div>
+      <div class="formula">\[ |z|_{\max}=2{,}3583 \;\;<\;\; 3 \]</div>
+      <p>El dato más extremo de "después" <strong>no</strong> alcanza el umbral 3.
+      Y si el más extremo no lo supera, ninguno de los otros 14 lo hará.</p>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">Valores estandarizados de "después" frente al umbral de atipicidad</div>
+      <svg viewBox="0 0 780 250" role="img" aria-label="Recta de valores z de después">
+        <!-- zonas atípicas -->
+        <rect x="60" y="110" width="47.14" height="60" fill="var(--red)" opacity="0.16"/>
+        <rect x="672.86" y="110" width="47.14" height="60" fill="var(--red)" opacity="0.16"/>
+        <text class="s-txt-sm" x="83" y="100" text-anchor="middle" fill="var(--red)">ATÍPICO</text>
+        <text class="s-txt-sm" x="696" y="100" text-anchor="middle" fill="var(--red)">ATÍPICO</text>
+        <!-- eje -->
+        <line class="s-axis" x1="60" y1="150" x2="720" y2="150"/>
+        <!-- lineas umbral z=±3 -->
+        <line x1="107.14" y1="105" x2="107.14" y2="175" stroke="var(--red)" stroke-width="2.6"/>
+        <line x1="672.86" y1="105" x2="672.86" y2="175" stroke="var(--red)" stroke-width="2.6"/>
+        <!-- lineas z=±2 (secundario) -->
+        <line x1="201.43" y1="120" x2="201.43" y2="172" stroke="var(--gold)" stroke-width="1.8" stroke-dasharray="5 4"/>
+        <line x1="578.57" y1="120" x2="578.57" y2="172" stroke="var(--gold)" stroke-width="1.8" stroke-dasharray="5 4"/>
+        <!-- centro -->
+        <line x1="390" y1="128" x2="390" y2="172" stroke="var(--ink-faint)" stroke-width="1.2"/>
+        <!-- dots: columnas con apilamiento -->
+        <!-- x=285.38 (-1.110) x3 -->
+        <circle cx="285.38" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="285.38" cy="136" r="6" fill="var(--teal)"/>
+        <circle cx="285.38" cy="122" r="6" fill="var(--teal)"/>
+        <!-- x=318.06 (-0.763) x2 -->
+        <circle cx="318.06" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="318.06" cy="136" r="6" fill="var(--teal)"/>
+        <!-- x=350.76 (-0.416) x2 -->
+        <circle cx="350.76" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="350.76" cy="136" r="6" fill="var(--teal)"/>
+        <!-- x=383.46 (-0.069) x2 -->
+        <circle cx="383.46" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="383.46" cy="136" r="6" fill="var(--teal)"/>
+        <!-- x=416.16 (0.277) x2 -->
+        <circle cx="416.16" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="416.16" cy="136" r="6" fill="var(--teal)"/>
+        <!-- singles -->
+        <circle cx="448.86" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="481.56" cy="150" r="6" fill="var(--teal)"/>
+        <circle cx="514.27" cy="150" r="6" fill="var(--teal)"/>
+        <!-- el max 2.358 -->
+        <circle cx="612.36" cy="150" r="8.5" fill="var(--burgundy)" stroke="var(--bg)" stroke-width="2"/>
+        <line x1="612.36" y1="141" x2="612.36" y2="108" stroke="var(--burgundy)" stroke-width="1.5"/>
+        <text class="s-txt-b" x="612.36" y="100" text-anchor="middle" fill="var(--burgundy)">z = 2,358 (máximo)</text>
+        <!-- etiquetas eje -->
+        <text class="s-txt-sm" x="107.14" y="192" text-anchor="middle" fill="var(--red)">−3</text>
+        <text class="s-txt-sm" x="201.43" y="192" text-anchor="middle" fill="var(--gold-deep)">−2</text>
+        <text class="s-txt-sm" x="390" y="192" text-anchor="middle">0</text>
+        <text class="s-txt-sm" x="578.57" y="192" text-anchor="middle" fill="var(--gold-deep)">+2</text>
+        <text class="s-txt-sm" x="672.86" y="192" text-anchor="middle" fill="var(--red)">+3</text>
+        <text class="s-txt" x="390" y="222" text-anchor="middle">Valor estandarizado z — vector "después"</text>
+        <!-- leyenda -->
+        <line x1="200" y1="236" x2="228" y2="236" stroke="var(--red)" stroke-width="2.6"/>
+        <text class="s-txt-sm" x="234" y="240">umbral atípico |z|=3</text>
+        <line x1="420" y1="236" x2="448" y2="236" stroke="var(--gold)" stroke-width="1.8" stroke-dasharray="5 4"/>
+        <text class="s-txt-sm" x="454" y="240">umbral "inusual" |z|=2</text>
+      </svg>
+      <div class="fig-cap">Los 15 puntos azulados son los centros de distribución. El
+      punto burdeos es el más extremo (z = 2,358). Ningún punto cruza la línea roja
+      \(|z|=3\): no hay atípicos.</div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">✓</div>
+      <div class="r-text">
+        <div class="r-lbl">Conclusión · Apartado 2a</div>
+        <div class="r-val"><b>No existen mediciones atípicas</b> en "después"
+          (todos los |z| &lt; 3)</div>
+      </div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>¿Y si tu profesor usó el criterio |z| &gt; 2?</div>
+      <p>Para que estés cubierto en cualquier caso:</p>
+      <ul class="clean">
+        <li><strong>Con \(|z|>3\)</strong> (criterio estándar de outlier): ningún
+        dato lo supera → <strong>no hay atípicos</strong>.</li>
+        <li><strong>Con \(|z|>2\)</strong> (criterio de "valor inusual"): solo el
+        <strong>centro 13</strong> (z = 2,358) supera el 2 → habría
+        <strong>una</strong> medición inusual; los otros 14 estarían dentro de lo
+        normal.</li>
+      </ul>
+      <p>Como el enunciado dice "atípicas" (= outliers), la respuesta recomendada es
+      la del criterio \(|z|>3\): <strong>no hay atípicos</strong>. Pero deja
+      escrito el criterio que usas: el corrector valora que lo justifiques.</p>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>Después de implementar el algoritmo de IA, <strong>ninguno de los 15 centros
+      de distribución presenta una cantidad de unidades excedentes
+      anómala</strong>. El centro más alejado del promedio (el nº 13) está a 2,36
+      desviaciones estándar — un valor alto, pero todavía dentro de lo esperable.
+      La distribución del inventario excedente "después" es regular: no hay un
+      centro que se dispare de forma extrema respecto de los demás.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 2a (vale 1,5 p)</div>
+      <ul class="clean">
+        <li>Explica primero <strong>qué hace scale()</strong>: que la columna son
+        valores estandarizados \(z=(x_i-\bar{x})/s\).</li>
+        <li>Enuncia el <strong>criterio</strong> con su número (\(|z|>3\)) y su
+        razón (regla empírica).</li>
+        <li>Identifica el <strong>\(|z|\) máximo</strong> (2,358) y compáralo con 3.</li>
+        <li>Cierra con la conclusión <u>interpretada</u> en términos de centros e
+        inventario.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 2b ===================== -->
+  <section class="section" id="p2b">
+    <h2>Apartado 2b · Curtosis de "después"</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>b)</strong> ¿Qué puede concluir acerca de la <strong>curtosis</strong>
+      de la distribución de la cantidad de unidades excedentes <strong>después</strong>
+      de la implementación del algoritmo? <strong>(1p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Identificación</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>¿Qué te piden?</div>
+      <p>Te dan directamente el número: <span class="mono">kurtosis(después) =
+      3.083271</span>. No hay que calcular nada; hay que <strong>interpretarlo</strong>:
+      decir qué <em>forma</em> tiene la distribución según ese valor. Es un problema
+      de <strong>medidas de forma — curtosis</strong>.</p>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición: ¿qué mide la curtosis?</div>
+      <p>La curtosis describe la <strong>forma de una distribución en su apuntamiento
+      y sus colas</strong>: qué tan "puntiaguda" es en el centro y qué tan "pesadas"
+      son las colas (los extremos).</p>
+      <ul class="clean">
+        <li><strong>Curtosis alta</strong> → distribución muy apuntada en el centro
+        y con colas pesadas (más datos extremos de lo normal).</li>
+        <li><strong>Curtosis baja</strong> → distribución achatada, con colas
+        ligeras (pocos datos extremos).</li>
+      </ul>
+      <p>No confundir con la asimetría: la curtosis <u>no</u> dice si la distribución
+      está inclinada a un lado; dice qué tan apuntada/achatada es.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La escala de la curtosis: el valor de referencia es 3</div>
+      <p>El coeficiente de curtosis se compara contra la <strong>distribución normal</strong>,
+      cuya curtosis vale exactamente <strong>3</strong>. Según dónde caiga el valor:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Valor del coeficiente</th><th>Tipo de distribución</th><th>Forma</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">curtosis &lt; 3</td><td><strong>Platicúrtica</strong></td>
+              <td>Más achatada que la normal; colas ligeras</td></tr>
+            <tr class="row-hl"><td class="mono">curtosis = 3</td><td><strong>Mesocúrtica</strong></td>
+              <td>Igual de apuntada que la normal</td></tr>
+            <tr><td class="mono">curtosis &gt; 3</td><td><strong>Leptocúrtica</strong></td>
+              <td>Más apuntada que la normal; colas pesadas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="why"><b>¿Por qué la referencia es 3 y no 0?</b> Existen dos
+      versiones del coeficiente: la <em>clásica</em> (referencia 3) y el <em>exceso
+      de curtosis</em> (= clásica − 3, referencia 0). Como R devolvió valores
+      cercanos a 3 (2,44 y 3,08) — y no cercanos a 0 — sabemos que aquí se usó la
+      <strong>versión clásica: la referencia es 3</strong>.</div>
+    </div>
+
+    <h3>Desarrollo</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Leer el dato y la referencia</div>
+      <p>Dato: <span class="mono">kurtosis(después) = 3,083271</span>. Referencia
+      (distribución normal): <span class="mono">3</span>.</p>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Comparar</div>
+      <div class="formula">\[ 3{,}083271 \;>\; 3 \]</div>
+      <p>El coeficiente es mayor que 3, aunque por muy poco: el exceso sobre 3 es de
+      apenas \(3{,}083271-3=0{,}083271\).</p>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Clasificar</div>
+      <p>Como <span class="mono">curtosis &gt; 3</span>, la distribución es
+      <strong>leptocúrtica</strong>. Pero como el exceso es mínimo (0,08), está
+      <strong>casi en el límite mesocúrtico</strong>: en la práctica su apuntamiento
+      es prácticamente el de una distribución normal.</p>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">Dónde cae 3,083271 en la escala de curtosis</div>
+      <svg viewBox="0 0 780 280" role="img" aria-label="Escala de curtosis">
+        <!-- barra gauge -->
+        <rect x="100" y="60" width="290" height="32" fill="var(--blue)" opacity="0.5"/>
+        <rect x="390" y="60" width="290" height="32" fill="var(--burgundy)" opacity="0.45"/>
+        <line x1="390" y1="52" x2="390" y2="100" stroke="var(--ink)" stroke-width="2.4"/>
+        <!-- ticks -->
+        <g class="s-txt-sm" text-anchor="middle">
+          <text x="100" y="116">2,0</text>
+          <text x="245" y="116">2,5</text>
+          <text x="390" y="116">3,0</text>
+          <text x="535" y="116">3,5</text>
+          <text x="680" y="116">4,0</text>
+        </g>
+        <text class="s-txt-sm" x="245" y="80" text-anchor="middle" fill="var(--bg)">PLATICÚRTICA (&lt;3)</text>
+        <text class="s-txt-sm" x="535" y="80" text-anchor="middle" fill="var(--bg)">LEPTOCÚRTICA (&gt;3)</text>
+        <text class="s-txt-sm" x="390" y="46" text-anchor="middle" fill="var(--ink)">3 = Normal (mesocúrtica)</text>
+        <!-- puntero a 3.083271 -->
+        <path d="M 414.15 36 L 408 24 L 420.3 24 Z" fill="var(--gold-deep)"/>
+        <line x1="414.15" y1="36" x2="414.15" y2="60" stroke="var(--gold-deep)" stroke-width="2.4"/>
+        <text class="s-txt-b" x="414.15" y="18" text-anchor="middle" fill="var(--gold-deep)">después = 3,083271</text>
+        <!-- curvas de referencia -->
+        <line x1="95" y1="235" x2="285" y2="235" class="s-axis"/>
+        <path d="M 95 235 C 138 235, 147 187, 190 187 C 233 187, 242 235, 285 235"
+              fill="none" stroke="var(--blue)" stroke-width="2.4"/>
+        <text class="s-txt-sm" x="190" y="255" text-anchor="middle" fill="var(--blue)">Platicúrtica (k&lt;3)</text>
+        <line x1="322" y1="235" x2="458" y2="235" class="s-axis"/>
+        <path d="M 322 235 C 353 235, 359 165, 390 165 C 421 165, 427 235, 458 235"
+              fill="none" stroke="var(--gold-deep)" stroke-width="2.4"/>
+        <text class="s-txt-sm" x="390" y="255" text-anchor="middle" fill="var(--gold-deep)">Mesocúrtica (k=3)</text>
+        <line x1="544" y1="235" x2="636" y2="235" class="s-axis"/>
+        <path d="M 544 235 C 565 235, 569 143, 590 143 C 611 143, 615 235, 636 235"
+              fill="none" stroke="var(--burgundy)" stroke-width="2.4"/>
+        <text class="s-txt-sm" x="590" y="255" text-anchor="middle" fill="var(--burgundy)">Leptocúrtica (k&gt;3)</text>
+        <text class="s-txt" x="390" y="276" text-anchor="middle">"Después" cae justo a la derecha de 3 → leptocúrtica muy leve, casi mesocúrtica</text>
+      </svg>
+      <div class="fig-cap">El puntero dorado marca 3,083271: apenas pasa la línea de
+      la normal. Las tres curvas de abajo ilustran las formas; la de "después" sería
+      casi idéntica a la mesocúrtica del centro.</div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">k</div>
+      <div class="r-text">
+        <div class="r-lbl">Conclusión · Apartado 2b</div>
+        <div class="r-val">Distribución <b>leptocúrtica</b> (muy leve) — prácticamente
+          mesocúrtica</div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>Como <span class="mono">kurtosis(después) = 3,083271 &gt; 3</span>, la
+      distribución de las unidades excedentes <em>después</em> del algoritmo es
+      técnicamente <strong>leptocúrtica</strong>: ligeramente más apuntada en el
+      centro y con colas un poco más pesadas que una distribución normal. Sin
+      embargo, el exceso sobre 3 es minúsculo (0,08), de modo que <strong>en la
+      práctica su forma es casi mesocúrtica</strong>: el grado de concentración del
+      inventario excedente alrededor de su valor central es prácticamente el de una
+      distribución normal. No hay un apuntamiento ni unas colas marcadamente
+      distintos de lo normal.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 2b</div>
+      <ul class="clean">
+        <li>Indica explícitamente que la <strong>referencia es 3</strong> (la
+        normal).</li>
+        <li>Haz la comparación: <span class="mono">3,083271 &gt; 3</span>.</li>
+        <li>Da el nombre correcto: <strong>leptocúrtica</strong>, y matiza que es
+        muy leve (casi mesocúrtica).</li>
+        <li>Interpreta en términos de apuntamiento/colas del inventario.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 2c ===================== -->
+  <section class="section" id="p2c">
+    <h2>Apartado 2c · Asimetría de "antes"</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>c)</strong> ¿Qué puede concluir acerca de la <strong>asimetría</strong>
+      de la distribución de la cantidad de unidades excedentes <strong>antes</strong>
+      de la implementación del algoritmo? <strong>(1.5p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Identificación y la "trampa" del problema</h3>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>No te dieron una función de asimetría</div>
+      <p>Mira las funciones que se aplicaron: <span class="mono">median()</span>,
+      <span class="mono">kurtosis()</span> y <span class="mono">scale()</span>.
+      <strong>No hay ninguna función de asimetría (skewness).</strong> Entonces,
+      ¿cómo concluimos algo sobre la asimetría?</p>
+      <p>La clave: la asimetría se puede deducir <strong>comparando la media con la
+      mediana</strong>. Y ambas las tenemos:</p>
+      <ul class="clean">
+        <li>La <strong>mediana</strong> de "antes" → <span class="mono">median(antes)
+        = 48</span>.</li>
+        <li>La <strong>media</strong> de "antes" → escondida en
+        <span class="mono">scaled:center = 49,2</span> (recuerda la sección sobre
+        scale()).</li>
+      </ul>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición: ¿qué es la asimetría?</div>
+      <p>La <strong>asimetría</strong> describe si una distribución está
+      "inclinada" hacia un lado. Una distribución simétrica se ve igual a izquierda
+      y derecha; una asimétrica tiene una <strong>cola</strong> más larga de un
+      lado.</p>
+      <ul class="clean">
+        <li><strong>Asimetría positiva</strong> (sesgo a la derecha): la cola larga
+        apunta hacia los valores <u>altos</u>.</li>
+        <li><strong>Asimetría negativa</strong> (sesgo a la izquierda): la cola
+        larga apunta hacia los valores <u>bajos</u>.</li>
+        <li><strong>Simétrica</strong>: sin cola dominante.</li>
+      </ul>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La regla media vs. mediana</div>
+      <p>La relación entre media y mediana revela el sentido de la asimetría:</p>
+      <div class="formula key">
+        \[ \bar{x}>Me \Rightarrow \text{asimetría positiva} \qquad
+           \bar{x}=Me \Rightarrow \text{simétrica} \qquad
+           \bar{x}<Me \Rightarrow \text{asimetría negativa} \]
+      </div>
+      <p><strong>¿Por qué funciona?</strong> Aquí está el razonamiento clave:</p>
+      <ul class="clean">
+        <li>La <strong>mediana</strong> es <em>resistente</em>: solo le importa el
+        dato del centro, no cuán grandes son los extremos.</li>
+        <li>La <strong>media</strong> <em>sí</em> es sensible a los extremos: cada
+        valor, por grande que sea, entra en la suma.</li>
+        <li>Si hay una <strong>cola larga hacia la derecha</strong> (unos pocos
+        valores muy altos), esos valores <u>jalan la media hacia arriba</u>, pero la
+        mediana casi no se mueve. Resultado: <span class="mono">media &gt;
+        mediana</span>. Por eso media &gt; mediana señala cola a la derecha =
+        asimetría positiva.</li>
+      </ul>
+    </div>
+
+    <h3>Desarrollo</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Extraer la media y la mediana de "antes"</div>
+      <ul class="clean">
+        <li>Mediana: <span class="mono">Me = 48</span> (de
+        <span class="mono">median(antes)</span>).</li>
+        <li>Media: <span class="mono">x̄ = 49,2</span> (de
+        <span class="mono">scaled:center</span> de
+        <span class="mono">scale(antes)</span>).</li>
+      </ul>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Comparar</div>
+      <div class="formula">\[ \bar{x}=49{,}2 \;\;>\;\; Me=48 \]</div>
+      <p>La media supera a la mediana.</p>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Aplicar la regla</div>
+      <p>Como <span class="mono">x̄ &gt; Me</span>, la distribución tiene
+      <strong>asimetría positiva</strong> (sesgo a la derecha): la cola larga
+      apunta hacia los valores altos de inventario excedente.</p>
+    </div></div>
+
+    <div class="step"><div class="num">4</div><div class="step-body">
+      <div class="st-title">Reforzar y cuantificar — coeficiente de asimetría de Pearson</div>
+      <p>Podemos no solo decir el <em>signo</em>, sino también la <em>magnitud</em>.
+      El examen nos dio justo los tres ingredientes necesarios: media, mediana y la
+      desviación estándar (\(s = 7{,}551726\), de
+      <span class="mono">scaled:scale</span>). El <strong>segundo coeficiente de
+      asimetría de Pearson</strong> es:</p>
+      <div class="formula key">\[ A_s=\dfrac{3\,(\bar{x}-Me)}{s} \]</div>
+      <div class="formula">
+        \[ A_s=\dfrac{3\,(49{,}2-48)}{7{,}551726}
+              =\dfrac{3\times 1{,}2}{7{,}551726}
+              =\dfrac{3{,}6}{7{,}551726}\approx 0{,}48 \]
+      </div>
+      <div class="why"><b>Cómo se lee:</b> \(A_s>0\) confirma la asimetría
+      <u>positiva</u>. El signo es lo decisivo; la magnitud (≈ 0,48) indica una
+      asimetría de grado <strong>leve a moderado</strong> — la distribución está
+      inclinada a la derecha, pero no de forma extrema.</div>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">Distribución con asimetría positiva (esquema de "antes")</div>
+      <svg viewBox="0 0 780 320" role="img" aria-label="Curva de asimetría positiva">
+        <!-- area bajo la curva -->
+        <path d="M 95 255 C 150 255, 200 95, 255 80 C 310 65, 350 130, 410 175 C 500 225, 600 250, 700 255 L 700 255 L 95 255 Z"
+              fill="var(--burgundy)" opacity="0.14"/>
+        <!-- curva -->
+        <path d="M 95 255 C 150 255, 200 95, 255 80 C 310 65, 350 130, 410 175 C 500 225, 600 250, 700 255"
+              fill="none" stroke="var(--burgundy)" stroke-width="2.8"/>
+        <!-- eje -->
+        <line class="s-axis" x1="80" y1="255" x2="720" y2="255"/>
+        <!-- marcadores -->
+        <line x1="255" y1="80" x2="255" y2="255" stroke="var(--ink-faint)" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text class="s-txt-sm" x="255" y="74" text-anchor="middle" fill="var(--ink-faint)">(moda)</text>
+        <line x1="302" y1="118" x2="302" y2="255" stroke="var(--teal)" stroke-width="2.4"/>
+        <text class="s-txt-b" x="302" y="110" text-anchor="middle" fill="var(--teal)">Mediana = 48</text>
+        <line x1="342" y1="150" x2="342" y2="255" stroke="var(--gold-deep)" stroke-width="2.4"/>
+        <text class="s-txt-b" x="372" y="142" text-anchor="middle" fill="var(--gold-deep)">Media = 49,2</text>
+        <!-- flecha de cola -->
+        <path d="M 470 215 C 540 235, 610 248, 668 252" fill="none"
+              stroke="var(--red)" stroke-width="2" stroke-dasharray="2 3"/>
+        <path d="M 668 252 L 656 245 L 658 256 Z" fill="var(--red)"/>
+        <text class="s-txt-sm" x="560" y="200" text-anchor="middle" fill="var(--red)">cola larga hacia la derecha</text>
+        <text class="s-txt-sm" x="560" y="216" text-anchor="middle" fill="var(--red)">(valores altos jalan la media)</text>
+        <text class="s-txt" x="400" y="295" text-anchor="middle">Media a la derecha de la mediana → asimetría positiva</text>
+      </svg>
+      <div class="fig-cap">Esquema ilustrativo: en una distribución con sesgo a la
+      derecha, la media queda a la derecha de la mediana. Unos pocos centros con
+      inventario excedente muy alto forman la cola y empujan la media hacia arriba.</div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">As</div>
+      <div class="r-text">
+        <div class="r-lbl">Conclusión · Apartado 2c</div>
+        <div class="r-val"><b>Asimetría positiva</b> (sesgo a la derecha) —
+          A<sub>s</sub> ≈ 0,48</div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>Como la media (49,2) es mayor que la mediana (48), la distribución de las
+      unidades excedentes <em>antes</em> del algoritmo presenta
+      <strong>asimetría positiva</strong>. En términos del negocio: <strong>la
+      mayoría de los centros de distribución tenían un inventario excedente
+      moderado, pero unos pocos centros tenían un excedente muy elevado</strong>.
+      Esos pocos centros "de excedente alto" forman la cola derecha y arrastran el
+      promedio por encima del valor central (la mediana). El coeficiente de Pearson
+      \(A_s\approx 0{,}48\) confirma el signo positivo y señala que la asimetría es
+      de grado leve a moderado.</p>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Error frecuente: confundir curtosis con asimetría</div>
+      <p>Un error típico es responder este apartado usando
+      <span class="mono">kurtosis(antes) = 2,44</span>. ¡Cuidado! La
+      <strong>curtosis</strong> habla del <em>apuntamiento</em> (qué tan
+      puntiaguda/achatada es la distribución); la <strong>asimetría</strong> habla
+      de la <em>inclinación</em> (hacia qué lado va la cola). Son cosas distintas.
+      Para asimetría, el camino correcto es media vs. mediana.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 2c (vale 1,5 p)</div>
+      <ul class="clean">
+        <li>Identifica que <span class="mono">scaled:center</span> es la
+        <strong>media</strong> — sin esto no se puede resolver.</li>
+        <li>Enuncia la <strong>regla media vs. mediana</strong> y explica por qué
+        funciona (la media es sensible a los extremos; la mediana no).</li>
+        <li>Haz la comparación con números: <span class="mono">49,2 &gt; 48</span>.</li>
+        <li>Refuerza con el <strong>coeficiente de Pearson</strong> \(A_s\) — el
+        enunciado pide "sustentar"; cuantificar fortalece la respuesta.</li>
+        <li>Interpreta en términos de centros e inventario excedente.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CORRECTOR ===================== -->
+  <section class="section" id="corrector">
+    <h2>Lo que el corrector exige — checklist global</h2>
+    <p>El examen advierte: "se invalidarán las respuestas aún siendo correctas" si
+    no se sustentan. Repasa antes de entregar:</p>
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Checklist de presentación</div>
+      <ul class="clean">
+        <li><strong>Explica qué hace cada función de R</strong> que uses: que
+        <span class="mono">scale()</span> da valores estandarizados, que
+        <span class="mono">scaled:center</span> es la media,
+        <span class="mono">scaled:scale</span> la desviación estándar.</li>
+        <li><strong>Nombra el criterio teórico:</strong> en 2a, el criterio
+        \(|z|>3\); en 2b, la referencia 3 de la normal; en 2c, la regla
+        media-mediana.</li>
+        <li><strong>Muestra la comparación numérica explícita</strong> en cada
+        apartado (2,358 &lt; 3 · 3,083 &gt; 3 · 49,2 &gt; 48).</li>
+        <li><strong>Da el nombre técnico correcto:</strong> "no hay atípicos",
+        "leptocúrtica", "asimetría positiva".</li>
+        <li><strong>Cierra cada apartado con una interpretación</strong> en
+        términos de centros de distribución e inventario excedente.</li>
+        <li>Rotula claramente "a)", "b)", "c)".</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== SÍNTESIS ===================== -->
+  <section class="section" id="sintesis">
+    <h2>Síntesis de respuestas — Pregunta 2</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Resultado</th><th>Razón en una línea</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">2a</span></td>
+            <td class="lab"><strong>No</strong> existen mediciones atípicas en
+              "después"</td>
+            <td>El |z| máximo es 2,358 y no supera el umbral de atípico |z| &gt; 3.</td></tr>
+          <tr><td><span class="tag-q">2b</span></td>
+            <td class="lab">Distribución <strong>leptocúrtica</strong> (muy leve,
+              casi mesocúrtica)</td>
+            <td>kurtosis(después) = 3,083271 &gt; 3, pero apenas por encima de la
+              referencia normal.</td></tr>
+          <tr><td><span class="tag-q">2c</span></td>
+            <td class="lab"><strong>Asimetría positiva</strong> (sesgo a la
+              derecha); A<sub>s</sub> ≈ 0,48</td>
+            <td>media (49,2) &gt; mediana (48) → la cola larga apunta a los valores
+              altos.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-final">
+      <h4 style="margin-top:0">La gran idea de la Pregunta 2</h4>
+      <p>Esta pregunta enseña que <strong>una distribución tiene "forma", y esa
+      forma se puede leer con tres lentes distintos</strong>:</p>
+      <ul class="clean">
+        <li><strong>Atípicos (2a):</strong> ¿hay datos anómalos, fuera de lo
+        esperable? Se detectan estandarizando.</li>
+        <li><strong>Curtosis (2b):</strong> ¿la distribución es apuntada o achatada?
+        Se mide contra la referencia 3 de la normal.</li>
+        <li><strong>Asimetría (2c):</strong> ¿está inclinada hacia un lado? Se
+        deduce comparando media y mediana.</li>
+      </ul>
+      <p>Y la lección práctica más importante: <strong>saber leer la salida de un
+      software</strong>. R no te entrega etiquetas que digan "media" o "desviación
+      estándar"; te entrega <span class="mono">scaled:center</span> y
+      <span class="mono">scaled:scale</span>, y tú debes reconocer qué son. Entender
+      la herramienta es parte de entender la estadística.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+/* ===== TEMA CLARO / OSCURO ===== */
+(function(){
+  var root=document.documentElement,
+      tBtn=document.getElementById('themeToggle'),
+      tLbl=document.getElementById('themeLabel');
+  var saved=null;
+  try{saved=localStorage.getItem('est1-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function refresh(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    tLbl.textContent=dark?'Modo claro':'Modo oscuro';
+  }
+  refresh();
+  tBtn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var next=dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('est1-theme',next);}catch(e){}
+    refresh();
+  });
+})();
+
+/* ===== PANEL DE NAVEGACIÓN ===== */
+(function(){
+  var nBtn=document.getElementById('navToggle'),
+      nLbl=document.getElementById('navLabel'),
+      body=document.body;
+  var saved=null;
+  try{saved=localStorage.getItem('est1-nav');}catch(e){}
+  if(saved==='collapsed'){body.classList.add('nav-collapsed');}
+  function refresh(){
+    var hidden=body.classList.contains('nav-collapsed');
+    nLbl.textContent=hidden?'Mostrar panel':'Ocultar panel';
+  }
+  refresh();
+  nBtn.addEventListener('click',function(){
+    body.classList.toggle('nav-collapsed');
+    var hidden=body.classList.contains('nav-collapsed');
+    try{localStorage.setItem('est1-nav',hidden?'collapsed':'open');}catch(e){}
+    refresh();
+  });
+})();
+
+/* ===== RESALTADO DE SECCIÓN ACTIVA ===== */
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sidebar a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)map[id]=a;
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var a=map[en.target.id];
+        if(a){a.classList.add('active');}
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+
+/* ===== KATEX ===== */
+window.addEventListener('load',function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'\\[',right:'\\]',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>

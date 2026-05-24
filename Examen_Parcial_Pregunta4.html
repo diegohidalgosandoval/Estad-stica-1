@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Parcial · Estadística 1 — Pregunta 4</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+  --bg:#13171e;--bg-2:#1a202a;--surface:#212a36;--surface-2:#283342;--surface-3:#2f3b4c;
+  --ink:#ecebe3;--ink-soft:#b6b8b0;--ink-faint:#838d99;--line:#36404e;--line-soft:#2a3340;
+  --burgundy:#e58f99;--burgundy-deep:#cf6e7c;--gold:#e3bd72;--gold-deep:#caa356;
+  --teal:#6fbab4;--blue:#8cb0d8;--green:#86c08e;--red:#e8908a;
+  --shadow:rgba(0,0,0,.45);--code-bg:#1b232e;--hl:rgba(227,189,114,.13);
+}
+[data-theme="light"]{
+  --bg:#f1ece0;--bg-2:#f8f4e9;--surface:#fffdf6;--surface-2:#f3ecdb;--surface-3:#ebe3cf;
+  --ink:#222a37;--ink-soft:#525c6a;--ink-faint:#8a93a0;--line:#ddd3bd;--line-soft:#e6ddc8;
+  --burgundy:#8c2f3c;--burgundy-deep:#6f2330;--gold:#9a7320;--gold-deep:#7e5e16;
+  --teal:#2c7873;--blue:#2c5680;--green:#3c7a44;--red:#b23b2f;
+  --shadow:rgba(60,45,30,.13);--code-bg:#f3ecda;--hl:rgba(154,115,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:300px;flex-shrink:0;background:var(--bg-2);border-right:1px solid var(--line);
+  height:100vh;position:sticky;top:0;overflow-y:auto;padding:26px 20px 60px;
+  transition:margin-left .28s ease;}
+.sidebar::-webkit-scrollbar{width:9px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.sidebar h2{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:var(--burgundy);
+  font-weight:700;margin-bottom:3px;line-height:1.2;}
+.sidebar .sub{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;
+  letter-spacing:.13em;margin-bottom:22px}
+.nav-group{margin-bottom:10px}
+.nav-group-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:700;margin:14px 0 6px;padding-left:10px;}
+.sidebar a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  padding:7px 11px;border-radius:7px;border-left:2.5px solid transparent;transition:all .15s ease;}
+.sidebar a:hover{background:var(--surface);color:var(--ink)}
+.sidebar a.active{background:var(--surface-2);color:var(--burgundy);
+  border-left-color:var(--burgundy);font-weight:600;}
+.sidebar a.child{font-size:.86rem;padding-left:24px;color:var(--ink-faint)}
+.sidebar a.child:hover,.sidebar a.child.active{color:var(--ink)}
+body.nav-collapsed .sidebar{margin-left:-301px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:11px 30px;}
+.topbar .crumb{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.16rem;
+  color:var(--ink);flex:1;}
+.topbar .crumb b{color:var(--burgundy)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:8px 13px;
+  font-family:'Karla',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;}
+.btn:hover{background:var(--surface-2);color:var(--ink);border-color:var(--burgundy)}
+.btn svg{width:16px;height:16px}
+.content{max-width:940px;margin:0 auto;width:100%;padding:38px 40px 120px;
+  transition:max-width .28s ease;}
+body.nav-collapsed .content{max-width:1180px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.55rem;font-weight:700;
+  line-height:1.12;color:var(--ink);margin-bottom:6px;}
+.doc-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);
+  border-radius:30px;padding:4px 14px;margin-bottom:18px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  color:var(--burgundy);margin:8px 0 6px;line-height:1.18;}
+h3{font-family:'Karla',sans-serif;font-size:1.22rem;font-weight:700;color:var(--ink);
+  margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+h4{font-size:1.04rem;font-weight:700;color:var(--gold-deep);margin:20px 0 7px}
+p{margin:11px 0}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--burgundy);font-style:italic}
+.section{margin:50px 0;padding-top:14px;border-top:1px dashed var(--line);}
+.section:first-of-type{border-top:none}
+.enunciado{background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--gold);border-radius:12px;padding:20px 24px;
+  margin:18px 0 26px;box-shadow:0 3px 14px var(--shadow);}
+.enunciado .lbl{font-size:.76rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+.enunciado p{margin:7px 0}
+.box{border-radius:12px;padding:17px 21px;margin:18px 0;border:1px solid var(--line);
+  background:var(--surface);}
+.box .box-title{font-weight:700;font-size:.97rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;}
+.box .box-title .ic{width:25px;height:25px;border-radius:7px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;}
+.box-teoria{border-left:4px solid var(--blue)}
+.box-teoria .ic{background:var(--blue);color:var(--bg)}.box-teoria .box-title{color:var(--blue)}
+.box-intuicion{border-left:4px solid var(--teal)}
+.box-intuicion .ic{background:var(--teal);color:var(--bg)}.box-intuicion .box-title{color:var(--teal)}
+.box-identifica{border-left:4px solid var(--gold)}
+.box-identifica .ic{background:var(--gold);color:var(--bg)}.box-identifica .box-title{color:var(--gold-deep)}
+.box-ojo{border-left:4px solid var(--red)}
+.box-ojo .ic{background:var(--red);color:var(--bg)}.box-ojo .box-title{color:var(--red)}
+.box-interpreta{border-left:4px solid var(--burgundy);
+  background:linear-gradient(180deg,var(--hl),transparent);}
+.box-interpreta .ic{background:var(--burgundy);color:var(--bg)}.box-interpreta .box-title{color:var(--burgundy)}
+.box-corrector{border-left:4px solid var(--green)}
+.box-corrector .ic{background:var(--green);color:var(--bg)}.box-corrector .box-title{color:var(--green)}
+.box-demo{border-left:4px solid var(--gold-deep);background:var(--code-bg)}
+.box-demo .ic{background:var(--gold-deep);color:var(--bg)}.box-demo .box-title{color:var(--gold-deep)}
+.step{display:flex;gap:15px;margin:16px 0;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;}
+.step .num{flex-shrink:0;width:33px;height:33px;border-radius:9px;background:var(--burgundy);
+  color:var(--bg);font-weight:800;font-size:1.02rem;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;}
+.step .step-body{flex:1;min-width:0}
+.step .step-body .st-title{font-weight:700;color:var(--ink);margin-bottom:3px}
+.step .step-body p:first-child{margin-top:0}.step .step-body p:last-child{margin-bottom:0}
+.why{font-size:.93rem;color:var(--ink-soft);background:var(--bg-2);border-radius:8px;
+  padding:9px 13px;margin:9px 0;border-left:3px solid var(--gold);}
+.why b{color:var(--gold-deep)}
+.formula{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:16px 20px;margin:15px 0;overflow-x:auto;text-align:center;}
+.formula.key{border-color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy) inset;}
+.result{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1.5px solid var(--burgundy);border-radius:12px;padding:15px 22px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;}
+.result .r-ic{width:42px;height:42px;border-radius:10px;flex-shrink:0;background:var(--burgundy);
+  color:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.result .r-text{flex:1}
+.result .r-text .r-lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-faint);font-weight:700}
+.result .r-text .r-val{font-size:1.12rem;font-weight:700;color:var(--ink)}
+.result .r-text .r-val b{color:var(--burgundy);font-family:'JetBrains Mono',monospace}
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:11px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 13px;text-align:center;border:1px solid var(--line)}
+thead th{background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.85rem;}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody tr:hover{background:var(--surface)}
+td.lab{text-align:left;font-weight:600}
+.row-hl{background:var(--hl)!important}
+.row-hl td{font-weight:700;color:var(--burgundy)}
+tfoot td{background:var(--surface-2);font-weight:700;color:var(--ink)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 12px;margin:22px 0;}
+.figure svg{display:block;width:100%;height:auto}
+.figure .fig-cap{font-size:.85rem;color:var(--ink-faint);text-align:center;
+  margin-top:8px;font-style:italic;}
+.figure .fig-title{font-size:.92rem;font-weight:700;color:var(--gold-deep);
+  text-align:center;margin-bottom:6px;}
+.s-txt{fill:var(--ink-soft);font-family:'Karla',sans-serif;font-size:13px}
+.s-txt-sm{fill:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.s-txt-b{fill:var(--ink);font-family:'Karla',sans-serif;font-size:14px;font-weight:700}
+ul.clean{list-style:none;margin:11px 0}
+ul.clean li{padding:5px 0 5px 26px;position:relative}
+ul.clean li::before{content:"▸";position:absolute;left:4px;color:var(--burgundy);font-weight:700;}
+ol.steps{margin:11px 0 11px 22px}
+ol.steps li{padding:4px 0;margin-left:6px}
+.tag-q{display:inline-block;background:var(--burgundy);color:var(--bg);font-weight:700;
+  font-size:.8rem;padding:2px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+kbd{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+.callout-final{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1px solid var(--burgundy);border-radius:14px;padding:24px 26px;margin:26px 0;}
+@media print{
+  .sidebar,.topbar{display:none!important}
+  body{background:#fff;color:#1a1a1a;font-size:11pt}
+  .content{max-width:100%;padding:0}
+  .section{page-break-inside:avoid;border-top:1px solid #ccc}
+  .figure,.step,.box,.result,.enunciado,.tbl-wrap{page-break-inside:avoid;box-shadow:none}
+}
+@media (max-width:560px){
+  .content{padding:24px 16px 90px}.topbar{padding:10px 14px}
+  h1{font-size:1.9rem}h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <h2>Estadística&nbsp;1</h2>
+  <div class="sub">Examen Parcial · UDEP</div>
+  <div class="nav-group">
+    <a href="#inicio" class="active">Portada y cómo estudiar esto</a>
+    <a href="#contexto">Contexto: ¿qué es un número de 5 cifras?</a>
+    <a href="#concepto">Concepto base: principio de multiplicación</a>
+    <a href="#identifica">Identificación del problema</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Resolución · 4 p</div>
+    <a href="#total" class="child">Paso 1 · El espacio muestral n(Ω)</a>
+    <a href="#favorables" class="child">Paso 2 · Los casos favorables n(A)</a>
+    <a href="#probabilidad" class="child">Paso 3 · La probabilidad</a>
+  </div>
+  <div class="nav-group">
+    <a href="#insight">El atajo por simetría</a>
+    <a href="#repeticion">¿Y si los dígitos se repitieran?</a>
+    <a href="#errores">Errores frecuentes</a>
+    <a href="#corrector">Lo que el corrector exige</a>
+    <a href="#sintesis">Síntesis</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="btn" id="navToggle" title="Mostrar / ocultar barra lateral">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <span id="navLabel">Ocultar panel</span>
+    </button>
+    <div class="crumb">Examen Parcial · <b>Pregunta 4</b> — Probabilidad y combinatoria</div>
+    <button class="btn" id="themeToggle" title="Cambiar modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/>
+      </svg>
+      <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+
+  <main class="content">
+
+  <!-- ===== PORTADA ===== -->
+  <section id="inicio">
+    <div class="doc-tag">Resolución pedagógica · Pregunta 4 de 4</div>
+    <h1>Pregunta&nbsp;4 — Números de cinco cifras mayores que 80000</h1>
+    <p style="font-size:1.08rem;color:var(--ink-soft)">
+      Segundo problema del <strong>Capítulo 3</strong>. Es probabilidad clásica
+      resuelta por conteo, pero ahora con una herramienta nueva: <strong>formar
+      números</strong>. Aparece la trampa más famosa de la combinatoria — un número
+      de 5 cifras <em>no puede empezar con 0</em> — y la traducción de una condición
+      numérica ("mayor que 80000") en una condición sobre los dígitos.</p>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>Cómo usar este documento</div>
+      <ul class="clean">
+        <li><kbd>Ocultar panel</kbd> esconde la navegación y ensancha el contenido;
+        <kbd>Modo claro / oscuro</kbd> cambia el tema. Ambas preferencias se
+        recuerdan.</li>
+        <li>La resolución va en 3 pasos: contar el total de números posibles
+        (Paso 1), contar los favorables (Paso 2) y dividir (Paso 3).</li>
+        <li>Al final hay un <strong>atajo por simetría</strong> y una nota honesta
+        sobre qué cambiaría si los dígitos pudieran repetirse.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CONTEXTO ===== -->
+  <section class="section" id="contexto">
+    <h2>Contexto · ¿Qué es un número de cinco cifras?</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>4.</strong> Si se elige al azar un número de cinco cifras formado
+      con los dígitos: <strong>0, 2, 4, 6 y 8</strong>, ¿cuál es la probabilidad de
+      que sea <strong>mayor que 80000</strong>? <strong>(4p)</strong></p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Las cinco posiciones y el valor de cada cifra</div>
+      <p>Un número de cinco cifras tiene cinco <strong>posiciones</strong>, y cada
+      posición vale distinto según el sistema decimal. La cifra de la izquierda es
+      la que más "pesa":</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Las 5 posiciones de un número de cinco cifras</div>
+      <svg viewBox="0 0 760 200" role="img" aria-label="Posiciones de un número de 5 cifras">
+        <g font-family="Karla,sans-serif">
+          <!-- 5 cajas -->
+          <rect x="24"  y="52" width="120" height="84" rx="9" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="158" y="52" width="120" height="84" rx="9" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="292" y="52" width="120" height="84" rx="9" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="426" y="52" width="120" height="84" rx="9" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="560" y="52" width="120" height="84" rx="9" fill="var(--surface-3)" stroke="var(--line)"/>
+          <!-- valor posicional arriba -->
+          <text class="s-txt-sm" x="84"  y="42" text-anchor="middle">× 10 000</text>
+          <text class="s-txt-sm" x="218" y="42" text-anchor="middle">× 1 000</text>
+          <text class="s-txt-sm" x="352" y="42" text-anchor="middle">× 100</text>
+          <text class="s-txt-sm" x="486" y="42" text-anchor="middle">× 10</text>
+          <text class="s-txt-sm" x="620" y="42" text-anchor="middle">× 1</text>
+          <!-- simbolo cifra -->
+          <text x="84"  y="103" text-anchor="middle" fill="var(--burgundy)" font-size="30" font-weight="700">d₁</text>
+          <text x="218" y="103" text-anchor="middle" fill="var(--ink)" font-size="30" font-weight="700">d₂</text>
+          <text x="352" y="103" text-anchor="middle" fill="var(--ink)" font-size="30" font-weight="700">d₃</text>
+          <text x="486" y="103" text-anchor="middle" fill="var(--ink)" font-size="30" font-weight="700">d₄</text>
+          <text x="620" y="103" text-anchor="middle" fill="var(--ink)" font-size="30" font-weight="700">d₅</text>
+          <!-- nombre posicion abajo -->
+          <text class="s-txt-sm" x="84"  y="156" text-anchor="middle" fill="var(--burgundy)">dec. de millar</text>
+          <text class="s-txt-sm" x="218" y="156" text-anchor="middle">unid. de millar</text>
+          <text class="s-txt-sm" x="352" y="156" text-anchor="middle">centena</text>
+          <text class="s-txt-sm" x="486" y="156" text-anchor="middle">decena</text>
+          <text class="s-txt-sm" x="620" y="156" text-anchor="middle">unidad</text>
+          <text class="s-txt-sm" x="84" y="180" text-anchor="middle" fill="var(--burgundy)">la que más pesa ↑</text>
+        </g>
+      </svg>
+      <div class="fig-cap">El valor de un número de 5 cifras lo domina su primera
+      cifra \(d_1\): vale 10 000 unidades. Por eso "mayor que 80000" dependerá, sobre
+      todo, de quién ocupe esa primera posición.</div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>La regla de oro: la primera cifra no puede ser 0</div>
+      <p>Un "número de cinco cifras" debe tener, de verdad, cinco cifras. Si
+      pusiéramos un 0 al inicio — por ejemplo <span class="mono">02468</span> — eso
+      <u>no</u> es un número de cinco cifras: es <span class="mono">2468</span>, un
+      número de cuatro cifras. Por lo tanto:</p>
+      <p style="text-align:center;font-weight:700;color:var(--red)">
+        La primera cifra \(d_1\) debe ser distinta de 0.</p>
+      <p>Esta restricción es el corazón del problema y la fuente de error más común.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Supuesto del problema: cada dígito se usa una sola vez</div>
+      <p>El examen entrega <strong>exactamente 5 dígitos</strong> (0, 2, 4, 6, 8)
+      para formar un número de <strong>exactamente 5 cifras</strong>. Esa
+      correspondencia uno-a-uno es la señal clásica de que <strong>cada dígito se
+      emplea una y solo una vez</strong> (sin repetición). Es la interpretación
+      estándar de este tipo de enunciado y la que resolveremos. Más abajo, en una
+      nota, vemos qué cambiaría si se permitiera repetir.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONCEPTO BASE ===== -->
+  <section class="section" id="concepto">
+    <h2>Concepto base · El principio de multiplicación</h2>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición</div>
+      <p>Para contar de cuántas maneras se puede hacer algo que ocurre por
+      <strong>etapas</strong>, no se suman las opciones: se <strong>multiplican</strong>.
+      Si para ir de casa al trabajo tienes 3 rutas hasta el centro y luego 4 rutas
+      del centro al trabajo, tienes \(3\times 4=12\) caminos completos — porque cada
+      una de las 3 primeras rutas se combina con cada una de las 4 segundas.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Principio de multiplicación (regla del producto)</div>
+      <p>Si una tarea se realiza en \(k\) etapas sucesivas, y la etapa 1 puede
+      hacerse de \(n_1\) maneras, la etapa 2 de \(n_2\) maneras, …, la etapa \(k\)
+      de \(n_k\) maneras, entonces la tarea completa puede hacerse de:</p>
+      <div class="formula key">\[ N=n_1\times n_2\times\cdots\times n_k \;\text{ maneras.} \]</div>
+      <p>Aquí, "la tarea" es <strong>formar el número</strong>, y las 5 etapas son
+      <strong>elegir cada cifra</strong>, de izquierda a derecha.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Permutaciones: ordenar objetos distintos</div>
+      <p>Cuando llenamos posiciones con objetos <u>distintos</u> y <u>sin
+      repetir</u>, el número de cifras disponibles baja de a uno en cada etapa
+      (porque el dígito ya usado no se puede reutilizar). Ordenar \(n\) objetos
+      distintos en \(n\) posiciones da:</p>
+      <div class="formula">\[ P_n=n!\;=\;n\cdot(n-1)\cdot(n-2)\cdots 2\cdot 1 \]</div>
+      <p>Formar nuestro número es, en esencia, una <strong>permutación de 5 dígitos</strong>
+      — pero con la restricción extra de que el primero no sea 0. Eso lo manejamos
+      con el principio de multiplicación, etapa por etapa.</p>
+    </div>
+  </section>
+
+  <!-- ===== IDENTIFICACIÓN ===== -->
+  <section class="section" id="identifica">
+    <h2>Identificación del problema</h2>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Definición del experimento y plan de ataque</div>
+      <p><strong>Experimento aleatorio:</strong> elegir al azar un número de cinco
+      cifras formado con los dígitos 0, 2, 4, 6, 8, usando cada uno una sola vez.</p>
+      <p><strong>Evento A:</strong> el número elegido es mayor que 80000.</p>
+      <p>Como la elección es "al azar", todos los números posibles son
+      equiprobables → usamos la <strong>definición clásica de probabilidad</strong>:</p>
+      <div class="formula">\[ P(A)=\dfrac{n(A)}{n(\Omega)} \]</div>
+      <p>El plan: <strong>(1)</strong> contar \(n(\Omega)\) = todos los números de
+      5 cifras posibles; <strong>(2)</strong> contar \(n(A)\) = los que superan
+      80000; <strong>(3)</strong> dividir.</p>
+    </div>
+  </section>
+
+  <!-- ===== PASO 1: TOTAL ===== -->
+  <section class="section" id="total">
+    <h2>Paso 1 · El espacio muestral n(Ω)</h2>
+    <p>Contamos cuántos números de cinco cifras se pueden formar. Llenamos las
+    5 posiciones de izquierda a derecha, aplicando el principio de multiplicación.</p>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Primera cifra (d₁): 4 opciones</div>
+      <p>Puede ser cualquiera de los 5 dígitos <u>excepto el 0</u> (regla de oro).
+      Quedan 4 opciones: <span class="mono">2, 4, 6, 8</span>.</p>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Segunda cifra (d₂): 4 opciones</div>
+      <p>Ahora <u>sí</u> puede ser el 0. De los 5 dígitos originales, uno ya se usó
+      en \(d_1\); quedan <span class="mono">5 − 1 = 4</span> dígitos disponibles.</p>
+      <div class="why"><b>Cuidado con la sutileza:</b> \(d_2\) también tiene 4
+      opciones, pero por una razón <u>distinta</u> que \(d_1\). En \(d_1\) eran 4
+      porque se prohíbe el 0. En \(d_2\) son 4 porque ya se gastó un dígito (sin
+      repetición). Mismo número, motivos diferentes.</div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Tercera, cuarta y quinta cifra: 3, 2 y 1 opciones</div>
+      <p>Cada vez que colocamos una cifra, queda un dígito menos disponible:
+      <span class="mono">d₃ → 3</span>, <span class="mono">d₄ → 2</span>,
+      <span class="mono">d₅ → 1</span>.</p>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">Conteo del total — opciones en cada posición</div>
+      <svg viewBox="0 0 760 210" role="img" aria-label="Conteo del espacio muestral">
+        <g font-family="Karla,sans-serif">
+          <!-- 5 cajas -->
+          <rect x="18"  y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="144" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="270" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="396" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="522" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <!-- × -->
+          <text x="129" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="255" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="381" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="507" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="636" y="112" text-anchor="middle" fill="var(--burgundy)" font-size="22" font-weight="700">=</text>
+          <!-- labels -->
+          <text class="s-txt-sm" x="66"  y="78" text-anchor="middle">1.ª cifra</text>
+          <text class="s-txt-sm" x="192" y="78" text-anchor="middle">2.ª cifra</text>
+          <text class="s-txt-sm" x="318" y="78" text-anchor="middle">3.ª cifra</text>
+          <text class="s-txt-sm" x="444" y="78" text-anchor="middle">4.ª cifra</text>
+          <text class="s-txt-sm" x="570" y="78" text-anchor="middle">5.ª cifra</text>
+          <!-- numbers -->
+          <text x="66"  y="120" text-anchor="middle" fill="var(--burgundy)" font-size="34" font-weight="700">4</text>
+          <text x="192" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">4</text>
+          <text x="318" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">3</text>
+          <text x="444" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">2</text>
+          <text x="570" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">1</text>
+          <!-- notes -->
+          <text class="s-txt-sm" x="66"  y="142" text-anchor="middle" fill="var(--red)">≠ 0</text>
+          <text class="s-txt-sm" x="192" y="142" text-anchor="middle">queda 4</text>
+          <text class="s-txt-sm" x="318" y="142" text-anchor="middle">queda 3</text>
+          <text class="s-txt-sm" x="444" y="142" text-anchor="middle">queda 2</text>
+          <text class="s-txt-sm" x="570" y="142" text-anchor="middle">queda 1</text>
+          <!-- resultado -->
+          <text x="690" y="120" text-anchor="middle" fill="var(--burgundy)" font-size="38" font-weight="700">96</text>
+        </g>
+      </svg>
+      <div class="fig-cap">El producto de las opciones de cada posición da el total
+      de números de cinco cifras posibles.</div>
+    </div>
+
+    <div class="step"><div class="num">4</div><div class="step-body">
+      <div class="st-title">Multiplicar — método directo</div>
+      <div class="formula">
+        \[ n(\Omega)=\underbrace{4}_{d_1\,\neq 0}\times
+           \underbrace{4}_{d_2}\times\underbrace{3}_{d_3}\times
+           \underbrace{2}_{d_4}\times\underbrace{1}_{d_5}=96 \]
+      </div>
+    </div></div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>Verificación por un segundo método: total − prohibidos</div>
+      <p>Conviene confirmar el 96 por otra vía. Contamos <em>todas</em> las
+      ordenaciones de los 5 dígitos (incluso las que empiezan con 0) y luego
+      <u>restamos</u> las prohibidas.</p>
+      <ul class="clean">
+        <li><strong>Todas las ordenaciones</strong> de 5 dígitos distintos:
+        \(5!=120\).</li>
+        <li><strong>Las prohibidas</strong> (empiezan con 0): fijamos el 0 en la
+        primera posición y ordenamos los otros 4 dígitos en las 4 posiciones
+        restantes: \(4!=24\).</li>
+      </ul>
+      <div class="formula">
+        \[ n(\Omega)=5!-4!=120-24=96 \;\checkmark \]
+      </div>
+      <p>Ambos métodos dan <strong>96</strong>. El conteo es sólido.</p>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">n(Ω)</div>
+      <div class="r-text">
+        <div class="r-lbl">Espacio muestral</div>
+        <div class="r-val">n(Ω) = <b>96</b> números de cinco cifras posibles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PASO 2: FAVORABLES ===== -->
+  <section class="section" id="favorables">
+    <h2>Paso 2 · Los casos favorables n(A)</h2>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Traducir "mayor que 80000" a una condición sobre las cifras</div>
+      <p>El examen pide números <strong>mayores que 80000</strong>. Hay que
+      convertir esa condición numérica en algo que podamos contar: una condición
+      sobre los dígitos. La clave es el valor posicional.</p>
+      <p>El tamaño de un número de cinco cifras lo decide su <strong>primera
+      cifra</strong>. Veamos en qué rango cae el número según con qué dígito empiece:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Empieza con…</th><th>El número está en el rango…</th>
+            <th>¿Mayor que 80000?</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">2</td><td>entre 20 000 y 29 999</td>
+              <td style="color:var(--red)">No</td></tr>
+            <tr><td class="mono">4</td><td>entre 40 000 y 49 999</td>
+              <td style="color:var(--red)">No</td></tr>
+            <tr><td class="mono">6</td><td>entre 60 000 y 69 999</td>
+              <td style="color:var(--red)">No</td></tr>
+            <tr class="row-hl"><td class="mono">8</td><td>entre 80 000 y 89 999</td>
+              <td style="color:var(--green)">Sí</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>De los dígitos disponibles, el único que es <strong>≥ 8</strong> es el
+      <strong>8</strong>. Conclusión:</p>
+      <p style="text-align:center;font-weight:700;color:var(--burgundy)">
+        El número es mayor que 80000 ⟺ su primera cifra es 8.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Solo los números que empiezan con 8 superan 80000</div>
+      <svg viewBox="0 0 760 230" role="img" aria-label="Recta de los rangos según la primera cifra">
+        <!-- region > 80000 sombreada -->
+        <rect x="637.5" y="60" width="82.5" height="130" fill="var(--burgundy)" opacity="0.13"/>
+        <!-- eje -->
+        <line class="s-axis" x1="60" y1="150" x2="720" y2="150" stroke="var(--ink-faint)" stroke-width="1.6"/>
+        <!-- ticks -->
+        <g class="s-txt-sm" text-anchor="middle">
+          <line x1="142.5" y1="146" x2="142.5" y2="154" stroke="var(--ink-faint)"/>
+          <text x="142.5" y="172">20 000</text>
+          <line x1="307.5" y1="146" x2="307.5" y2="154" stroke="var(--ink-faint)"/>
+          <text x="307.5" y="172">40 000</text>
+          <line x1="472.5" y1="146" x2="472.5" y2="154" stroke="var(--ink-faint)"/>
+          <text x="472.5" y="172">60 000</text>
+        </g>
+        <!-- segmentos de rango -->
+        <rect x="142.5" y="124" width="82.5" height="26" rx="4" fill="var(--blue)" opacity="0.7"/>
+        <text x="183.7" y="142" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">2····</text>
+        <rect x="307.5" y="124" width="82.5" height="26" rx="4" fill="var(--blue)" opacity="0.7"/>
+        <text x="348.7" y="142" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">4····</text>
+        <rect x="472.5" y="124" width="82.5" height="26" rx="4" fill="var(--blue)" opacity="0.7"/>
+        <text x="513.7" y="142" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">6····</text>
+        <rect x="637.5" y="124" width="82.5" height="26" rx="4" fill="var(--burgundy)"/>
+        <text x="678.7" y="142" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">8····</text>
+        <!-- linea umbral 80000 -->
+        <line x1="637.5" y1="55" x2="637.5" y2="190" stroke="var(--red)" stroke-width="2.6"/>
+        <text class="s-txt-b" x="637.5" y="48" text-anchor="middle" fill="var(--red)">umbral 80 000</text>
+        <text class="s-txt-sm" x="678" y="205" text-anchor="middle" fill="var(--burgundy)">zona &gt; 80000</text>
+        <!-- etiquetas no/si -->
+        <text class="s-txt-sm" x="183.7" y="108" text-anchor="middle" fill="var(--red)">no</text>
+        <text class="s-txt-sm" x="348.7" y="108" text-anchor="middle" fill="var(--red)">no</text>
+        <text class="s-txt-sm" x="513.7" y="108" text-anchor="middle" fill="var(--red)">no</text>
+        <text class="s-txt-sm" x="678.7" y="108" text-anchor="middle" fill="var(--green)">sí ✓</text>
+      </svg>
+      <div class="fig-cap">Cada grupo de números ocupa una franja según su primera
+      cifra. Solo la franja que empieza con 8 cruza el umbral de 80 000.</div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Un detalle fino: ¿"mayor que" o "mayor o igual"?</div>
+      <p>El enunciado dice <em>mayor que</em> 80000 (estrictamente). ¿Podría algún
+      número favorable ser exactamente 80000? No: formar 80000 exigiría las cifras
+      8-0-0-0-0, es decir, repetir el 0 cuatro veces — imposible, porque cada dígito
+      se usa una sola vez. El número más pequeño que empieza con 8 es
+      <span class="mono">80246</span>, que ya es mayor que 80000. Por lo tanto
+      <strong>todos</strong> los números que empiezan con 8 son favorables, sin
+      excepción.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Conteo de los favorables — primera cifra fijada en 8</div>
+      <svg viewBox="0 0 760 210" role="img" aria-label="Conteo de los casos favorables">
+        <g font-family="Karla,sans-serif">
+          <rect x="18"  y="56" width="96" height="96" rx="10" fill="var(--gold)" opacity="0.92"/>
+          <rect x="144" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="270" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="396" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <rect x="522" y="56" width="96" height="96" rx="10" fill="var(--surface-3)" stroke="var(--line)"/>
+          <text x="129" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="255" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="381" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="507" y="112" text-anchor="middle" fill="var(--ink-faint)" font-size="22" font-weight="700">×</text>
+          <text x="636" y="112" text-anchor="middle" fill="var(--burgundy)" font-size="22" font-weight="700">=</text>
+          <text class="s-txt-sm" x="66"  y="78" text-anchor="middle" fill="var(--bg)">1.ª cifra</text>
+          <text class="s-txt-sm" x="192" y="78" text-anchor="middle">2.ª cifra</text>
+          <text class="s-txt-sm" x="318" y="78" text-anchor="middle">3.ª cifra</text>
+          <text class="s-txt-sm" x="444" y="78" text-anchor="middle">4.ª cifra</text>
+          <text class="s-txt-sm" x="570" y="78" text-anchor="middle">5.ª cifra</text>
+          <text x="66"  y="120" text-anchor="middle" fill="var(--bg)" font-size="34" font-weight="700">8</text>
+          <text x="192" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">4</text>
+          <text x="318" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">3</text>
+          <text x="444" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">2</text>
+          <text x="570" y="120" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">1</text>
+          <text class="s-txt-sm" x="66"  y="142" text-anchor="middle" fill="var(--bg)">fija</text>
+          <text class="s-txt-sm" x="192" y="142" text-anchor="middle">{0,2,4,6}</text>
+          <text class="s-txt-sm" x="318" y="142" text-anchor="middle">queda 3</text>
+          <text class="s-txt-sm" x="444" y="142" text-anchor="middle">queda 2</text>
+          <text class="s-txt-sm" x="570" y="142" text-anchor="middle">queda 1</text>
+          <text x="690" y="120" text-anchor="middle" fill="var(--burgundy)" font-size="38" font-weight="700">24</text>
+        </g>
+      </svg>
+      <div class="fig-cap">La primera cifra ya no es libre: debe ser 8. Las otras
+      cuatro posiciones se llenan con los dígitos restantes {0,2,4,6}.</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Fijar la primera cifra</div>
+      <p>Para que el número supere 80000, \(d_1\) debe ser <strong>8</strong>. Eso
+      es 1 sola posibilidad para la primera posición.</p>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Contar las ordenaciones de las cuatro cifras restantes</div>
+      <p>Las posiciones 2 a 5 se llenan con los cuatro dígitos que sobran
+      <span class="mono">{0, 2, 4, 6}</span>, en cualquier orden. Esto es una
+      permutación de 4 elementos:</p>
+      <div class="formula">
+        \[ n(A)=\underbrace{1}_{d_1=8}\times\,4! \;=\;1\times(4\cdot 3\cdot 2\cdot 1)=24 \]
+      </div>
+      <div class="why"><b>Argumentos teóricos:</b> principio de multiplicación +
+      permutación de los 4 dígitos restantes. <b>Nota:</b> aquí el 0 sí puede ir en
+      las posiciones 2-5; la prohibición del 0 solo afecta a la primera cifra, que
+      ya está ocupada por el 8.</div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">n(A)</div>
+      <div class="r-text">
+        <div class="r-lbl">Casos favorables (números &gt; 80000)</div>
+        <div class="r-val">n(A) = <b>24</b> números</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PASO 3: PROBABILIDAD ===== -->
+  <section class="section" id="probabilidad">
+    <h2>Paso 3 · La probabilidad</h2>
+    <p>Con el espacio muestral y los favorables ya contados, aplicamos la regla de
+    Laplace:</p>
+    <div class="formula key">
+      \[ P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{24}{96} \]
+    </div>
+    <p>Simplificamos la fracción dividiendo numerador y denominador entre 24:</p>
+    <div class="formula">
+      \[ P(A)=\dfrac{24}{96}=\dfrac{1}{4}=0{,}25 \]
+    </div>
+
+    <div class="result">
+      <div class="r-ic">P(A)</div>
+      <div class="r-text">
+        <div class="r-lbl">Probabilidad pedida</div>
+        <div class="r-val">P(número &gt; 80000) = <b>24/96 = 1/4</b> = 0,25 = <b>25%</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación</div>
+      <p>Si se elige al azar uno de los números de cinco cifras que se pueden formar
+      con los dígitos 0, 2, 4, 6, 8 (sin repetir), hay un <strong>25%</strong> de
+      probabilidad de que sea mayor que 80000. Dicho de otra forma: de cada 4
+      números formables, exactamente 1 supera los 80000. La razón es que solo los
+      números que empiezan con 8 lo logran, y los que empiezan con 8 son una cuarta
+      parte del total (24 de 96).</p>
+    </div>
+  </section>
+
+  <!-- ===== INSIGHT SIMETRÍA ===== -->
+  <section class="section" id="insight">
+    <h2>El atajo por simetría — para entender más a fondo</h2>
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>Por qué la respuesta "tenía que ser" 1/4</div>
+      <p>Hay una forma elegante de ver el resultado sin contar tanto. La primera
+      cifra de un número válido solo puede ser <strong>uno de 4 dígitos</strong>:
+      2, 4, 6 u 8 (el 0 está prohibido).</p>
+      <p>Por <strong>simetría</strong>, esos 4 dígitos son intercambiables en la
+      primera posición: para cada uno de ellos, las otras 4 cifras se pueden ordenar
+      de las mismas \(4!=24\) maneras. Es decir, cada dígito encabeza exactamente
+      \(96/4=24\) de los números. Los cuatro "grupos" tienen el mismo tamaño.</p>
+      <p>Como solo <strong>uno</strong> de esos 4 dígitos (el 8) produce números
+      mayores que 80000, la probabilidad es directamente:</p>
+      <div class="formula">
+        \[ P(A)=\dfrac{1\text{ dígito favorable}}{4\text{ dígitos posibles para }d_1}
+              =\dfrac{1}{4} \]
+      </div>
+      <p>Este atajo es una buena <strong>verificación</strong>, pero en el examen
+      conviene presentar el conteo completo (24 y 96): el profesor exige "mostrar los
+      cálculos". Usa la simetría para confirmar, no para reemplazar el desarrollo.</p>
+    </div>
+  </section>
+
+  <!-- ===== REPETICIÓN ===== -->
+  <section class="section" id="repeticion">
+    <h2>Nota · ¿Y si los dígitos se pudieran repetir?</h2>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Por transparencia: la otra interpretación</div>
+      <p>Resolvimos suponiendo <strong>sin repetición</strong> (cada dígito una vez),
+      que es la lectura estándar cuando dan 5 dígitos para un número de 5 cifras. Si
+      el problema permitiera <strong>repetir</strong> dígitos, los conteos cambiarían:</p>
+      <ul class="clean">
+        <li><strong>Total:</strong> \(d_1\) tiene 4 opciones (≠ 0) y cada una de las
+        otras 4 posiciones tiene 5 opciones (cualquier dígito):
+        \(n(\Omega)=4\times 5^4=4\times 625=2500\).</li>
+        <li><strong>Favorables:</strong> \(d_1=8\) y las otras 4 posiciones con 5
+        opciones cada una dan \(5^4=625\); pero hay que excluir el número
+        <span class="mono">80000</span> (que sí es formable con repetición y no es
+        "mayor que" 80000): \(625-1=624\).</li>
+        <li><strong>Probabilidad:</strong> \(P=\dfrac{624}{2500}=\dfrac{156}{625}
+        \approx 0{,}2496\).</li>
+      </ul>
+      <p>Es decir, con repetición la respuesta sería ≈ 24,96%. La respuesta oficial
+      del examen, con la lectura estándar <strong>sin repetición</strong>, es
+      <strong>1/4 = 25%</strong>. Si tu profesor planteó la repetición de forma
+      explícita en clase, ya tienes el procedimiento.</p>
+    </div>
+  </section>
+
+  <!-- ===== ERRORES ===== -->
+  <section class="section" id="errores">
+    <h2>Errores frecuentes</h2>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Lo que más se equivoca aquí</div>
+      <ul class="clean">
+        <li><strong>Olvidar la regla del 0.</strong> Usar \(5!=120\) como total
+        cuenta números que empiezan con 0, que no son de cinco cifras. El total
+        correcto es 96.</li>
+        <li><strong>Poner 5 opciones en la primera cifra del total.</strong> La
+        primera cifra tiene 4, no 5: el 0 está vetado.</li>
+        <li><strong>Confundir "mayor que" con "mayor o igual".</strong> Aquí no
+        afecta (80000 no es formable sin repetición), pero conviene justificarlo
+        explícitamente.</li>
+        <li><strong>Creer que algún número que empieza con 6 puede pasar de 80000.</strong>
+        El mayor número que empieza con 6 es 68420, muy por debajo de 80000.</li>
+        <li><strong>Usar combinaciones.</strong> Aquí el <u>orden importa</u>
+        (86420 ≠ 68042): se usan permutaciones / principio de multiplicación, no
+        combinaciones.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CORRECTOR ===== -->
+  <section class="section" id="corrector">
+    <h2>Lo que el corrector exige</h2>
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Checklist de presentación (vale 4 p)</div>
+      <ul class="clean">
+        <li><strong>Define el experimento:</strong> elegir al azar un número de
+        5 cifras con los dígitos 0,2,4,6,8 sin repetir.</li>
+        <li><strong>Nombra los argumentos teóricos:</strong> principio de
+        multiplicación, permutaciones, definición clásica de probabilidad (Laplace).</li>
+        <li><strong>Justifica la restricción del 0</strong> en la primera cifra —
+        es lo que distingue una respuesta entendida de una mecánica.</li>
+        <li><strong>Explica la traducción</strong> de "mayor que 80000" a "la
+        primera cifra es 8".</li>
+        <li><strong>Muestra los dos conteos</strong> con su producto:
+        \(n(\Omega)=96\) y \(n(A)=24\).</li>
+        <li><strong>Da la probabilidad como fracción simplificada</strong> y en
+        porcentaje: \(1/4 = 25\%\).</li>
+        <li>Cierra con una <strong>interpretación</strong> en palabras.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== SÍNTESIS ===== -->
+  <section class="section" id="sintesis">
+    <h2>Síntesis — Pregunta 4</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Etapa</th><th>Resultado</th><th>Razón</th></tr></thead>
+        <tbody>
+          <tr><td class="lab">Espacio muestral n(Ω)</td>
+            <td class="mono">4·4·3·2·1 = 96</td>
+            <td>5 posiciones; la 1.ª no puede ser 0; sin repetir.</td></tr>
+          <tr><td class="lab">Casos favorables n(A)</td>
+            <td class="mono">1·4! = 24</td>
+            <td>La 1.ª cifra debe ser 8; las otras 4 se ordenan libremente.</td></tr>
+          <tr class="row-hl"><td class="lab">Probabilidad P(A)</td>
+            <td class="mono">24/96 = 1/4 = 25%</td>
+            <td>Solo los números que empiezan con 8 superan 80000.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-final">
+      <h4 style="margin-top:0">La gran idea de la Pregunta 4</h4>
+      <p>Este problema enseña tres movimientos que se repiten en toda la
+      combinatoria:</p>
+      <ol class="steps">
+        <li><strong>Llenar posiciones</strong> con el principio de multiplicación,
+        contando las opciones de cada una.</li>
+        <li><strong>Respetar las restricciones</strong> — aquí, que un número de
+        5 cifras no empiece con 0. La restricción siempre va en la posición que
+        afecta.</li>
+        <li><strong>Traducir la condición</strong> del enunciado a una condición
+        sobre las cifras: "&gt; 80000" se volvió "la primera cifra es 8".</li>
+      </ol>
+      <p style="margin-bottom:0">Y la verificación por simetría — cada uno de los 4
+      dígitos válidos encabeza \(1/4\) de los números — confirma que la respuesta,
+      <strong>1/4</strong>, no es casualidad: es la estructura del problema.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement,
+      tBtn=document.getElementById('themeToggle'),
+      tLbl=document.getElementById('themeLabel');
+  var saved=null;
+  try{saved=localStorage.getItem('est1-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function refresh(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    tLbl.textContent=dark?'Modo claro':'Modo oscuro';
+  }
+  refresh();
+  tBtn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var next=dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('est1-theme',next);}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var nBtn=document.getElementById('navToggle'),
+      nLbl=document.getElementById('navLabel'),
+      body=document.body;
+  var saved=null;
+  try{saved=localStorage.getItem('est1-nav');}catch(e){}
+  if(saved==='collapsed'){body.classList.add('nav-collapsed');}
+  function refresh(){
+    var hidden=body.classList.contains('nav-collapsed');
+    nLbl.textContent=hidden?'Mostrar panel':'Ocultar panel';
+  }
+  refresh();
+  nBtn.addEventListener('click',function(){
+    body.classList.toggle('nav-collapsed');
+    var hidden=body.classList.contains('nav-collapsed');
+    try{localStorage.setItem('est1-nav',hidden?'collapsed':'open');}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sidebar a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)map[id]=a;
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var a=map[en.target.id];
+        if(a){a.classList.add('active');}
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+window.addEventListener('load',function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'\\[',right:'\\]',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>

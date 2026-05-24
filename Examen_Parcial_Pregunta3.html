@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Parcial · Estadística 1 — Pregunta 3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+  --bg:#13171e;--bg-2:#1a202a;--surface:#212a36;--surface-2:#283342;--surface-3:#2f3b4c;
+  --ink:#ecebe3;--ink-soft:#b6b8b0;--ink-faint:#838d99;--line:#36404e;--line-soft:#2a3340;
+  --burgundy:#e58f99;--burgundy-deep:#cf6e7c;--gold:#e3bd72;--gold-deep:#caa356;
+  --teal:#6fbab4;--blue:#8cb0d8;--green:#86c08e;--red:#e8908a;
+  --shadow:rgba(0,0,0,.45);--code-bg:#1b232e;--hl:rgba(227,189,114,.13);
+}
+[data-theme="light"]{
+  --bg:#f1ece0;--bg-2:#f8f4e9;--surface:#fffdf6;--surface-2:#f3ecdb;--surface-3:#ebe3cf;
+  --ink:#222a37;--ink-soft:#525c6a;--ink-faint:#8a93a0;--line:#ddd3bd;--line-soft:#e6ddc8;
+  --burgundy:#8c2f3c;--burgundy-deep:#6f2330;--gold:#9a7320;--gold-deep:#7e5e16;
+  --teal:#2c7873;--blue:#2c5680;--green:#3c7a44;--red:#b23b2f;
+  --shadow:rgba(60,45,30,.13);--code-bg:#f3ecda;--hl:rgba(154,115,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:300px;flex-shrink:0;background:var(--bg-2);border-right:1px solid var(--line);
+  height:100vh;position:sticky;top:0;overflow-y:auto;padding:26px 20px 60px;
+  transition:margin-left .28s ease;}
+.sidebar::-webkit-scrollbar{width:9px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.sidebar h2{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:var(--burgundy);
+  font-weight:700;margin-bottom:3px;line-height:1.2;}
+.sidebar .sub{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;
+  letter-spacing:.13em;margin-bottom:22px}
+.nav-group{margin-bottom:10px}
+.nav-group-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:700;margin:14px 0 6px;padding-left:10px;}
+.sidebar a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  padding:7px 11px;border-radius:7px;border-left:2.5px solid transparent;transition:all .15s ease;}
+.sidebar a:hover{background:var(--surface);color:var(--ink)}
+.sidebar a.active{background:var(--surface-2);color:var(--burgundy);
+  border-left-color:var(--burgundy);font-weight:600;}
+.sidebar a.child{font-size:.86rem;padding-left:24px;color:var(--ink-faint)}
+.sidebar a.child:hover,.sidebar a.child.active{color:var(--ink)}
+body.nav-collapsed .sidebar{margin-left:-301px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:11px 30px;}
+.topbar .crumb{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.16rem;
+  color:var(--ink);flex:1;}
+.topbar .crumb b{color:var(--burgundy)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:8px 13px;
+  font-family:'Karla',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;}
+.btn:hover{background:var(--surface-2);color:var(--ink);border-color:var(--burgundy)}
+.btn svg{width:16px;height:16px}
+.content{max-width:940px;margin:0 auto;width:100%;padding:38px 40px 120px;
+  transition:max-width .28s ease;}
+body.nav-collapsed .content{max-width:1180px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.55rem;font-weight:700;
+  line-height:1.12;color:var(--ink);margin-bottom:6px;}
+.doc-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);
+  border-radius:30px;padding:4px 14px;margin-bottom:18px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  color:var(--burgundy);margin:8px 0 6px;line-height:1.18;}
+h3{font-family:'Karla',sans-serif;font-size:1.22rem;font-weight:700;color:var(--ink);
+  margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+h4{font-size:1.04rem;font-weight:700;color:var(--gold-deep);margin:20px 0 7px}
+p{margin:11px 0}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--burgundy);font-style:italic}
+.section{margin:50px 0;padding-top:14px;border-top:1px dashed var(--line);}
+.section:first-of-type{border-top:none}
+.enunciado{background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--gold);border-radius:12px;padding:20px 24px;
+  margin:18px 0 26px;box-shadow:0 3px 14px var(--shadow);}
+.enunciado .lbl{font-size:.76rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+.enunciado p{margin:7px 0}
+.box{border-radius:12px;padding:17px 21px;margin:18px 0;border:1px solid var(--line);
+  background:var(--surface);}
+.box .box-title{font-weight:700;font-size:.97rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;}
+.box .box-title .ic{width:25px;height:25px;border-radius:7px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;}
+.box-teoria{border-left:4px solid var(--blue)}
+.box-teoria .ic{background:var(--blue);color:var(--bg)}.box-teoria .box-title{color:var(--blue)}
+.box-intuicion{border-left:4px solid var(--teal)}
+.box-intuicion .ic{background:var(--teal);color:var(--bg)}.box-intuicion .box-title{color:var(--teal)}
+.box-identifica{border-left:4px solid var(--gold)}
+.box-identifica .ic{background:var(--gold);color:var(--bg)}.box-identifica .box-title{color:var(--gold-deep)}
+.box-ojo{border-left:4px solid var(--red)}
+.box-ojo .ic{background:var(--red);color:var(--bg)}.box-ojo .box-title{color:var(--red)}
+.box-interpreta{border-left:4px solid var(--burgundy);
+  background:linear-gradient(180deg,var(--hl),transparent);}
+.box-interpreta .ic{background:var(--burgundy);color:var(--bg)}.box-interpreta .box-title{color:var(--burgundy)}
+.box-corrector{border-left:4px solid var(--green)}
+.box-corrector .ic{background:var(--green);color:var(--bg)}.box-corrector .box-title{color:var(--green)}
+.box-demo{border-left:4px solid var(--gold-deep);background:var(--code-bg)}
+.box-demo .ic{background:var(--gold-deep);color:var(--bg)}.box-demo .box-title{color:var(--gold-deep)}
+.step{display:flex;gap:15px;margin:16px 0;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;}
+.step .num{flex-shrink:0;width:33px;height:33px;border-radius:9px;background:var(--burgundy);
+  color:var(--bg);font-weight:800;font-size:1.02rem;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;}
+.step .step-body{flex:1;min-width:0}
+.step .step-body .st-title{font-weight:700;color:var(--ink);margin-bottom:3px}
+.step .step-body p:first-child{margin-top:0}.step .step-body p:last-child{margin-bottom:0}
+.why{font-size:.93rem;color:var(--ink-soft);background:var(--bg-2);border-radius:8px;
+  padding:9px 13px;margin:9px 0;border-left:3px solid var(--gold);}
+.why b{color:var(--gold-deep)}
+.formula{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:16px 20px;margin:15px 0;overflow-x:auto;text-align:center;}
+.formula.key{border-color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy) inset;}
+.result{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1.5px solid var(--burgundy);border-radius:12px;padding:15px 22px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;}
+.result .r-ic{width:42px;height:42px;border-radius:10px;flex-shrink:0;background:var(--burgundy);
+  color:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.result .r-text{flex:1}
+.result .r-text .r-lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-faint);font-weight:700}
+.result .r-text .r-val{font-size:1.12rem;font-weight:700;color:var(--ink)}
+.result .r-text .r-val b{color:var(--burgundy);font-family:'JetBrains Mono',monospace}
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:11px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 13px;text-align:center;border:1px solid var(--line)}
+thead th{background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.85rem;}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody tr:hover{background:var(--surface)}
+td.lab{text-align:left;font-weight:600}
+.row-hl{background:var(--hl)!important}
+.row-hl td{font-weight:700;color:var(--burgundy)}
+tfoot td{background:var(--surface-2);font-weight:700;color:var(--ink)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 12px;margin:22px 0;}
+.figure svg{display:block;width:100%;height:auto}
+.figure .fig-cap{font-size:.85rem;color:var(--ink-faint);text-align:center;
+  margin-top:8px;font-style:italic;}
+.figure .fig-title{font-size:.92rem;font-weight:700;color:var(--gold-deep);
+  text-align:center;margin-bottom:6px;}
+.fig-2col{display:flex;gap:18px;flex-wrap:wrap}
+.fig-2col .figure{flex:1;min-width:300px}
+.s-txt{fill:var(--ink-soft);font-family:'Karla',sans-serif;font-size:13px}
+.s-txt-sm{fill:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.s-txt-b{fill:var(--ink);font-family:'Karla',sans-serif;font-size:14px;font-weight:700}
+ul.clean{list-style:none;margin:11px 0}
+ul.clean li{padding:5px 0 5px 26px;position:relative}
+ul.clean li::before{content:"▸";position:absolute;left:4px;color:var(--burgundy);font-weight:700;}
+ol.steps{margin:11px 0 11px 22px}
+ol.steps li{padding:4px 0;margin-left:6px}
+.tag-q{display:inline-block;background:var(--burgundy);color:var(--bg);font-weight:700;
+  font-size:.8rem;padding:2px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+kbd{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+.callout-final{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1px solid var(--burgundy);border-radius:14px;padding:24px 26px;margin:26px 0;}
+@media print{
+  .sidebar,.topbar{display:none!important}
+  body{background:#fff;color:#1a1a1a;font-size:11pt}
+  .content{max-width:100%;padding:0}
+  .section{page-break-inside:avoid;border-top:1px solid #ccc}
+  .figure,.step,.box,.result,.enunciado,.tbl-wrap{page-break-inside:avoid;box-shadow:none}
+}
+@media (max-width:560px){
+  .content{padding:24px 16px 90px}.topbar{padding:10px 14px}
+  h1{font-size:1.9rem}h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <h2>Estadística&nbsp;1</h2>
+  <div class="sub">Examen Parcial · UDEP</div>
+  <div class="nav-group">
+    <a href="#inicio" class="active">Portada y cómo estudiar esto</a>
+    <a href="#contexto">Contexto: los 8 hermanos</a>
+    <a href="#concepto">Concepto base: probabilidad y conteo</a>
+    <a href="#espacio">El espacio muestral · n(Ω)</a>
+    <a href="#mapa">Mapa de la Pregunta 3</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartados · 1 p c/u</div>
+    <a href="#p3a" class="child">3a · Patricia y Fabiola</a>
+    <a href="#p3b" class="child">3b · Rolando el mayor</a>
+    <a href="#p3c" class="child">3c · Mario el menor</a>
+    <a href="#p3d" class="child">3d · Rolando el menor</a>
+  </div>
+  <div class="nav-group">
+    <a href="#comparacion">Comparación: 3b vs 3d</a>
+    <a href="#verificacion">Verificación global</a>
+    <a href="#corrector">Lo que el corrector exige</a>
+    <a href="#sintesis">Síntesis de respuestas</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="btn" id="navToggle" title="Mostrar / ocultar barra lateral">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <span id="navLabel">Ocultar panel</span>
+    </button>
+    <div class="crumb">Examen Parcial · <b>Pregunta 3</b> — Probabilidad y combinatoria</div>
+    <button class="btn" id="themeToggle" title="Cambiar modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/>
+      </svg>
+      <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+
+  <main class="content">
+
+  <!-- ===== PORTADA ===== -->
+  <section id="inicio">
+    <div class="doc-tag">Resolución pedagógica · Pregunta 3 de 4</div>
+    <h1>Pregunta&nbsp;3 — Elegir tres hermanos al azar</h1>
+    <p style="font-size:1.08rem;color:var(--ink-soft)">
+      Primera pregunta del <strong>Capítulo 3 (Probabilidad)</strong>. Es un problema
+      de <strong>probabilidad clásica resuelta por conteo</strong>: para cada evento
+      contamos "casos favorables" y los dividimos entre "casos posibles". La
+      herramienta central son las <strong>combinaciones</strong>.</p>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>Cómo usar este documento</div>
+      <ul class="clean">
+        <li><kbd>Ocultar panel</kbd> esconde la navegación y ensancha el contenido;
+        <kbd>Modo claro / oscuro</kbd> cambia el tema. Ambas preferencias se
+        recuerdan.</li>
+        <li>Antes de los cuatro apartados hay dos secciones base —
+        <strong>"Probabilidad y conteo"</strong> y <strong>"El espacio
+        muestral"</strong>— que se usan en <u>todos</u> los apartados. No las
+        saltes.</li>
+        <li>Cada apartado sigue el recorrido: enunciado → identificación → argumento
+        teórico → conteo paso a paso → probabilidad → interpretación.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CONTEXTO ===== -->
+  <section class="section" id="contexto">
+    <h2>Contexto: los 8 hermanos</h2>
+    <p>De un grupo de <strong>ocho hermanos</strong> se eligen <strong>tres al
+    azar</strong>. Estas son sus edades, tal como las da el examen:</p>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Ordenar por edad: el primer movimiento clave</div>
+      <p>El examen lista los nombres en desorden. Pero los apartados 3b, 3c y 3d
+      hablan de "el mayor" y "el menor". Por eso, lo primero que conviene hacer es
+      <strong>ordenar a los 8 hermanos por edad</strong>. Con ellos ordenados,
+      preguntas como "¿cuántos son mayores que Rolando?" se responden de un vistazo.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Los 8 hermanos ordenados de mayor a menor edad</div>
+      <svg viewBox="0 0 600 392" role="img" aria-label="Escalera de edades de los 8 hermanos">
+        <text class="s-txt-sm" x="72" y="34" text-anchor="middle" fill="var(--burgundy)">▲ MAYOR</text>
+        <line x1="72" y1="44" x2="72" y2="356" stroke="var(--line)" stroke-width="2"/>
+        <text class="s-txt-sm" x="72" y="376" text-anchor="middle" fill="var(--teal)">▼ MENOR</text>
+        <!-- 8 tarjetas -->
+        <g font-family="Karla,sans-serif">
+          <!-- fila 0 Miguel -->
+          <rect x="120" y="42" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="58.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="63" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">1</text>
+          <text x="172" y="63" fill="var(--ink)" font-size="15" font-weight="700">Miguel</text>
+          <text x="520" y="63" text-anchor="end" fill="var(--ink-soft)" font-size="14">18 años</text>
+          <!-- fila 1 Jorge -->
+          <rect x="120" y="83" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="99.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="104" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">2</text>
+          <text x="172" y="104" fill="var(--ink)" font-size="15" font-weight="700">Jorge</text>
+          <text x="520" y="104" text-anchor="end" fill="var(--ink-soft)" font-size="14">17 años</text>
+          <!-- fila 2 Rolando -->
+          <rect x="120" y="124" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="140.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="145" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">3</text>
+          <text x="172" y="145" fill="var(--ink)" font-size="15" font-weight="700">Rolando</text>
+          <text x="520" y="145" text-anchor="end" fill="var(--ink-soft)" font-size="14">15 años</text>
+          <!-- fila 3 Raúl -->
+          <rect x="120" y="165" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="181.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="186" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">4</text>
+          <text x="172" y="186" fill="var(--ink)" font-size="15" font-weight="700">Raúl</text>
+          <text x="520" y="186" text-anchor="end" fill="var(--ink-soft)" font-size="14">12 años</text>
+          <!-- fila 4 Mario -->
+          <rect x="120" y="206" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="222.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="227" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">5</text>
+          <text x="172" y="227" fill="var(--ink)" font-size="15" font-weight="700">Mario</text>
+          <text x="520" y="227" text-anchor="end" fill="var(--ink-soft)" font-size="14">10 años</text>
+          <!-- fila 5 Patricia -->
+          <rect x="120" y="247" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="263.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="268" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">6</text>
+          <text x="172" y="268" fill="var(--ink)" font-size="15" font-weight="700">Patricia</text>
+          <text x="520" y="268" text-anchor="end" fill="var(--ink-soft)" font-size="14">9 años</text>
+          <!-- fila 6 Fabiola -->
+          <rect x="120" y="288" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="304.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="309" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">7</text>
+          <text x="172" y="309" fill="var(--ink)" font-size="15" font-weight="700">Fabiola</text>
+          <text x="520" y="309" text-anchor="end" fill="var(--ink-soft)" font-size="14">6 años</text>
+          <!-- fila 7 David -->
+          <rect x="120" y="329" width="420" height="33" rx="7" fill="var(--surface-3)" stroke="var(--line)"/>
+          <circle cx="142" cy="345.5" r="12" fill="var(--burgundy)"/>
+          <text x="142" y="350" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="700">8</text>
+          <text x="172" y="350" fill="var(--ink)" font-size="15" font-weight="700">David</text>
+          <text x="520" y="350" text-anchor="end" fill="var(--ink-soft)" font-size="14">5 años</text>
+        </g>
+      </svg>
+      <div class="fig-cap">Esta "escalera de edades" es el mapa maestro de la
+      Pregunta 3. Memorízala: arriba los mayores, abajo los menores.</div>
+    </div>
+  </section>
+
+  <!-- ===== CONCEPTO BASE ===== -->
+  <section class="section" id="concepto">
+    <h2>Concepto base · Probabilidad clásica y conteo</h2>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Tres palabras que el examen exige definir</div>
+      <ul class="clean">
+        <li><strong>Experimento aleatorio:</strong> un proceso cuyo resultado no se
+        puede predecir con certeza. Aquí: <em>elegir al azar un grupo de 3 hermanos
+        de entre los 8</em>.</li>
+        <li><strong>Espacio muestral (Ω):</strong> el conjunto de <u>todos</u> los
+        resultados posibles del experimento. Aquí: todos los grupos posibles de 3
+        hermanos.</li>
+        <li><strong>Evento (A):</strong> un subconjunto del espacio muestral; los
+        resultados que cumplen una condición. Cada apartado (3a, 3b…) define un
+        evento distinto.</li>
+      </ul>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La definición clásica de probabilidad (regla de Laplace)</div>
+      <p>Cuando todos los resultados del experimento son <strong>igualmente
+      probables</strong>, la probabilidad de un evento se calcula así:</p>
+      <div class="formula key">
+        \[ P(A)=\dfrac{\text{n.º de casos favorables}}{\text{n.º de casos posibles}}
+                =\dfrac{n(A)}{n(\Omega)} \]
+      </div>
+      <div class="why"><b>¿Por qué aquí es válida?</b> El enunciado dice "se eligen
+      tres <u>al azar</u>". "Al azar" significa que cada grupo de 3 tiene exactamente
+      la misma probabilidad de salir. Esa equiprobabilidad es la que autoriza usar la
+      regla de Laplace. Por eso todo el problema se reduce a <strong>contar bien</strong>.</div>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>¿Importa el orden? La pregunta que decide qué fórmula usar</div>
+      <p>Al elegir 3 hermanos formamos un <strong>grupo</strong>. El grupo
+      {Patricia, Fabiola, David} es <u>el mismo</u> que {David, Patricia, Fabiola}:
+      son las mismas tres personas. <strong>El orden no importa.</strong></p>
+      <p>Cuando el orden no importa y elegimos sin repetición, la regla de conteo es
+      la <strong>combinación</strong>. (Si el orden importara — por ejemplo, elegir
+      presidente, secretario y tesorero — usaríamos variaciones o permutaciones.)</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La fórmula de combinaciones</div>
+      <p>El número de formas de elegir <span class="mono">r</span> objetos de un
+      total de <span class="mono">n</span>, <u>sin que importe el orden</u>, es:</p>
+      <div class="formula key">
+        \[ \binom{n}{r}=C^{n}_{r}=\dfrac{n!}{r!\,(n-r)!} \]
+      </div>
+      <p><strong>Simbología:</strong> <span class="mono">n</span> = total de objetos
+      disponibles; <span class="mono">r</span> = cuántos elegimos;
+      <span class="mono">n!</span> = factorial (\(n!=n\cdot(n-1)\cdots 2\cdot 1\)).</p>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>De dónde sale la fórmula de combinaciones</div>
+      <p><strong>Paso 1 — contar con orden.</strong> Si el orden importara, para el
+      primer lugar hay \(n\) opciones, para el segundo \(n-1\), …, hasta \(r\)
+      lugares. Eso da \(n\cdot(n-1)\cdots(n-r+1)=\dfrac{n!}{(n-r)!}\) formas
+      ordenadas (las <em>variaciones</em>).</p>
+      <p><strong>Paso 2 — descontar el orden.</strong> Pero un mismo grupo de \(r\)
+      personas se puede ordenar de \(r!\) maneras distintas, y todas son el
+      <u>mismo</u> grupo. Las hemos contado \(r!\) veces de más.</p>
+      <p><strong>Paso 3 — dividir.</strong> Para contar cada grupo una sola vez,
+      dividimos entre \(r!\):</p>
+      <div class="formula">
+        \[ \binom{n}{r}=\dfrac{1}{r!}\cdot\dfrac{n!}{(n-r)!}=\dfrac{n!}{r!\,(n-r)!} \]
+      </div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>El principio de multiplicación (para contar casos favorables)</div>
+      <p>Cuando una elección se hace en <strong>etapas independientes</strong>, el
+      total de formas es el <u>producto</u> de las formas de cada etapa. Lo usaremos
+      así: "incluir a tal persona (1 forma) <strong>Y</strong> elegir el resto de un
+      cierto grupo (C(…) formas)" → se multiplican.</p>
+    </div>
+  </section>
+
+  <!-- ===== ESPACIO MUESTRAL ===== -->
+  <section class="section" id="espacio">
+    <h2>El espacio muestral · cálculo de n(Ω)</h2>
+    <p>Antes de tocar los apartados, calculamos <strong>una sola vez</strong> el
+    denominador común a todos: cuántos grupos de 3 se pueden formar con 8 hermanos.</p>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Plantear la combinación</div>
+      <p>Elegimos <span class="mono">r = 3</span> hermanos de
+      <span class="mono">n = 8</span>, sin importar el orden:</p>
+      <div class="formula">
+        \[ n(\Omega)=\binom{8}{3}=\dfrac{8!}{3!\,(8-3)!}=\dfrac{8!}{3!\;5!} \]
+      </div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Calcular</div>
+      <p>Truco: cancelamos el \(5!\) desarrollando solo los primeros factores de
+      \(8!\):</p>
+      <div class="formula">
+        \[ \binom{8}{3}=\dfrac{8\cdot 7\cdot 6\cdot 5!}{3!\;5!}
+                       =\dfrac{8\cdot 7\cdot 6}{3\cdot 2\cdot 1}
+                       =\dfrac{336}{6}=56 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">n(Ω)</div>
+      <div class="r-text">
+        <div class="r-lbl">Tamaño del espacio muestral</div>
+        <div class="r-val">n(Ω) = <b>56</b> grupos posibles de 3 hermanos</div>
+      </div>
+    </div>
+    <p class="why"><b>Guárdalo:</b> los 56 será el <u>denominador</u> de
+    <strong>los cuatro</strong> apartados. Lo único que cambia de apartado a
+    apartado es el numerador \(n(A)\): cuántos de esos 56 grupos cumplen la
+    condición pedida.</p>
+  </section>
+
+  <!-- ===== MAPA ===== -->
+  <section class="section" id="mapa">
+    <h2>Mapa de la Pregunta 3</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Evento</th><th>Idea del conteo</th><th>Puntos</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">3a</span></td>
+            <td class="lab">Patricia y Fabiola elegidas</td>
+            <td>2 lugares fijos; elegir el 3.º entre los 6 restantes</td><td>1 p</td></tr>
+          <tr><td><span class="tag-q">3b</span></td>
+            <td class="lab">El mayor del trío es Rolando</td>
+            <td>Rolando fijo + 2 entre los <u>menores</u> que él</td><td>1 p</td></tr>
+          <tr><td><span class="tag-q">3c</span></td>
+            <td class="lab">El menor del trío es Mario</td>
+            <td>Mario fijo + 2 entre los <u>mayores</u> que él</td><td>1 p</td></tr>
+          <tr><td><span class="tag-q">3d</span></td>
+            <td class="lab">El menor del trío es Rolando</td>
+            <td>Rolando fijo + 2 entre los <u>mayores</u> que él</td><td>1 p</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== 3a ===================== -->
+  <section class="section" id="p3a">
+    <h2>Apartado 3a · Patricia y Fabiola sean elegidas</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>3.</strong> De un grupo de ocho hermanos se eligen tres al azar.
+      Miguel tiene 18 años, Jorge 17, Rolando 15, Raúl 12, Mario 10, Patricia 9,
+      Fabiola 6 y David 5. Determine la probabilidad de que:</p>
+      <p><strong>a)</strong> Patricia y Fabiola sean elegidas. <strong>(1p)</strong></p>
+    </div>
+
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Identificación</div>
+      <p><strong>Experimento:</strong> elegir al azar un grupo de 3 hermanos de
+      los 8.<br>
+      <strong>Evento A:</strong> el grupo elegido contiene a Patricia
+      <u>y</u> a Fabiola.<br>
+      Hay que contar cuántos grupos de 3 incluyen a esas dos personas.</p>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>El razonamiento del conteo</div>
+      <p>El grupo tiene <strong>3 lugares</strong>. Si exigimos que Patricia y
+      Fabiola estén, ellas ya ocupan <strong>2 de los 3 lugares</strong>. Queda
+      <strong>1 lugar libre</strong>, que debe llenarse con uno de los hermanos
+      <u>restantes</u>.</p>
+      <p>¿Cuántos hermanos restantes hay? De los 8, quitamos a Patricia y Fabiola:
+      quedan <span class="mono">8 − 2 = 6</span> candidatos para el lugar libre.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Los 3 lugares del grupo elegido</div>
+      <svg viewBox="0 0 640 230" role="img" aria-label="Tres lugares del grupo, dos fijos">
+        <text class="s-txt" x="320" y="30" text-anchor="middle">Grupo elegido — 3 lugares</text>
+        <!-- slot 1 -->
+        <rect x="70" y="48" width="150" height="74" rx="10" fill="var(--gold)" opacity="0.9"/>
+        <text x="145" y="82" text-anchor="middle" fill="var(--bg)" font-size="17" font-weight="700">Patricia</text>
+        <text x="145" y="104" text-anchor="middle" fill="var(--bg)" font-size="12">lugar fijo</text>
+        <!-- slot 2 -->
+        <rect x="245" y="48" width="150" height="74" rx="10" fill="var(--gold)" opacity="0.9"/>
+        <text x="320" y="82" text-anchor="middle" fill="var(--bg)" font-size="17" font-weight="700">Fabiola</text>
+        <text x="320" y="104" text-anchor="middle" fill="var(--bg)" font-size="12">lugar fijo</text>
+        <!-- slot 3 -->
+        <rect x="420" y="48" width="150" height="74" rx="10" fill="none"
+              stroke="var(--teal)" stroke-width="2.6" stroke-dasharray="7 5"/>
+        <text x="495" y="80" text-anchor="middle" fill="var(--teal)" font-size="24" font-weight="700">?</text>
+        <text x="495" y="104" text-anchor="middle" fill="var(--teal)" font-size="12">elegir 1 de 6</text>
+        <!-- candidatos -->
+        <text class="s-txt-sm" x="495" y="150" text-anchor="middle" fill="var(--teal)">candidatos al lugar libre:</text>
+        <text class="s-txt-sm" x="320" y="178" text-anchor="middle" fill="var(--ink-soft)">Miguel · Jorge · Rolando · Raúl · Mario · David</text>
+        <text class="s-txt-sm" x="320" y="206" text-anchor="middle" fill="var(--ink-faint)">(los 8 hermanos menos Patricia y Fabiola = 6)</text>
+      </svg>
+      <div class="fig-cap">Dos lugares quedan fijados por la condición; el tercero es
+      libre y admite 6 posibilidades.</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Contar los casos favorables n(A)</div>
+      <p>Elegir el ocupante del único lugar libre entre 6 candidatos
+      (regla de combinaciones, eligiendo 1 de 6):</p>
+      <div class="formula">
+        \[ n(A)=\binom{6}{1}=\dfrac{6!}{1!\,5!}=6 \]
+      </div>
+      <div class="why"><b>Argumento teórico:</b> regla de combinaciones. Elegir 1 de
+      6 da, naturalmente, 6 formas. Hay <strong>6 grupos</strong> de 3 que contienen
+      a Patricia y a Fabiola.</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Aplicar la regla de Laplace</div>
+      <div class="formula">
+        \[ P(A)=\dfrac{n(A)}{n(\Omega)}=\dfrac{6}{56}=\dfrac{3}{28}\approx 0{,}1071 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P(A)</div>
+      <div class="r-text">
+        <div class="r-lbl">Probabilidad · Apartado 3a</div>
+        <div class="r-val">P = <b>6/56 = 3/28</b> ≈ 0,1071 ≈ <b>10,71%</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación</div>
+      <p>Hay un <strong>10,71%</strong> de probabilidad de que el grupo elegido
+      incluya tanto a Patricia como a Fabiola. Dicho de otro modo: de los 56 grupos
+      posibles de 3 hermanos, solo 6 contienen a ambas; por eso la probabilidad es
+      \(6/56\).</p>
+    </div>
+  </section>
+
+  <!-- ===================== 3b ===================== -->
+  <section class="section" id="p3b">
+    <h2>Apartado 3b · El mayor de los tres sea Rolando</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>b)</strong> El mayor de los tres sea Rolando. <strong>(1p)</strong></p>
+    </div>
+
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Identificación y traducción del enunciado</div>
+      <p><strong>Evento B:</strong> en el grupo de 3, el de <u>mayor edad</u> es
+      Rolando (15 años). Para que eso ocurra deben cumplirse <strong>dos
+      condiciones a la vez</strong>:</p>
+      <ol class="steps">
+        <li>Rolando <strong>debe estar</strong> en el grupo elegido.</li>
+        <li>Los otros <strong>2 acompañantes deben ser todos menores</strong> que
+        Rolando — si entrara alguien mayor que él, Rolando ya no sería el mayor.</li>
+      </ol>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Mirar la escalera de edades</div>
+      <p>Rolando ocupa el puesto 3 de la escalera. Entonces:</p>
+      <ul class="clean">
+        <li><strong>Mayores que Rolando</strong> (arriba de él): Miguel y Jorge →
+        <strong>2 hermanos</strong>. Estos están <u>prohibidos</u> en el grupo.</li>
+        <li><strong>Menores que Rolando</strong> (debajo de él): Raúl, Mario,
+        Patricia, Fabiola y David → <strong>5 hermanos</strong>. De aquí deben salir
+        los 2 acompañantes.</li>
+      </ul>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">3b — Rolando como el mayor del trío</div>
+      <svg viewBox="0 0 600 392" role="img" aria-label="Escalera con Rolando el mayor">
+        <text class="s-txt-sm" x="72" y="34" text-anchor="middle" fill="var(--burgundy)">▲ MAYOR</text>
+        <line x1="72" y1="44" x2="72" y2="356" stroke="var(--line)" stroke-width="2"/>
+        <text class="s-txt-sm" x="72" y="376" text-anchor="middle" fill="var(--teal)">▼ MENOR</text>
+        <g font-family="Karla,sans-serif" font-size="14">
+          <!-- prohibidos: Miguel, Jorge -->
+          <rect x="120" y="42" width="420" height="33" rx="7" fill="var(--red)" opacity="0.22" stroke="var(--red)"/>
+          <text x="150" y="63" fill="var(--red)" font-weight="700">Miguel — 18</text>
+          <text x="520" y="63" text-anchor="end" fill="var(--red)" font-size="12">PROHIBIDO (mayor)</text>
+          <rect x="120" y="83" width="420" height="33" rx="7" fill="var(--red)" opacity="0.22" stroke="var(--red)"/>
+          <text x="150" y="104" fill="var(--red)" font-weight="700">Jorge — 17</text>
+          <text x="520" y="104" text-anchor="end" fill="var(--red)" font-size="12">PROHIBIDO (mayor)</text>
+          <!-- fijo: Rolando -->
+          <rect x="120" y="124" width="420" height="33" rx="7" fill="var(--gold)" opacity="0.92"/>
+          <text x="150" y="145" fill="var(--bg)" font-weight="700">Rolando — 15</text>
+          <text x="520" y="145" text-anchor="end" fill="var(--bg)" font-size="12">FIJO · el mayor</text>
+          <!-- elegir 2 de 5 -->
+          <rect x="120" y="165" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="186" fill="var(--teal)" font-weight="700">Raúl — 12</text>
+          <rect x="120" y="206" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="227" fill="var(--teal)" font-weight="700">Mario — 10</text>
+          <rect x="120" y="247" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="268" fill="var(--teal)" font-weight="700">Patricia — 9</text>
+          <rect x="120" y="288" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="309" fill="var(--teal)" font-weight="700">Fabiola — 6</text>
+          <rect x="120" y="329" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="350" fill="var(--teal)" font-weight="700">David — 5</text>
+        </g>
+        <!-- llave de los 5 -->
+        <path d="M 548 167 q 9 0 9 10 v 65 q 0 10 9 10 q -9 0 -9 10 v 65 q 0 10 -9 10"
+              fill="none" stroke="var(--teal)" stroke-width="2"/>
+        <text class="s-txt-sm" x="572" y="260" fill="var(--teal)" transform="rotate(90 572 260)" text-anchor="middle">elegir 2 de estos 5</text>
+      </svg>
+      <div class="fig-cap">Rolando fijo (dorado). Los 2 de arriba están prohibidos.
+      Los 2 acompañantes se eligen de los 5 hermanos menores.</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Contar los casos favorables n(B)</div>
+      <p>Rolando entra de forma obligada (1 sola manera). Los otros 2 lugares se
+      llenan eligiendo 2 de los 5 hermanos menores (combinación, el orden no
+      importa). Por el <strong>principio de multiplicación</strong>:</p>
+      <div class="formula">
+        \[ n(B)=\underbrace{1}_{\text{Rolando}}\times\binom{5}{2}
+              =\binom{5}{2}=\dfrac{5!}{2!\,3!}=\dfrac{5\cdot 4}{2}=10 \]
+      </div>
+      <div class="why"><b>Argumentos teóricos:</b> regla de combinaciones (elegir 2
+      de 5) + principio de multiplicación. Hay <strong>10 grupos</strong> en los que
+      Rolando es el mayor.</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Aplicar la regla de Laplace</div>
+      <div class="formula">
+        \[ P(B)=\dfrac{n(B)}{n(\Omega)}=\dfrac{10}{56}=\dfrac{5}{28}\approx 0{,}1786 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P(B)</div>
+      <div class="r-text">
+        <div class="r-lbl">Probabilidad · Apartado 3b</div>
+        <div class="r-val">P = <b>10/56 = 5/28</b> ≈ 0,1786 ≈ <b>17,86%</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación</div>
+      <p>Hay un <strong>17,86%</strong> de probabilidad de que Rolando sea el mayor
+      del trío elegido. Como Rolando está bastante arriba en la escalera de edades
+      (solo 2 hermanos lo superan), tiene un margen amplio: cualquiera de los 5
+      hermanos menores puede acompañarlo, lo que produce 10 grupos favorables.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 3c ===================== -->
+  <section class="section" id="p3c">
+    <h2>Apartado 3c · El menor de los tres sea Mario</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>c)</strong> El menor de los tres sea Mario. <strong>(1p)</strong></p>
+    </div>
+
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Identificación</div>
+      <p><strong>Evento C:</strong> en el grupo de 3, el de <u>menor edad</u> es
+      Mario (10 años). Condiciones:</p>
+      <ol class="steps">
+        <li>Mario <strong>debe estar</strong> en el grupo.</li>
+        <li>Los otros 2 deben ser <strong>mayores</strong> que Mario — si entrara
+        alguien menor, Mario dejaría de ser el menor.</li>
+      </ol>
+      <div class="why"><b>Ojo, cambia el sentido:</b> en 3b queríamos el
+      <em>mayor</em> y mirábamos hacia abajo. Ahora queremos el <em>menor</em> y
+      miramos hacia <u>arriba</u> de Mario en la escalera.</div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Mirar la escalera de edades</div>
+      <p>Mario ocupa el puesto 5. Entonces:</p>
+      <ul class="clean">
+        <li><strong>Mayores que Mario</strong> (arriba de él): Miguel, Jorge,
+        Rolando y Raúl → <strong>4 hermanos</strong>. De aquí salen los 2
+        acompañantes.</li>
+        <li><strong>Menores que Mario</strong> (debajo): Patricia, Fabiola y David →
+        3 hermanos. Estos están <u>prohibidos</u>.</li>
+      </ul>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">3c — Mario como el menor del trío</div>
+      <svg viewBox="0 0 600 392" role="img" aria-label="Escalera con Mario el menor">
+        <text class="s-txt-sm" x="72" y="34" text-anchor="middle" fill="var(--burgundy)">▲ MAYOR</text>
+        <line x1="72" y1="44" x2="72" y2="356" stroke="var(--line)" stroke-width="2"/>
+        <text class="s-txt-sm" x="72" y="376" text-anchor="middle" fill="var(--teal)">▼ MENOR</text>
+        <g font-family="Karla,sans-serif" font-size="14">
+          <!-- elegir 2 de 4 -->
+          <rect x="120" y="42" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="63" fill="var(--teal)" font-weight="700">Miguel — 18</text>
+          <rect x="120" y="83" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="104" fill="var(--teal)" font-weight="700">Jorge — 17</text>
+          <rect x="120" y="124" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="145" fill="var(--teal)" font-weight="700">Rolando — 15</text>
+          <rect x="120" y="165" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.22" stroke="var(--teal)"/>
+          <text x="150" y="186" fill="var(--teal)" font-weight="700">Raúl — 12</text>
+          <!-- fijo: Mario -->
+          <rect x="120" y="206" width="420" height="33" rx="7" fill="var(--gold)" opacity="0.92"/>
+          <text x="150" y="227" fill="var(--bg)" font-weight="700">Mario — 10</text>
+          <text x="520" y="227" text-anchor="end" fill="var(--bg)" font-size="12">FIJO · el menor</text>
+          <!-- prohibidos -->
+          <rect x="120" y="247" width="420" height="33" rx="7" fill="var(--red)" opacity="0.22" stroke="var(--red)"/>
+          <text x="150" y="268" fill="var(--red)" font-weight="700">Patricia — 9</text>
+          <text x="520" y="268" text-anchor="end" fill="var(--red)" font-size="12">PROHIBIDO (menor)</text>
+          <rect x="120" y="288" width="420" height="33" rx="7" fill="var(--red)" opacity="0.22" stroke="var(--red)"/>
+          <text x="150" y="309" fill="var(--red)" font-weight="700">Fabiola — 6</text>
+          <text x="520" y="309" text-anchor="end" fill="var(--red)" font-size="12">PROHIBIDO (menor)</text>
+          <rect x="120" y="329" width="420" height="33" rx="7" fill="var(--red)" opacity="0.22" stroke="var(--red)"/>
+          <text x="150" y="350" fill="var(--red)" font-weight="700">David — 5</text>
+          <text x="520" y="350" text-anchor="end" fill="var(--red)" font-size="12">PROHIBIDO (menor)</text>
+        </g>
+        <path d="M 548 44 q 9 0 9 10 v 45 q 0 10 9 10 q -9 0 -9 10 v 45 q 0 10 -9 10"
+              fill="none" stroke="var(--teal)" stroke-width="2"/>
+        <text class="s-txt-sm" x="572" y="118" fill="var(--teal)" transform="rotate(90 572 118)" text-anchor="middle">elegir 2 de estos 4</text>
+      </svg>
+      <div class="fig-cap">Mario fijo. Los 3 de abajo están prohibidos. Los 2
+      acompañantes se eligen de los 4 hermanos mayores.</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Contar los casos favorables n(C)</div>
+      <div class="formula">
+        \[ n(C)=1\times\binom{4}{2}=\dfrac{4!}{2!\,2!}=\dfrac{4\cdot 3}{2}=6 \]
+      </div>
+      <div class="why"><b>Argumentos teóricos:</b> combinaciones (elegir 2 de 4) +
+      principio de multiplicación. Hay <strong>6 grupos</strong> en los que Mario es
+      el menor.</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Aplicar la regla de Laplace</div>
+      <div class="formula">
+        \[ P(C)=\dfrac{6}{56}=\dfrac{3}{28}\approx 0{,}1071 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P(C)</div>
+      <div class="r-text">
+        <div class="r-lbl">Probabilidad · Apartado 3c</div>
+        <div class="r-val">P = <b>6/56 = 3/28</b> ≈ 0,1071 ≈ <b>10,71%</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación</div>
+      <p>Hay un <strong>10,71%</strong> de probabilidad de que Mario sea el menor del
+      trío. Para serlo, sus 2 acompañantes deben ser mayores que él; como hay 4
+      hermanos mayores que Mario, se forman 6 grupos favorables de los 56 posibles.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 3d ===================== -->
+  <section class="section" id="p3d">
+    <h2>Apartado 3d · El menor de los tres sea Rolando</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>d)</strong> El menor de los tres sea Rolando. <strong>(1p)</strong></p>
+    </div>
+
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Identificación</div>
+      <p><strong>Evento D:</strong> en el grupo de 3, el de <u>menor edad</u> es
+      Rolando (15 años). Condiciones:</p>
+      <ol class="steps">
+        <li>Rolando <strong>debe estar</strong> en el grupo.</li>
+        <li>Los otros 2 deben ser <strong>mayores</strong> que Rolando.</li>
+      </ol>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Mirar la escalera de edades</div>
+      <p>Rolando ocupa el puesto 3, muy arriba. Mayores que él hay solo
+      <strong>2</strong>: Miguel y Jorge. Y necesitamos elegir <u>2</u> acompañantes
+      de ese grupo de mayores.</p>
+      <div class="why"><b>Aquí surge algo especial:</b> necesitamos 2 mayores y solo
+      existen 2 mayores. ¡No hay margen de elección! El grupo queda
+      <strong>forzado</strong>: tiene que ser exactamente Rolando + Jorge + Miguel.</div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">3d — Rolando como el menor del trío</div>
+      <svg viewBox="0 0 600 392" role="img" aria-label="Escalera con Rolando el menor">
+        <text class="s-txt-sm" x="72" y="34" text-anchor="middle" fill="var(--burgundy)">▲ MAYOR</text>
+        <line x1="72" y1="44" x2="72" y2="356" stroke="var(--line)" stroke-width="2"/>
+        <text class="s-txt-sm" x="72" y="376" text-anchor="middle" fill="var(--teal)">▼ MENOR</text>
+        <g font-family="Karla,sans-serif" font-size="14">
+          <rect x="120" y="42" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.28" stroke="var(--teal)"/>
+          <text x="150" y="63" fill="var(--teal)" font-weight="700">Miguel — 18</text>
+          <text x="520" y="63" text-anchor="end" fill="var(--teal)" font-size="12">obligado</text>
+          <rect x="120" y="83" width="420" height="33" rx="7" fill="var(--teal)" opacity="0.28" stroke="var(--teal)"/>
+          <text x="150" y="104" fill="var(--teal)" font-weight="700">Jorge — 17</text>
+          <text x="520" y="104" text-anchor="end" fill="var(--teal)" font-size="12">obligado</text>
+          <rect x="120" y="124" width="420" height="33" rx="7" fill="var(--gold)" opacity="0.92"/>
+          <text x="150" y="145" fill="var(--bg)" font-weight="700">Rolando — 15</text>
+          <text x="520" y="145" text-anchor="end" fill="var(--bg)" font-size="12">FIJO · el menor</text>
+          <rect x="120" y="165" width="420" height="33" rx="7" fill="var(--red)" opacity="0.18" stroke="var(--red)"/>
+          <text x="150" y="186" fill="var(--red)" font-weight="700">Raúl — 12</text>
+          <rect x="120" y="206" width="420" height="33" rx="7" fill="var(--red)" opacity="0.18" stroke="var(--red)"/>
+          <text x="150" y="227" fill="var(--red)" font-weight="700">Mario — 10</text>
+          <rect x="120" y="247" width="420" height="33" rx="7" fill="var(--red)" opacity="0.18" stroke="var(--red)"/>
+          <text x="150" y="268" fill="var(--red)" font-weight="700">Patricia — 9</text>
+          <rect x="120" y="288" width="420" height="33" rx="7" fill="var(--red)" opacity="0.18" stroke="var(--red)"/>
+          <text x="150" y="309" fill="var(--red)" font-weight="700">Fabiola — 6</text>
+          <rect x="120" y="329" width="420" height="33" rx="7" fill="var(--red)" opacity="0.18" stroke="var(--red)"/>
+          <text x="150" y="350" fill="var(--red)" font-weight="700">David — 5</text>
+          <text x="335" y="268" text-anchor="middle" fill="var(--red)" font-size="12">los 5 menores están prohibidos</text>
+        </g>
+        <path d="M 548 44 q 9 0 9 10 v 12 q 0 10 9 10 q -9 0 -9 10 v 12 q 0 10 -9 10"
+              fill="none" stroke="var(--teal)" stroke-width="2"/>
+        <text class="s-txt-sm" x="574" y="80" fill="var(--teal)" transform="rotate(90 574 80)" text-anchor="middle">elegir 2 de 2</text>
+      </svg>
+      <div class="fig-cap">Solo hay 2 hermanos mayores que Rolando, y se necesitan
+      exactamente 2: el grupo queda forzado a {Rolando, Jorge, Miguel}.</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Contar los casos favorables n(D)</div>
+      <p>Rolando entra de forma obligada; los otros 2 se eligen entre los 2 mayores.
+      Pero elegir 2 de un grupo de 2 da una sola posibilidad:</p>
+      <div class="formula">
+        \[ n(D)=1\times\binom{2}{2}=\dfrac{2!}{2!\,0!}=1 \]
+      </div>
+      <div class="why"><b>Recuerda:</b> \(0!=1\) por definición. \(\binom{2}{2}=1\):
+      hay una única forma de "elegir a todos". El único grupo favorable es
+      <strong>{Rolando, Jorge, Miguel}</strong>.</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Aplicar la regla de Laplace</div>
+      <div class="formula">
+        \[ P(D)=\dfrac{n(D)}{n(\Omega)}=\dfrac{1}{56}\approx 0{,}0179 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P(D)</div>
+      <div class="r-text">
+        <div class="r-lbl">Probabilidad · Apartado 3d</div>
+        <div class="r-val">P = <b>1/56</b> ≈ 0,0179 ≈ <b>1,79%</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación</div>
+      <p>Hay apenas un <strong>1,79%</strong> de probabilidad de que Rolando sea el
+      menor del trío — la probabilidad más baja de los cuatro apartados. La razón es
+      clara: para ser el menor, sus 2 acompañantes deben ser mayores que él, y solo
+      existen 2 hermanos mayores que Rolando (Miguel y Jorge). De los 56 grupos
+      posibles, <strong>uno solo</strong> cumple la condición.</p>
+    </div>
+  </section>
+
+  <!-- ===== COMPARACIÓN ===== -->
+  <section class="section" id="comparacion">
+    <h2>Comparación didáctica · 3b frente a 3d</h2>
+    <p>Los apartados 3b y 3d preguntan por <strong>la misma persona</strong>,
+    Rolando, pero en papeles opuestos. El contraste enseña una idea profunda:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>—</th><th>3b · Rolando el MAYOR</th><th>3d · Rolando el MENOR</th></tr></thead>
+        <tbody>
+          <tr><td class="lab">Los otros 2 deben ser…</td>
+            <td>menores que Rolando</td><td>mayores que Rolando</td></tr>
+          <tr><td class="lab">¿Cuántos hay de ese tipo?</td>
+            <td><strong>5</strong> (Raúl, Mario, Patricia, Fabiola, David)</td>
+            <td><strong>2</strong> (Miguel, Jorge)</td></tr>
+          <tr><td class="lab">Casos favorables</td>
+            <td class="mono">C(5,2) = 10</td><td class="mono">C(2,2) = 1</td></tr>
+          <tr class="row-hl"><td class="lab">Probabilidad</td>
+            <td class="mono">10/56 ≈ 17,86%</td><td class="mono">1/56 ≈ 1,79%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>La lección</div>
+      <p>Ser el mayor es <strong>10 veces más probable</strong> que ser el menor,
+      para Rolando. ¿Por qué? Porque Rolando está cerca de la cima de la escalera de
+      edades: tiene <strong>mucho "espacio" por debajo</strong> (5 hermanos menores
+      → fácil ser el mayor del trío) y <strong>muy poco "espacio" por
+      arriba</strong> (solo 2 mayores → casi imposible ser el menor del trío). La
+      posición de una persona en el ranking determina drásticamente estas
+      probabilidades.</p>
+    </div>
+  </section>
+
+  <!-- ===== VERIFICACIÓN ===== -->
+  <section class="section" id="verificacion">
+    <h2>Verificación global de los conteos</h2>
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>Una comprobación elegante</div>
+      <p>En cualquier trío hay exactamente un "mayor". Por lo tanto, si sumamos los
+      casos favorables de "el mayor es X" sobre <u>todos</u> los hermanos X, debemos
+      obtener el total del espacio muestral, 56. Lo mismo con "el menor".</p>
+    </div>
+    <div class="fig-2col">
+      <div class="figure" style="padding:14px">
+        <div class="fig-title">"El mayor del trío es…"</div>
+        <div class="tbl-wrap" style="margin:6px 0;border:none">
+          <table>
+            <thead><tr><th>Mayor</th><th>n.º menores</th><th>Casos = C(menores, 2)</th></tr></thead>
+            <tbody>
+              <tr><td class="lab">Miguel</td><td>7</td><td class="mono">21</td></tr>
+              <tr><td class="lab">Jorge</td><td>6</td><td class="mono">15</td></tr>
+              <tr class="row-hl"><td class="lab">Rolando</td><td>5</td><td class="mono">10 ← 3b</td></tr>
+              <tr><td class="lab">Raúl</td><td>4</td><td class="mono">6</td></tr>
+              <tr><td class="lab">Mario</td><td>3</td><td class="mono">3</td></tr>
+              <tr><td class="lab">Patricia</td><td>2</td><td class="mono">1</td></tr>
+              <tr><td class="lab">Fabiola</td><td>1</td><td class="mono">0</td></tr>
+              <tr><td class="lab">David</td><td>0</td><td class="mono">0</td></tr>
+            </tbody>
+            <tfoot><tr><td class="lab" colspan="2">Suma</td><td class="mono">56 ✓</td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="figure" style="padding:14px">
+        <div class="fig-title">"El menor del trío es…"</div>
+        <div class="tbl-wrap" style="margin:6px 0;border:none">
+          <table>
+            <thead><tr><th>Menor</th><th>n.º mayores</th><th>Casos = C(mayores, 2)</th></tr></thead>
+            <tbody>
+              <tr><td class="lab">David</td><td>7</td><td class="mono">21</td></tr>
+              <tr><td class="lab">Fabiola</td><td>6</td><td class="mono">15</td></tr>
+              <tr><td class="lab">Patricia</td><td>5</td><td class="mono">10</td></tr>
+              <tr class="row-hl"><td class="lab">Mario</td><td>4</td><td class="mono">6 ← 3c</td></tr>
+              <tr><td class="lab">Raúl</td><td>3</td><td class="mono">3</td></tr>
+              <tr class="row-hl"><td class="lab">Rolando</td><td>2</td><td class="mono">1 ← 3d</td></tr>
+              <tr><td class="lab">Jorge</td><td>1</td><td class="mono">0</td></tr>
+              <tr><td class="lab">Miguel</td><td>0</td><td class="mono">0</td></tr>
+            </tbody>
+            <tfoot><tr><td class="lab" colspan="2">Suma</td><td class="mono">56 ✓</td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="why"><b>Ambas columnas suman 56</b>, igual que el espacio muestral.
+    Esto confirma que los conteos de 3b (10), 3c (6) y 3d (1) son correctos: encajan
+    perfectamente dentro del total.</p>
+  </section>
+
+  <!-- ===== CORRECTOR ===== -->
+  <section class="section" id="corrector">
+    <h2>Lo que el corrector exige — checklist global</h2>
+    <p>El examen es <u>muy</u> explícito con los problemas de probabilidad: exige
+    mencionar el experimento, los argumentos teóricos y explicar las operaciones,
+    o "se invalidará la respuesta aún sea correcta". Repasa:</p>
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Checklist de presentación</div>
+      <ul class="clean">
+        <li><strong>Define el experimento:</strong> "elegir al azar un grupo de 3
+        hermanos de los 8".</li>
+        <li><strong>Nombra los argumentos teóricos:</strong> definición clásica de
+        probabilidad (regla de Laplace), regla de combinaciones, principio de
+        multiplicación.</li>
+        <li><strong>Justifica por qué combinaciones</strong> y no permutaciones: el
+        orden no importa al formar un grupo.</li>
+        <li><strong>Calcula n(Ω) = C(8,3) = 56</strong> explícitamente.</li>
+        <li><strong>Explica cada conteo:</strong> a quién fijas, de qué grupo eliges
+        el resto y por qué.</li>
+        <li><strong>Escribe la probabilidad como fracción simplificada</strong> y
+        también en decimal/porcentaje.</li>
+        <li>Rotula claramente "a)", "b)", "c)", "d)".</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== SÍNTESIS ===== -->
+  <section class="section" id="sintesis">
+    <h2>Síntesis de respuestas — Pregunta 3</h2>
+    <p>Denominador común a todos: <span class="mono">n(Ω) = C(8,3) = 56</span>.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Casos favorables</th><th>Probabilidad</th>
+          <th>Razón en una línea</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">3a</span></td>
+            <td class="mono">C(6,1) = 6</td>
+            <td class="lab">6/56 = 3/28 ≈ 10,71%</td>
+            <td>Patricia y Fabiola fijas; el 3.º entre los otros 6.</td></tr>
+          <tr><td><span class="tag-q">3b</span></td>
+            <td class="mono">C(5,2) = 10</td>
+            <td class="lab">10/56 = 5/28 ≈ 17,86%</td>
+            <td>Rolando + 2 de los 5 menores que él.</td></tr>
+          <tr><td><span class="tag-q">3c</span></td>
+            <td class="mono">C(4,2) = 6</td>
+            <td class="lab">6/56 = 3/28 ≈ 10,71%</td>
+            <td>Mario + 2 de los 4 mayores que él.</td></tr>
+          <tr><td><span class="tag-q">3d</span></td>
+            <td class="mono">C(2,2) = 1</td>
+            <td class="lab">1/56 ≈ 1,79%</td>
+            <td>Rolando + 2 de los 2 mayores → grupo forzado.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-final">
+      <h4 style="margin-top:0">La gran idea de la Pregunta 3</h4>
+      <p>Toda probabilidad clásica se reduce a <strong>contar bien dos cosas</strong>:
+      los casos posibles y los casos favorables. Y la estrategia para contar los
+      favorables siempre fue la misma:</p>
+      <ol class="steps">
+        <li><strong>Fijar</strong> a la persona obligada por la condición (1 forma).</li>
+        <li><strong>Identificar el grupo válido</strong> del que pueden salir los
+        acompañantes (mirando la escalera de edades).</li>
+        <li><strong>Elegir</strong> el resto con una combinación.</li>
+        <li><strong>Multiplicar</strong> y dividir entre 56.</li>
+      </ol>
+      <p style="margin-bottom:0">La escalera de edades fue la herramienta que
+      convirtió enunciados de palabras ("el mayor", "el menor") en conteos
+      concretos. Ordenar los datos antes de empezar fue la mitad del trabajo.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement,
+      tBtn=document.getElementById('themeToggle'),
+      tLbl=document.getElementById('themeLabel');
+  var saved=null;
+  try{saved=localStorage.getItem('est1-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function refresh(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    tLbl.textContent=dark?'Modo claro':'Modo oscuro';
+  }
+  refresh();
+  tBtn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var next=dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('est1-theme',next);}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var nBtn=document.getElementById('navToggle'),
+      nLbl=document.getElementById('navLabel'),
+      body=document.body;
+  var saved=null;
+  try{saved=localStorage.getItem('est1-nav');}catch(e){}
+  if(saved==='collapsed'){body.classList.add('nav-collapsed');}
+  function refresh(){
+    var hidden=body.classList.contains('nav-collapsed');
+    nLbl.textContent=hidden?'Mostrar panel':'Ocultar panel';
+  }
+  refresh();
+  nBtn.addEventListener('click',function(){
+    body.classList.toggle('nav-collapsed');
+    var hidden=body.classList.contains('nav-collapsed');
+    try{localStorage.setItem('est1-nav',hidden?'collapsed':'open');}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sidebar a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)map[id]=a;
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var a=map[en.target.id];
+        if(a){a.classList.add('active');}
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+window.addEventListener('load',function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'\\[',right:'\\]',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>

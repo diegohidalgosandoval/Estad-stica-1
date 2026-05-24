@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Parcial · Estadística 1 — Pregunta 1</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+/* ===== SISTEMA DE TEMAS ===== */
+:root{
+  --bg:#13171e;--bg-2:#1a202a;--surface:#212a36;--surface-2:#283342;--surface-3:#2f3b4c;
+  --ink:#ecebe3;--ink-soft:#b6b8b0;--ink-faint:#838d99;--line:#36404e;--line-soft:#2a3340;
+  --burgundy:#e58f99;--burgundy-deep:#cf6e7c;--gold:#e3bd72;--gold-deep:#caa356;
+  --teal:#6fbab4;--blue:#8cb0d8;--green:#86c08e;--red:#e8908a;
+  --shadow:rgba(0,0,0,.45);--code-bg:#1b232e;--hl:rgba(227,189,114,.13);
+}
+[data-theme="light"]{
+  --bg:#f1ece0;--bg-2:#f8f4e9;--surface:#fffdf6;--surface-2:#f3ecdb;--surface-3:#ebe3cf;
+  --ink:#222a37;--ink-soft:#525c6a;--ink-faint:#8a93a0;--line:#ddd3bd;--line-soft:#e6ddc8;
+  --burgundy:#8c2f3c;--burgundy-deep:#6f2330;--gold:#9a7320;--gold-deep:#7e5e16;
+  --teal:#2c7873;--blue:#2c5680;--green:#3c7a44;--red:#b23b2f;
+  --shadow:rgba(60,45,30,.13);--code-bg:#f3ecda;--hl:rgba(154,115,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;}
+
+/* ===== LAYOUT ===== */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:300px;flex-shrink:0;background:var(--bg-2);border-right:1px solid var(--line);
+  height:100vh;position:sticky;top:0;overflow-y:auto;padding:26px 20px 60px;
+  transition:margin-left .28s ease;}
+.sidebar::-webkit-scrollbar{width:9px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.sidebar h2{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:var(--burgundy);
+  font-weight:700;margin-bottom:3px;line-height:1.2;}
+.sidebar .sub{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;
+  letter-spacing:.13em;margin-bottom:22px}
+.nav-group{margin-bottom:10px}
+.nav-group-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:700;margin:14px 0 6px;padding-left:10px;}
+.sidebar a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  padding:7px 11px;border-radius:7px;border-left:2.5px solid transparent;transition:all .15s ease;}
+.sidebar a:hover{background:var(--surface);color:var(--ink)}
+.sidebar a.active{background:var(--surface-2);color:var(--burgundy);
+  border-left-color:var(--burgundy);font-weight:600;}
+.sidebar a.child{font-size:.86rem;padding-left:24px;color:var(--ink-faint)}
+.sidebar a.child:hover,.sidebar a.child.active{color:var(--ink)}
+body.nav-collapsed .sidebar{margin-left:-301px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:11px 30px;}
+.topbar .crumb{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.16rem;
+  color:var(--ink);flex:1;}
+.topbar .crumb b{color:var(--burgundy)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:8px 13px;
+  font-family:'Karla',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;}
+.btn:hover{background:var(--surface-2);color:var(--ink);border-color:var(--burgundy)}
+.btn svg{width:16px;height:16px}
+.content{max-width:940px;margin:0 auto;width:100%;padding:38px 40px 120px;
+  transition:max-width .28s ease;}
+body.nav-collapsed .content{max-width:1180px}
+
+/* ===== TIPOGRAFÍA ===== */
+h1{font-family:'Cormorant Garamond',serif;font-size:2.55rem;font-weight:700;
+  line-height:1.12;color:var(--ink);margin-bottom:6px;}
+.doc-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);
+  border-radius:30px;padding:4px 14px;margin-bottom:18px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  color:var(--burgundy);margin:8px 0 6px;line-height:1.18;}
+h3{font-family:'Karla',sans-serif;font-size:1.22rem;font-weight:700;color:var(--ink);
+  margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+h4{font-size:1.04rem;font-weight:700;color:var(--gold-deep);margin:20px 0 7px}
+p{margin:11px 0}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--burgundy);font-style:italic}
+.section{margin:50px 0;padding-top:14px;border-top:1px dashed var(--line);}
+.section:first-of-type{border-top:none}
+
+.enunciado{background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--gold);border-radius:12px;padding:20px 24px;
+  margin:18px 0 26px;box-shadow:0 3px 14px var(--shadow);}
+.enunciado .lbl{font-size:.76rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px;}
+.enunciado p{margin:7px 0}
+
+.box{border-radius:12px;padding:17px 21px;margin:18px 0;border:1px solid var(--line);
+  background:var(--surface);}
+.box .box-title{font-weight:700;font-size:.97rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;}
+.box .box-title .ic{width:25px;height:25px;border-radius:7px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;}
+.box-teoria{border-left:4px solid var(--blue)}
+.box-teoria .ic{background:var(--blue);color:var(--bg)}.box-teoria .box-title{color:var(--blue)}
+.box-intuicion{border-left:4px solid var(--teal)}
+.box-intuicion .ic{background:var(--teal);color:var(--bg)}.box-intuicion .box-title{color:var(--teal)}
+.box-identifica{border-left:4px solid var(--gold)}
+.box-identifica .ic{background:var(--gold);color:var(--bg)}.box-identifica .box-title{color:var(--gold-deep)}
+.box-ojo{border-left:4px solid var(--red)}
+.box-ojo .ic{background:var(--red);color:var(--bg)}.box-ojo .box-title{color:var(--red)}
+.box-interpreta{border-left:4px solid var(--burgundy);
+  background:linear-gradient(180deg,var(--hl),transparent);}
+.box-interpreta .ic{background:var(--burgundy);color:var(--bg)}.box-interpreta .box-title{color:var(--burgundy)}
+.box-corrector{border-left:4px solid var(--green)}
+.box-corrector .ic{background:var(--green);color:var(--bg)}.box-corrector .box-title{color:var(--green)}
+.box-demo{border-left:4px solid var(--gold-deep);background:var(--code-bg)}
+.box-demo .ic{background:var(--gold-deep);color:var(--bg)}.box-demo .box-title{color:var(--gold-deep)}
+
+.step{display:flex;gap:15px;margin:16px 0;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;}
+.step .num{flex-shrink:0;width:33px;height:33px;border-radius:9px;background:var(--burgundy);
+  color:var(--bg);font-weight:800;font-size:1.02rem;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;}
+.step .step-body{flex:1;min-width:0}
+.step .step-body .st-title{font-weight:700;color:var(--ink);margin-bottom:3px}
+.step .step-body p:first-child{margin-top:0}.step .step-body p:last-child{margin-bottom:0}
+.why{font-size:.93rem;color:var(--ink-soft);background:var(--bg-2);border-radius:8px;
+  padding:9px 13px;margin:9px 0;border-left:3px solid var(--gold);}
+.why b{color:var(--gold-deep)}
+
+.formula{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:16px 20px;margin:15px 0;overflow-x:auto;text-align:center;}
+.formula.key{border-color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy) inset;}
+
+.result{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1.5px solid var(--burgundy);border-radius:12px;padding:15px 22px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;}
+.result .r-ic{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:var(--burgundy);
+  color:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.result .r-text{flex:1}
+.result .r-text .r-lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-faint);font-weight:700}
+.result .r-text .r-val{font-size:1.12rem;font-weight:700;color:var(--ink)}
+.result .r-text .r-val b{color:var(--burgundy);font-family:'JetBrains Mono',monospace}
+
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:11px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 13px;text-align:center;border:1px solid var(--line)}
+thead th{background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.85rem;}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody tr:hover{background:var(--surface)}
+td.lab{text-align:left;font-weight:600}
+.row-hl{background:var(--hl)!important}
+.row-hl td{font-weight:700;color:var(--burgundy)}
+tfoot td{background:var(--surface-2);font-weight:700;color:var(--ink)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em}
+
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 12px;margin:22px 0;}
+.figure svg{display:block;width:100%;height:auto}
+.figure .fig-cap{font-size:.85rem;color:var(--ink-faint);text-align:center;
+  margin-top:8px;font-style:italic;}
+.figure .fig-title{font-size:.92rem;font-weight:700;color:var(--gold-deep);
+  text-align:center;margin-bottom:6px;}
+.s-axis{stroke:var(--ink-faint);stroke-width:1.6}
+.s-grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.s-txt{fill:var(--ink-soft);font-family:'Karla',sans-serif;font-size:13px}
+.s-txt-sm{fill:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.s-txt-b{fill:var(--ink);font-family:'Karla',sans-serif;font-size:13px;font-weight:700}
+.s-bar{fill:var(--surface-3);stroke:var(--ink-faint);stroke-width:1.4}
+.s-bar-hl{fill:var(--burgundy);stroke:var(--burgundy-deep);stroke-width:1.6}
+.s-line-a{stroke:var(--teal);stroke-width:2.4;fill:none}
+.s-line-b{stroke:var(--gold);stroke-width:2.4;fill:none}
+.s-dash{stroke:var(--burgundy);stroke-width:2;stroke-dasharray:6 4}
+.s-fill-soft{fill:var(--burgundy);opacity:.18}
+.s-fill-soft2{fill:var(--teal);opacity:.22}
+
+ul.clean{list-style:none;margin:11px 0}
+ul.clean li{padding:5px 0 5px 26px;position:relative}
+ul.clean li::before{content:"▸";position:absolute;left:4px;color:var(--burgundy);font-weight:700;}
+ol.steps{margin:11px 0 11px 22px}
+ol.steps li{padding:4px 0;margin-left:6px}
+.tag-q{display:inline-block;background:var(--burgundy);color:var(--bg);font-weight:700;
+  font-size:.8rem;padding:2px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+kbd{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+.callout-final{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1px solid var(--burgundy);border-radius:14px;padding:24px 26px;margin:26px 0;}
+
+@media print{
+  .sidebar,.topbar{display:none!important}
+  body{background:#fff;color:#1a1a1a;font-size:11pt}
+  .content{max-width:100%;padding:0}
+  .section{page-break-inside:avoid;border-top:1px solid #ccc}
+  .figure,.step,.box,.result,.enunciado,.tbl-wrap{page-break-inside:avoid;box-shadow:none}
+}
+@media (max-width:560px){
+  .content{padding:24px 16px 90px}.topbar{padding:10px 14px}
+  h1{font-size:1.9rem}h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <h2>Estadística&nbsp;1</h2>
+  <div class="sub">Examen Parcial · UDEP</div>
+  <div class="nav-group">
+    <a href="#inicio" class="active">Portada y cómo estudiar esto</a>
+    <a href="#contexto">Contexto y datos del problema</a>
+    <a href="#mapa">Mapa de la Pregunta 1</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 1a · 4 p</div>
+    <a href="#p1a" class="child">Lectura e identificación</a>
+    <a href="#prep" class="child">Tabla base de trabajo</a>
+    <a href="#moda" class="child">La Moda</a>
+    <a href="#desv" class="child">La Desviación estándar</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 1b · 1 p</div>
+    <a href="#p1b" class="child">Teorema de Chebyshev</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 1c · 2 p</div>
+    <a href="#p1c" class="child">Percentil 75</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Apartado 1d · 1 p</div>
+    <a href="#p1d" class="child">Dispersión del 25% superior</a>
+  </div>
+  <div class="nav-group">
+    <a href="#corrector">Lo que el corrector exige</a>
+    <a href="#sintesis">Síntesis de respuestas</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="btn" id="navToggle" title="Mostrar / ocultar barra lateral">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <span id="navLabel">Ocultar panel</span>
+    </button>
+    <div class="crumb">Examen Parcial · <b>Pregunta 1</b> — Estadística descriptiva</div>
+    <button class="btn" id="themeToggle" title="Cambiar modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/>
+      </svg>
+      <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+
+  <main class="content">
+
+  <!-- ===== PORTADA ===== -->
+  <section id="inicio">
+    <div class="doc-tag">Resolución pedagógica · Pregunta 1 de 4</div>
+    <h1>Pregunta&nbsp;1 — Inversiones mensuales de dos Cajas Municipales</h1>
+    <p style="font-size:1.08rem;color:var(--ink-soft)">
+      Estadística descriptiva con <strong>datos agrupados en intervalos</strong>:
+      moda, desviación estándar, teorema de Chebyshev, percentiles y comparación de
+      dispersión. Cada apartado se desarrolla desde cero, mostrando
+      <em>qué se hace, por qué se hace y qué significa cada número</em>.</p>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>Cómo usar este documento</div>
+      <ul class="clean">
+        <li>Arriba a la izquierda, <kbd>Ocultar panel</kbd> esconde la barra de
+        navegación y el contenido se ensancha para aprovechar tu pantalla de 16″.</li>
+        <li>Arriba a la derecha, <kbd>Modo claro / oscuro</kbd> cambia el tema. Tu
+        preferencia y el estado del panel se recuerdan entre sesiones.</li>
+        <li>Cada apartado sigue el mismo recorrido: <strong>enunciado →
+        identificación → teoría desde cero → desarrollo paso a paso → interpretación
+        → errores frecuentes → qué escribir para no perder puntos</strong>.</li>
+        <li>Puedes imprimir o exportar a PDF (<kbd>⌘P</kbd>): el diseño se reorganiza
+        automáticamente para papel.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CONTEXTO ===== -->
+  <section class="section" id="contexto">
+    <h2>Contexto y datos del problema</h2>
+    <p>El examen presenta la distribución de las <strong>inversiones mensuales (en
+    dólares)</strong> de dos muestras de clientes: una de la Caja Municipal de Ica
+    (<strong>CMAC Ica</strong>) y otra de la Caja Municipal de Tacna
+    (<strong>CMAC Tacna</strong>). Estos son los datos tal como aparecen en la hoja
+    del examen:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th colspan="2" style="background:var(--surface-3)">CMAC Ica</th>
+              <th colspan="2" style="background:var(--surface-3)">CMAC Tacna</th></tr>
+          <tr><th>Inversión mensual (US$)</th><th>Nro. de clientes</th>
+              <th>Inversión mensual (US$)</th><th>Nro. de clientes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>[1050 – 1250)</td><td>120</td><td>[850 – 1150)</td><td>100</td></tr>
+          <tr><td>[1250 – 1450)</td><td>400</td><td>[1150 – 1450)</td><td>200</td></tr>
+          <tr><td>[1450 – 1650)</td><td>160</td><td>[1450 – 1750)</td><td>480</td></tr>
+          <tr><td>[1650 – 1850)</td><td>80</td><td>[1750 – 2050)</td><td>100</td></tr>
+          <tr><td>[1850 – 2050)</td><td>32</td><td>[2050 – 2350)</td><td>80</td></tr>
+          <tr><td>[2050 – 2250]</td><td>8</td><td>[2350 – 2650]</td><td>40</td></tr>
+        </tbody>
+        <tfoot><tr><td class="lab">Total Ica · n</td><td>800</td>
+          <td class="lab">Total Tacna · n</td><td>1000</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Vocabulario base: tabla de frecuencias con datos agrupados</div>
+      <p>Antes de calcular nada, hay que entender qué es cada fila de la tabla. Cada
+      fila es una <em>clase</em> o intervalo:</p>
+      <ul class="clean">
+        <li><strong>Notación <span class="mono">[a – b)</span>:</strong> el corchete
+        <span class="mono">[</span> incluye el extremo <span class="mono">a</span>;
+        el paréntesis <span class="mono">)</span> <u>excluye</u> el extremo
+        <span class="mono">b</span>. Una inversión de exactamente 1150 dólares en
+        Tacna cae en <span class="mono">[1150–1450)</span>, no en la anterior. El
+        último intervalo cierra con corchete <span class="mono">]</span> porque debe
+        contener el valor máximo.</li>
+        <li><strong>Frecuencia absoluta <span class="mono">f<sub>i</sub></span>:</strong>
+        cuántos clientes (datos) caen en esa clase.</li>
+        <li><strong>Tamaño de muestra <span class="mono">n</span>:</strong> la suma
+        de todas las frecuencias. Ica: 120+400+160+80+32+8 = <strong>800</strong>.
+        Tacna: 100+200+480+100+80+40 = <strong>1000</strong>.</li>
+        <li><strong>Amplitud <span class="mono">A</span>:</strong> el "ancho" de la
+        clase, <span class="mono">A = límite&nbsp;superior − límite&nbsp;inferior</span>.</li>
+      </ul>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Detalle clave que diferencia las dos cajas</div>
+      <p>Mira las amplitudes con cuidado, porque el examen lo usa como trampa:</p>
+      <ul class="clean">
+        <li><strong>CMAC Ica:</strong> todos los intervalos miden
+        <span class="mono">A = 200</span> dólares (1250−1050, 1450−1250, …).</li>
+        <li><strong>CMAC Tacna:</strong> todos los intervalos miden
+        <span class="mono">A = 300</span> dólares (1150−850, 1450−1150, …).</li>
+      </ul>
+      <p>Dentro de cada caja la amplitud es constante (eso permite hacer histogramas
+      y aplicar las fórmulas directamente). Pero <strong>Ica y Tacna usan amplitudes
+      distintas entre sí</strong>. Si en los apartados copias la fórmula sin volver
+      a mirar qué <span class="mono">A</span> corresponde a cada caja, te equivocas.
+      Aquí siempre escribiremos explícitamente el <span class="mono">A</span> que
+      toca.</p>
+    </div>
+  </section>
+
+  <!-- ===== MAPA ===== -->
+  <section class="section" id="mapa">
+    <h2>Mapa de la Pregunta 1</h2>
+    <p>Aunque es "una sola pregunta", en realidad son <strong>cuatro herramientas
+    estadísticas distintas</strong>. Verlas juntas ayuda a saber qué te miden en
+    cada apartado:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Qué te piden</th><th>Herramienta</th>
+          <th>Palabra que lo delata</th><th>Puntos</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">1a</span></td>
+            <td class="lab">Moda y desviación estándar (Tacna)</td>
+            <td>Tendencia central + dispersión</td>
+            <td><em>"halle… la moda y la desviación estándar"</em></td><td>4 p</td></tr>
+          <tr><td><span class="tag-q">1b</span></td>
+            <td class="lab">Intervalo simétrico con un mínimo de datos</td>
+            <td>Teorema de Chebyshev</td>
+            <td><em>"como mínimo el 72%"</em></td><td>1 p</td></tr>
+          <tr><td><span class="tag-q">1c</span></td>
+            <td class="lab">¿De qué caja es la clienta?</td>
+            <td>Percentil 75 (en ambas cajas)</td>
+            <td><em>"no supera el percentil 75"</em></td><td>2 p</td></tr>
+          <tr><td><span class="tag-q">1d</span></td>
+            <td class="lab">¿Dónde es más disperso el 25% superior?</td>
+            <td>Amplitud del cuartil superior</td>
+            <td><em>"más disperso el 25% superior"</em></td><td>1 p</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="why" style="border-left-color:var(--burgundy)">
+      <b>Estrategia de examen:</b> los apartados están encadenados. La
+      <strong>media</strong> que calcules en 1a la reutilizas en 1b. El
+      <strong>percentil 75</strong> de 1c te sirve directamente en 1d. Resolver en
+      orden te ahorra trabajo.</p>
+  </section>
+
+  <!-- ===================== APARTADO 1a ===================== -->
+  <section class="section" id="p1a">
+    <h2>Apartado 1a · Moda y desviación estándar</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>1.</strong> A continuación se presenta la distribución de las
+      inversiones mensuales (en dólares) de una muestra de clientes de la Caja
+      Municipal de Ica (CMAC Ica) y de una muestra de clientes de la Caja Municipal
+      de Tacna (CMAC Tacna). <em>[tablas mostradas arriba]</em></p>
+      <p>Responda lo siguiente mostrando los cálculos correspondientes para
+      sustentar su respuesta, caso contrario se invalidará la misma, aún sea
+      correcta:</p>
+      <p><strong>a)</strong> Mostrando los cálculos, halle e interprete en términos
+      del problema <strong>la moda y la desviación estándar</strong> de las
+      inversiones mensuales de la muestra de clientes de <strong>CMAC Tacna</strong>.
+      <strong>(4p)</strong></p>
+    </div>
+
+    <h3 id="p1a-id">Paso 0 — ¿Qué me piden y cómo lo reconozco?</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Identificación del tipo de problema</div>
+      <p>Te piden <strong>dos medidas distintas</strong> sobre la <u>misma</u> tabla
+      (CMAC Tacna):</p>
+      <ul class="clean">
+        <li><strong>La moda</strong> → <em>medida de tendencia central</em>:
+        responde "¿cuál es el valor <strong>más frecuente</strong>?".</li>
+        <li><strong>La desviación estándar</strong> → <em>medida de dispersión</em>:
+        responde "¿qué tan separados están los datos respecto de su promedio?".</li>
+      </ul>
+      <p>Como los datos vienen <strong>agrupados en intervalos</strong> (y no como
+      una lista de valores individuales), <u>no</u> usamos las fórmulas de datos
+      sueltos: usamos las fórmulas de <strong>datos agrupados</strong>. Esa es la
+      decisión central del apartado.</p>
+    </div>
+
+    <h3 id="prep">Paso 1 — Construir la tabla base de trabajo (CMAC Tacna)</h3>
+    <p>Antes de aplicar cualquier fórmula necesitamos dos columnas que la tabla del
+    examen no trae: la <strong>marca de clase</strong> y la <strong>frecuencia
+    acumulada</strong>.</p>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>La marca de clase: el "representante" del intervalo</div>
+      <p>Con datos agrupados perdimos los valores exactos: solo sabemos que 480
+      clientes invirtieron "algo entre 1450 y 1750". ¿Qué número representa a todos
+      ellos? El <strong>punto medio del intervalo</strong>, la <strong>marca de
+      clase</strong> <span class="mono">x<sub>i</sub></span>:</p>
+      <div class="formula">\[ x_i=\dfrac{L_{\text{inf}}+L_{\text{sup}}}{2} \]</div>
+      <p><strong>¿Por qué el punto medio?</strong> Es la apuesta más razonable:
+      suponemos que dentro de cada intervalo los datos se reparten de forma más o
+      menos pareja, así que su centro representa bien al grupo. Esto introduce una
+      pequeña aproximación (el <em>error de agrupamiento</em>), precio de trabajar
+      con datos resumidos.</p>
+    </div>
+
+    <p>Ejemplo: <span class="mono">x₁ = (850 + 1150) / 2 = 1000</span>. La frecuencia
+    acumulada <span class="mono">F<sub>i</sub></span> es la suma corrida de las
+    frecuencias (cuántos clientes hay <em>hasta</em> esa clase, inclusive); la
+    usaremos en 1c y 1d, pero la dejamos lista ya:</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Intervalo (US$)</th><th>Frecuencia f<sub>i</sub></th>
+          <th>Marca de clase x<sub>i</sub></th><th>Frec. acumulada F<sub>i</sub></th></tr></thead>
+        <tbody>
+          <tr><td>[850 – 1150)</td><td>100</td><td class="mono">1000</td><td class="mono">100</td></tr>
+          <tr><td>[1150 – 1450)</td><td>200</td><td class="mono">1300</td><td class="mono">300</td></tr>
+          <tr class="row-hl"><td>[1450 – 1750)</td><td>480</td><td class="mono">1600</td><td class="mono">780</td></tr>
+          <tr><td>[1750 – 2050)</td><td>100</td><td class="mono">1900</td><td class="mono">880</td></tr>
+          <tr><td>[2050 – 2350)</td><td>80</td><td class="mono">2200</td><td class="mono">960</td></tr>
+          <tr><td>[2350 – 2650]</td><td>40</td><td class="mono">2500</td><td class="mono">1000</td></tr>
+        </tbody>
+        <tfoot><tr><td class="lab">Σ</td><td>n = 1000</td><td>—</td><td>—</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="why"><b>Lectura de la fila resaltada:</b> la clase
+    <span class="mono">[1450–1750)</span> tiene la mayor frecuencia (480 clientes).
+    Será protagonista de la moda y de varios apartados siguientes.</p>
+
+    <div class="figure">
+      <div class="fig-title">Histograma de las inversiones mensuales — CMAC Tacna</div>
+      <svg viewBox="0 0 780 470" role="img" aria-label="Histograma CMAC Tacna">
+        <line class="s-grid" x1="80" y1="405" x2="740" y2="405"/>
+        <line class="s-grid" x1="80" y1="331" x2="740" y2="331"/>
+        <line class="s-grid" x1="80" y1="257" x2="740" y2="257"/>
+        <line class="s-grid" x1="80" y1="183" x2="740" y2="183"/>
+        <line class="s-grid" x1="80" y1="109" x2="740" y2="109"/>
+        <line class="s-grid" x1="80" y1="35"  x2="740" y2="35"/>
+        <text class="s-txt-sm" x="72" y="409" text-anchor="end">0</text>
+        <text class="s-txt-sm" x="72" y="335" text-anchor="end">100</text>
+        <text class="s-txt-sm" x="72" y="261" text-anchor="end">200</text>
+        <text class="s-txt-sm" x="72" y="187" text-anchor="end">300</text>
+        <text class="s-txt-sm" x="72" y="113" text-anchor="end">400</text>
+        <text class="s-txt-sm" x="72" y="39"  text-anchor="end">500</text>
+        <rect class="s-bar"    x="80"  y="331"   width="110" height="74"/>
+        <rect class="s-bar"    x="190" y="257"   width="110" height="148"/>
+        <rect class="s-bar-hl" x="300" y="49.8"  width="110" height="355.2"/>
+        <rect class="s-bar"    x="410" y="331"   width="110" height="74"/>
+        <rect class="s-bar"    x="520" y="345.8" width="110" height="59.2"/>
+        <rect class="s-bar"    x="630" y="375.4" width="110" height="29.6"/>
+        <text class="s-txt-b" x="135" y="323" text-anchor="middle">100</text>
+        <text class="s-txt-b" x="245" y="249" text-anchor="middle">200</text>
+        <text class="s-txt-b" x="355" y="41"  text-anchor="middle" fill="var(--burgundy)">480</text>
+        <text class="s-txt-b" x="465" y="323" text-anchor="middle">100</text>
+        <text class="s-txt-b" x="575" y="338" text-anchor="middle">80</text>
+        <text class="s-txt-b" x="685" y="367" text-anchor="middle">40</text>
+        <line class="s-axis" x1="80" y1="35" x2="80" y2="405"/>
+        <line class="s-axis" x1="80" y1="405" x2="745" y2="405"/>
+        <text class="s-txt-sm" x="80"  y="424" text-anchor="middle">850</text>
+        <text class="s-txt-sm" x="190" y="424" text-anchor="middle">1150</text>
+        <text class="s-txt-sm" x="300" y="424" text-anchor="middle">1450</text>
+        <text class="s-txt-sm" x="410" y="424" text-anchor="middle">1750</text>
+        <text class="s-txt-sm" x="520" y="424" text-anchor="middle">2050</text>
+        <text class="s-txt-sm" x="630" y="424" text-anchor="middle">2350</text>
+        <text class="s-txt-sm" x="740" y="424" text-anchor="middle">2650</text>
+        <text class="s-txt" x="412" y="452" text-anchor="middle">Inversión mensual (US$)</text>
+        <text class="s-txt" x="24" y="220" text-anchor="middle" transform="rotate(-90 24 220)">Nro. de clientes</text>
+        <text class="s-txt-sm" x="355" y="200" text-anchor="middle" fill="var(--bg)" font-weight="700">CLASE</text>
+        <text class="s-txt-sm" x="355" y="216" text-anchor="middle" fill="var(--bg)" font-weight="700">MODAL</text>
+      </svg>
+      <div class="fig-cap">Cómo se lee: cada barra es una clase; su altura es el nº
+      de clientes. La barra más alta (resaltada) es la <strong>clase modal</strong>.
+      Cómo se construye: como todas las clases miden 300 dólares, las barras tienen
+      el mismo ancho y las alturas son directamente las frecuencias.</div>
+    </div>
+
+    <!-- ===== MODA ===== -->
+    <h3 id="moda">La Moda — paso a paso</h3>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición: ¿qué es realmente la moda?</div>
+      <p>La moda es <strong>el valor que más se repite</strong>. Con datos sueltos
+      es trivial. Pero aquí tenemos intervalos, así que el razonamiento va en dos
+      etapas:</p>
+      <ol class="steps">
+        <li><strong>¿En qué intervalo está la moda?</strong> En el de mayor
+        frecuencia: la <em>clase modal</em>. Aquí es <span class="mono">[1450–1750)</span>
+        con 480 clientes.</li>
+        <li><strong>¿En qué punto exacto dentro de ese intervalo?</strong> No tiene
+        por qué ser el centro. La moda "se inclina" hacia el lado donde la barra
+        vecina es más alta, porque por ese lado hay más datos empujando.</li>
+      </ol>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Fórmula de la moda para datos agrupados</div>
+      <div class="formula key">\[ Mo = L_i + A\cdot\dfrac{d_1}{d_1+d_2} \]</div>
+      <p><strong>Simbología claramente definida</strong> (esto lo exige el examen):</p>
+      <ul class="clean">
+        <li><span class="mono">Mo</span> = moda buscada (valor en dólares).</li>
+        <li><span class="mono">L<sub>i</sub></span> = límite <u>inferior</u> de la
+        clase modal.</li>
+        <li><span class="mono">A</span> = amplitud de la clase modal.</li>
+        <li><span class="mono">d₁ = f<sub>modal</sub> − f<sub>anterior</sub></span>
+        = cuánto sobresale la barra modal sobre su vecina de la <u>izquierda</u>.</li>
+        <li><span class="mono">d₂ = f<sub>modal</sub> − f<sub>posterior</sub></span>
+        = cuánto sobresale la barra modal sobre su vecina de la <u>derecha</u>.</li>
+      </ul>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>De dónde sale la fórmula (demostración con triángulos semejantes)</div>
+      <p>La fórmula nace de una <strong>construcción geométrica</strong> sobre el
+      histograma. Tomamos la barra modal y sus dos vecinas y trazamos dos rectas
+      cruzadas dentro del rectángulo modal:</p>
+      <ul class="clean">
+        <li>Recta <span style="color:var(--teal);font-weight:700">A</span>: de la
+        esquina superior <u>izquierda</u> de la barra modal a la esquina superior
+        <u>izquierda</u> de la barra <u>posterior</u>.</li>
+        <li>Recta <span style="color:var(--gold-deep);font-weight:700">B</span>: de
+        la esquina superior <u>derecha</u> de la barra modal a la esquina superior
+        <u>derecha</u> de la barra <u>anterior</u>.</li>
+      </ul>
+      <p>Con el origen en la base izquierda de la barra modal (va de \(x=0\) a
+      \(x=A\), altura \(f_{mod}\)), las dos rectas son:</p>
+      <div class="formula">
+        \[ \text{Recta A:}\ \ y=f_{mod}-\frac{d_2}{A}\,x \qquad
+           \text{Recta B:}\ \ y=f_{anterior}+\frac{d_1}{A}\,x \]
+      </div>
+      <p>Las igualamos para hallar el cruce \(x\):</p>
+      <div class="formula">
+        \[ f_{mod}-\frac{d_2}{A}x=f_{anterior}+\frac{d_1}{A}x
+           \;\Longrightarrow\; \underbrace{f_{mod}-f_{anterior}}_{=\,d_1}
+           =\frac{d_1+d_2}{A}\,x \]
+      </div>
+      <div class="formula">
+        \[ x=\frac{A\cdot d_1}{d_1+d_2}\quad\Longrightarrow\quad
+           Mo=L_i+\frac{A\cdot d_1}{d_1+d_2} \]
+      </div>
+      <p><strong>Lo importante:</strong> la fracción \(d_1/(d_1+d_2)\) es la
+      <em>proporción del ancho</em> que avanzamos dentro del intervalo. La fórmula
+      codifica la intuición de "la moda se inclina hacia el vecino más alto".</p>
+    </div>
+
+    <h4>Desarrollo numérico de la moda</h4>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Identificar la clase modal</div>
+      <p>Es la de mayor frecuencia. Entre 100, 200, <strong>480</strong>, 100, 80,
+      40 → la clase modal es <span class="mono">[1450 – 1750)</span>.</p>
+      <div class="why"><b>Por qué:</b> la moda vive donde hay más datos; esa clase
+      concentra 480 de los 1000 clientes (casi la mitad).</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Leer los valores que entran en la fórmula</div>
+      <ul class="clean">
+        <li><span class="mono">L<sub>i</sub> = 1450</span> (límite inferior de la clase modal).</li>
+        <li><span class="mono">A = 1750 − 1450 = 300</span> (amplitud — la de Tacna).</li>
+        <li><span class="mono">f<sub>modal</sub> = 480</span>,
+        <span class="mono">f<sub>anterior</sub> = 200</span>,
+        <span class="mono">f<sub>posterior</sub> = 100</span>.</li>
+      </ul>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Calcular d₁ y d₂</div>
+      <div class="formula">
+        \[ d_1=f_{mod}-f_{ant}=480-200=280 \qquad
+           d_2=f_{mod}-f_{post}=480-100=380 \]
+      </div>
+      <div class="why"><b>Interpretación:</b> como
+      <span class="mono">d₁ = 280 &lt; d₂ = 380</span>, la barra izquierda (200) se
+      parece más en altura a la modal que la derecha (100). El empuje de datos es
+      mayor por la izquierda → la moda quedará en la <u>mitad izquierda</u> del
+      intervalo (por debajo de 1600).</div>
+    </div></div>
+
+    <div class="step"><div class="num">4</div><div class="step-body">
+      <div class="st-title">Sustituir en la fórmula</div>
+      <div class="formula">
+        \[ Mo=1450+300\cdot\dfrac{280}{280+380}=1450+300\cdot\dfrac{280}{660} \]
+      </div>
+      <div class="formula">
+        \[ Mo=1450+300\cdot 0{,}42424=1450+127{,}27=1577{,}27 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">Mo</div>
+      <div class="r-text">
+        <div class="r-lbl">Moda · CMAC Tacna</div>
+        <div class="r-val">Mo ≈ <b>US$ 1 577,27</b></div>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Verificación visual: la moda como cruce de rectas</div>
+      <svg viewBox="0 0 580 420" role="img" aria-label="Construcción geométrica de la moda">
+        <line class="s-axis" x1="100" y1="340" x2="490" y2="340"/>
+        <rect class="s-bar"    x="130" y="220" width="110" height="120"/>
+        <rect class="s-bar-hl" x="240" y="52"  width="110" height="288"/>
+        <rect class="s-bar"    x="350" y="280" width="110" height="60"/>
+        <text class="s-txt-sm" x="185" y="244" text-anchor="middle" fill="var(--ink)">f = 200</text>
+        <text class="s-txt-sm" x="295" y="78"  text-anchor="middle" fill="var(--bg)" font-weight="700">f = 480</text>
+        <text class="s-txt-sm" x="405" y="304" text-anchor="middle" fill="var(--ink)">f = 100</text>
+        <line class="s-line-a" x1="240" y1="52" x2="350" y2="280"/>
+        <line class="s-line-b" x1="350" y1="52" x2="240" y2="220"/>
+        <circle cx="286.67" cy="148.73" r="5.5" fill="var(--burgundy)" stroke="var(--bg)" stroke-width="1.5"/>
+        <line class="s-dash" x1="286.67" y1="148.73" x2="286.67" y2="340"/>
+        <line x1="240" y1="52" x2="240" y2="220" stroke="var(--teal)" stroke-width="3"/>
+        <text class="s-txt-sm" x="226" y="140" text-anchor="end" fill="var(--teal)" font-weight="700">d₁=280</text>
+        <line x1="350" y1="52" x2="350" y2="280" stroke="var(--gold-deep)" stroke-width="3"/>
+        <text class="s-txt-sm" x="364" y="172" text-anchor="start" fill="var(--gold-deep)" font-weight="700">d₂=380</text>
+        <text class="s-txt-sm" x="240" y="360" text-anchor="middle">1450</text>
+        <text class="s-txt-sm" x="350" y="360" text-anchor="middle">1750</text>
+        <text class="s-txt-b"  x="286.67" y="382" text-anchor="middle" fill="var(--burgundy)">Mo ≈ 1577,27</text>
+        <line class="s-line-a" x1="118" y1="402" x2="148" y2="402"/>
+        <text class="s-txt-sm" x="154" y="406">Recta A</text>
+        <line class="s-line-b" x1="240" y1="402" x2="270" y2="402"/>
+        <text class="s-txt-sm" x="276" y="406">Recta B</text>
+      </svg>
+      <div class="fig-cap">El punto donde se cruzan las dos rectas, proyectado a la
+      base, da la moda. Cae a 0,424 del ancho del intervalo — exactamente
+      <span class="mono">d₁/(d₁+d₂) = 280/660</span>. La construcción confirma el
+      número calculado.</div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>La <strong>inversión mensual más frecuente (más típica)</strong> entre los
+      clientes de la muestra de CMAC Tacna es de aproximadamente
+      <strong>US$ 1 577,27</strong>. Dentro del intervalo donde más clientes se
+      concentran <span class="mono">[1450 – 1750)</span>, el valor alrededor del
+      cual se agrupan con mayor densidad ronda los 1 577 dólares. Es una
+      <em>estimación</em>: con datos agrupados no observamos la inversión exacta de
+      cada cliente.</p>
+    </div>
+
+    <!-- ===== DESVIACIÓN ESTÁNDAR ===== -->
+    <h3 id="desv">La Desviación estándar — paso a paso</h3>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">★</span>Intuición: ¿qué mide la desviación estándar?</div>
+      <p>Imagina dos grupos con el <u>mismo promedio</u> de inversión. En el
+      primero casi todos invierten cerca del promedio; en el segundo unos invierten
+      muy poco y otros muchísimo. Mismo centro, pero distintos. La <strong>desviación
+      estándar</strong> captura esa diferencia: mide <strong>la distancia típica de
+      los datos respecto del promedio</strong>.</p>
+      <ul class="clean">
+        <li>Desviación <strong>pequeña</strong> → datos apretados cerca de la media
+        → muestra <em>homogénea</em>.</li>
+        <li>Desviación <strong>grande</strong> → datos esparcidos → muestra
+        <em>heterogénea</em>.</li>
+      </ul>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Construyendo la fórmula desde cero</div>
+      <p>Queremos medir "qué tan lejos está cada dato del promedio". Vamos idea por
+      idea, viendo el problema de cada una:</p>
+      <ol class="steps">
+        <li><strong>Idea 1 — la desviación</strong>: \(x_i-\bar{x}\).
+        <em>Problema:</em> al promediarlas, positivas y negativas se cancelan y da 0.</li>
+        <li><strong>Idea 2 — elevar al cuadrado</strong>: \((x_i-\bar{x})^2\). Todas
+        se vuelven positivas y los datos lejanos pesan más. Ya no se cancelan.</li>
+        <li><strong>Idea 3 — promediar</strong> esas distancias al cuadrado,
+        ponderando por la frecuencia \(f_i\). Eso es la <strong>varianza</strong>
+        \(s^2\).</li>
+        <li><strong>Idea 4 — sacar raíz</strong>: la varianza está en "dólares al
+        cuadrado". La raíz devuelve la medida a <strong>dólares</strong>. Eso es la
+        <strong>desviación estándar</strong> \(s\).</li>
+      </ol>
+      <div class="formula key">
+        \[ s^2=\dfrac{\displaystyle\sum_{i=1}^{k} f_i\,(x_i-\bar{x})^2}{n-1}
+           \qquad s=\sqrt{s^{2}} \]
+      </div>
+      <p><strong>Simbología:</strong> <span class="mono">x<sub>i</sub></span> marca
+      de clase; <span class="mono">f<sub>i</sub></span> frecuencia;
+      <span class="mono">x̄</span> media; <span class="mono">n = Σf<sub>i</sub></span>
+      tamaño de muestra; <span class="mono">k</span> número de clases.</p>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>¿Por qué dividimos entre n−1 y no entre n?</div>
+      <p><strong>1) Es una muestra, no la población.</strong> El enunciado dice
+      <em>"una muestra de clientes"</em>. Con una muestra queremos <em>estimar</em>
+      la variabilidad de <u>todos</u> los clientes. La división entre \(n-1\)
+      (corrección de Bessel) hace la estimación <em>insesgada</em>.</p>
+      <p><strong>2) El motivo profundo — grados de libertad.</strong> Las
+      desviaciones se miden respecto de \(\bar{x}\), que se calculó con esos mismos
+      datos. La media cumple \(\sum f_i(x_i-\bar{x})=0\): si conoces \(\bar{x}\) y
+      \(n-1\) desviaciones, la última queda <strong>determinada</strong>. Solo hay
+      \(n-1\) piezas de información independientes sobre la dispersión. Por eso se
+      divide entre \(n-1\).</p>
+      <p>Como las desviaciones se toman desde la propia media muestral, salen
+      <em>sistemáticamente algo más pequeñas</em> de lo real. Dividir entre \(n-1\)
+      (menor que \(n\)) <strong>infla un poco</strong> el resultado y corrige el
+      sesgo.</p>
+      <p class="why"><b>Confirmación con el propio examen:</b> la Pregunta 2 usa la
+      función <span class="mono">scale()</span> de R, que calcula la desviación
+      estándar dividiendo entre \(n-1\). El criterio del curso es
+      <strong>muestral: \(n-1\)</strong>. Eso usamos aquí.</p>
+    </div>
+
+    <h4>Desarrollo numérico — primero la media</h4>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>No se puede empezar por la desviación</div>
+      <p>La fórmula de \(s\) contiene \(\bar{x}\) dentro. El <strong>primer cálculo
+      obligatorio</strong> es la media, que para datos agrupados es el promedio de
+      las marcas de clase ponderado por frecuencias:</p>
+      <div class="formula">\[ \bar{x}=\dfrac{\sum f_i\,x_i}{n} \]</div>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Calcular Σ f<sub>i</sub>·x<sub>i</sub> y la media x̄</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Intervalo</th><th>x<sub>i</sub></th><th>f<sub>i</sub></th>
+            <th>f<sub>i</sub> · x<sub>i</sub></th></tr></thead>
+          <tbody>
+            <tr><td>[850–1150)</td><td class="mono">1000</td><td>100</td><td class="mono">100 000</td></tr>
+            <tr><td>[1150–1450)</td><td class="mono">1300</td><td>200</td><td class="mono">260 000</td></tr>
+            <tr><td>[1450–1750)</td><td class="mono">1600</td><td>480</td><td class="mono">768 000</td></tr>
+            <tr><td>[1750–2050)</td><td class="mono">1900</td><td>100</td><td class="mono">190 000</td></tr>
+            <tr><td>[2050–2350)</td><td class="mono">2200</td><td>80</td><td class="mono">176 000</td></tr>
+            <tr><td>[2350–2650]</td><td class="mono">2500</td><td>40</td><td class="mono">100 000</td></tr>
+          </tbody>
+          <tfoot><tr><td class="lab">Σ</td><td>—</td><td>1000</td><td class="mono">1 594 000</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="formula">\[ \bar{x}=\dfrac{1\,594\,000}{1000}=1594 \]</div>
+      <div class="why"><b>Guárdalo:</b> la media es exactamente
+      <span class="mono">x̄ = US$ 1 594</span>. La reutilizaremos en 1b (Chebyshev).</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Calcular las desviaciones al cuadrado, ponderadas</div>
+      <p>Para cada clase: la desviación \((x_i-\bar{x})\), su cuadrado y, ×
+      frecuencia. La última columna es la que se suma.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>x<sub>i</sub></th><th>f<sub>i</sub></th>
+            <th>x<sub>i</sub> − x̄</th><th>(x<sub>i</sub> − x̄)²</th>
+            <th>f<sub>i</sub>(x<sub>i</sub> − x̄)²</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1000</td><td>100</td><td class="mono">−594</td><td class="mono">352 836</td><td class="mono">35 283 600</td></tr>
+            <tr><td class="mono">1300</td><td>200</td><td class="mono">−294</td><td class="mono">86 436</td><td class="mono">17 287 200</td></tr>
+            <tr><td class="mono">1600</td><td>480</td><td class="mono">6</td><td class="mono">36</td><td class="mono">17 280</td></tr>
+            <tr><td class="mono">1900</td><td>100</td><td class="mono">306</td><td class="mono">93 636</td><td class="mono">9 363 600</td></tr>
+            <tr><td class="mono">2200</td><td>80</td><td class="mono">606</td><td class="mono">367 236</td><td class="mono">29 378 880</td></tr>
+            <tr><td class="mono">2500</td><td>40</td><td class="mono">906</td><td class="mono">820 836</td><td class="mono">32 833 440</td></tr>
+          </tbody>
+          <tfoot><tr><td class="lab" colspan="4">Σ f<sub>i</sub>(x<sub>i</sub> − x̄)²</td>
+            <td class="mono">124 164 000</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="why"><b>Observa la tercera fila:</b> la clase modal
+      <span class="mono">[1450–1750)</span> tiene marca 1600, casi igual a la media
+      1594, así que casi no aporta dispersión (solo 17 280). Las clases extremas
+      (1000 y 2500) aportan decenas de millones. <b>La dispersión la generan las
+      colas, no el centro.</b></div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Calcular la varianza muestral s²</div>
+      <p>Dividimos la suma entre <span class="mono">n − 1 = 1000 − 1 = 999</span>:</p>
+      <div class="formula">
+        \[ s^2=\dfrac{124\,164\,000}{999}=124\,288{,}29\ \ (\text{US\$})^2 \]
+      </div>
+    </div></div>
+
+    <div class="step"><div class="num">4</div><div class="step-body">
+      <div class="st-title">Sacar la raíz → desviación estándar s</div>
+      <div class="formula">\[ s=\sqrt{124\,288{,}29}\;\approx\;352{,}55 \]</div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">s</div>
+      <div class="r-text">
+        <div class="r-lbl">Desviación estándar · CMAC Tacna</div>
+        <div class="r-val">s ≈ <b>US$ 352,55</b>&nbsp;&nbsp;(varianza s² ≈ 124 288,29)</div>
+      </div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Nota honesta sobre n vs n−1</div>
+      <p>Si el criterio fuese tratar la tabla como población completa, se divide
+      entre <span class="mono">n = 1000</span>:</p>
+      <div class="formula">
+        \[ \sigma^2=\dfrac{124\,164\,000}{1000}=124\,164
+           \;\Rightarrow\; \sigma\approx 352{,}37 \]
+      </div>
+      <p>La diferencia es mínima (352,55 frente a 352,37) porque \(n\) es grande.
+      <strong>Usamos 352,55 (n−1)</strong> porque el enunciado dice "muestra" y
+      porque R —software del curso, usado en la Pregunta 2— divide entre \(n-1\).
+      Si tu profesor pidió \(n\), el procedimiento es idéntico: solo cambia el
+      denominador.</p>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>Una desviación estándar de <strong>US$ 352,55</strong> significa que las
+      inversiones mensuales de los clientes de la muestra de CMAC Tacna se alejan,
+      <strong>en promedio, unos 352,55 dólares</strong> de la inversión promedio
+      (US$ 1 594). Mide qué tan <em>heterogéneas</em> son las inversiones: a mayor
+      \(s\), más variadas las decisiones de inversión.</p>
+      <p class="why" style="border-left-color:var(--burgundy)">
+      <b>Insight extra (asimetría):</b> la media (1 594) es mayor que la moda
+      (1 577,27). Cuando la media supera a la moda, la distribución tiene una
+      <em>cola hacia la derecha</em> (asimetría positiva): unos pocos clientes con
+      inversiones altas (hasta [2350–2650]) "tiran" del promedio hacia arriba.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 1a (vale 4 p)</div>
+      <ul class="clean">
+        <li>Escribe la <strong>simbología</strong>: define \(L_i, A, d_1, d_2, x_i,
+        f_i, \bar{x}, n\) antes de usarlos.</li>
+        <li>Muestra <strong>todas las tablas de cálculo</strong>. El examen invalida
+        la respuesta "aún sea correcta" si no se ven los cálculos.</li>
+        <li>Calcula la media <strong>antes</strong> que la desviación y déjalo
+        explícito.</li>
+        <li>Indica qué fórmula (datos agrupados) y qué amplitud (\(A=300\) para
+        Tacna) usas.</li>
+        <li>Cierra con <strong>las dos interpretaciones</strong> "en términos del
+        problema" — el enunciado las pide literalmente.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 1b ===================== -->
+  <section class="section" id="p1b">
+    <h2>Apartado 1b · Intervalo de Chebyshev</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>b)</strong> ¿Cuál es el intervalo simétrico, alrededor de la
+      inversión mensual promedio en CMAC Tacna, en el que se encuentra como mínimo
+      el <strong>72%</strong> de las inversiones mensuales de la muestra de clientes
+      de dicha CMAC? <strong>(1p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Identificar: ¿por qué es Chebyshev?</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Las palabras que delatan el teorema</div>
+      <ul class="clean">
+        <li><strong>"intervalo simétrico alrededor del promedio"</strong> → la forma
+        del resultado es \([\bar{x}-ks,\ \bar{x}+ks]\).</li>
+        <li><strong>"como mínimo el 72%"</strong> → la palabra <em>mínimo</em> es la
+        firma de Chebyshev: el teorema da una <u>garantía inferior</u>, un "peor
+        caso".</li>
+        <li><strong>No menciona la forma de la distribución</strong> → Chebyshev
+        funciona para cualquier distribución, sin suponer normalidad.</li>
+      </ul>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>El Teorema de Chebyshev</div>
+      <p><strong>Enunciado:</strong> para <u>cualquier</u> conjunto de datos y
+      cualquier \(k>1\), la proporción de datos dentro de \(k\) desviaciones
+      estándar de la media es <strong>al menos</strong>:</p>
+      <div class="formula key">
+        \[ \text{proporción en }[\bar{x}-ks,\ \bar{x}+ks]\;\ge\;1-\dfrac{1}{k^{2}} \]
+      </div>
+      <ul class="clean">
+        <li><span class="mono">k</span> = número de desviaciones estándar que nos
+        alejamos del centro.</li>
+        <li><span class="mono">x̄</span> = media; <span class="mono">s</span> =
+        desviación estándar.</li>
+        <li>El intervalo \([\bar{x}-ks,\ \bar{x}+ks]\) es <strong>simétrico</strong>:
+        misma distancia \(ks\) a cada lado.</li>
+      </ul>
+      <p><strong>Por qué dice "al menos":</strong> Chebyshev es deliberadamente
+      pesimista; garantiza un mínimo que se cumple siempre. La proporción real suele
+      ser mayor. Su poder: vale sin saber nada de la forma de los datos.</p>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>Demostración del teorema (idea esencial)</div>
+      <p>Partimos de la varianza (usamos la forma con \(n\) para que la demostración
+      sea limpia; con \(n-1\) la conclusión es la misma):</p>
+      <div class="formula">\[ s^{2}=\frac{1}{n}\sum_{i}(x_i-\bar{x})^{2} \]</div>
+      <p>Si conservamos solo los datos <em>fuera</em> del intervalo
+      (\(|x_i-\bar{x}|\ge ks\)), la suma solo puede disminuir:</p>
+      <div class="formula">
+        \[ s^{2}\;\ge\;\frac{1}{n}\!\!\sum_{|x_i-\bar{x}|\ge ks}\!\!(x_i-\bar{x})^{2} \]
+      </div>
+      <p>Cada dato de afuera tiene \((x_i-\bar{x})^2\ge (ks)^2\). Llamando \(m\) a la
+      cantidad de datos fuera:</p>
+      <div class="formula">
+        \[ s^{2}\;\ge\;\frac{1}{n}\,m\,(ks)^{2}
+           \;\Longrightarrow\; \frac{m}{n}\;\le\;\frac{1}{k^{2}} \]
+      </div>
+      <p>Es decir: la proporción de datos <u>fuera</u> es a lo sumo \(1/k^2\); luego
+      la proporción <u>dentro</u> es al menos \(1-1/k^2\). ∎</p>
+    </div>
+
+    <h3>Desarrollo numérico</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Plantear la ecuación con el 72%</div>
+      <p>Igualamos la garantía del teorema a 0,72 y despejamos \(k\):</p>
+      <div class="formula">\[ 1-\dfrac{1}{k^{2}}=0{,}72 \]</div>
+      <div class="why"><b>Por qué se iguala:</b> buscamos el \(k\) <u>justo</u> que
+      garantiza el 72%. Ese \(k\) define el ancho del intervalo pedido.</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Despejar k</div>
+      <div class="formula">
+        \[ \dfrac{1}{k^{2}}=1-0{,}72=0{,}28
+           \;\Rightarrow\; k^{2}=\dfrac{1}{0{,}28}=3{,}5714
+           \;\Rightarrow\; k=\sqrt{3{,}5714}\approx 1{,}8898 \]
+      </div>
+      <div class="why"><b>Interpretación de k:</b> hay que alejarse ≈ 1,89
+      desviaciones estándar de la media, a cada lado, para "atrapar" garantizado el
+      72% de los clientes.</div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Calcular el "radio" del intervalo, k·s</div>
+      <p>Usamos los valores de 1a: <span class="mono">x̄ = 1594</span> y
+      <span class="mono">s = 352,55</span>.</p>
+      <div class="formula">\[ k\cdot s = 1{,}8898\times 352{,}55 \approx 666{,}25 \]</div>
+    </div></div>
+
+    <div class="step"><div class="num">4</div><div class="step-body">
+      <div class="st-title">Construir el intervalo simétrico</div>
+      <div class="formula">
+        \[ [\,\bar{x}-ks,\ \bar{x}+ks\,]=[\,1594-666{,}25,\ \ 1594+666{,}25\,] \]
+      </div>
+      <div class="formula">\[ =[\,927{,}75\ ;\ \ 2260{,}25\,] \]</div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">[ ]</div>
+      <div class="r-text">
+        <div class="r-lbl">Intervalo de Chebyshev · CMAC Tacna</div>
+        <div class="r-val">[ <b>US$ 927,75</b> ; <b>US$ 2 260,25</b> ]</div>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">El intervalo simétrico alrededor de la media</div>
+      <svg viewBox="0 0 780 230" role="img" aria-label="Recta numérica del intervalo de Chebyshev">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--teal)"/>
+          </marker>
+        </defs>
+        <rect class="s-fill-soft" x="114.37" y="120" width="462.9" height="60"/>
+        <line class="s-axis" x1="70" y1="150" x2="730" y2="150"/>
+        <line class="s-grid" x1="70" y1="146" x2="70" y2="154"/>
+        <text class="s-txt-sm" x="70" y="172" text-anchor="middle">800</text>
+        <line class="s-grid" x1="730" y1="146" x2="730" y2="154"/>
+        <text class="s-txt-sm" x="730" y="172" text-anchor="middle">2700</text>
+        <line x1="114.37" y1="118" x2="114.37" y2="182" stroke="var(--burgundy-deep)" stroke-width="2.6"/>
+        <line x1="577.27" y1="118" x2="577.27" y2="182" stroke="var(--burgundy-deep)" stroke-width="2.6"/>
+        <line x1="345.81" y1="106" x2="345.81" y2="194" stroke="var(--gold-deep)" stroke-width="2.6" stroke-dasharray="5 3"/>
+        <circle cx="345.81" cy="150" r="5" fill="var(--gold-deep)"/>
+        <text class="s-txt-b" x="114.37" y="205" text-anchor="middle" fill="var(--burgundy)">927,75</text>
+        <text class="s-txt-b" x="577.27" y="205" text-anchor="middle" fill="var(--burgundy)">2260,25</text>
+        <text class="s-txt-b" x="345.81" y="98" text-anchor="middle" fill="var(--gold-deep)">x̄ = 1594</text>
+        <line x1="343" y1="135" x2="121" y2="135" stroke="var(--teal)" stroke-width="1.8" marker-end="url(#arr)"/>
+        <line x1="348" y1="135" x2="570" y2="135" stroke="var(--teal)" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text class="s-txt-sm" x="230" y="128" text-anchor="middle" fill="var(--teal)">k·s ≈ 666,25</text>
+        <text class="s-txt-sm" x="461" y="128" text-anchor="middle" fill="var(--teal)">k·s ≈ 666,25</text>
+        <text class="s-txt-b" x="345.81" y="167" text-anchor="middle" fill="var(--burgundy)">al menos el 72% de los clientes</text>
+      </svg>
+      <div class="fig-cap">El intervalo se construye dando \(k\cdot s\) pasos a cada
+      lado de la media. Es simétrico por construcción: la media queda exactamente en
+      el centro.</div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p><strong>Al menos el 72%</strong> de los clientes de la muestra de CMAC
+      Tacna realiza inversiones mensuales entre <strong>US$ 927,75</strong> y
+      <strong>US$ 2 260,25</strong>. Este intervalo es simétrico respecto del
+      promedio (US$ 1 594) y el resultado es válido cualquiera sea la forma de la
+      distribución. "Al menos" significa que el porcentaje real podría ser mayor,
+      pero nunca menor del 72%.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 1b</div>
+      <ul class="clean">
+        <li>Nombra explícitamente el <strong>Teorema de Chebyshev</strong> como
+        argumento teórico.</li>
+        <li>Muestra el despeje de \(k\) paso a paso.</li>
+        <li>Escribe el intervalo en la forma \([\bar{x}-ks,\ \bar{x}+ks]\) y luego
+        con números.</li>
+        <li>Interpreta usando la palabra <strong>"al menos"</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 1c ===================== -->
+  <section class="section" id="p1c">
+    <h2>Apartado 1c · Percentil 75</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>c)</strong> La microempresaria Milagros Ruiz es cliente de una de
+      las CMAC mencionadas y ha realizado una inversión mensual de
+      <strong>1580 dólares</strong>. Si dicha inversión <strong>no supera el
+      percentil 75</strong>, ¿de qué CMAC es cliente Milagros Ruiz?
+      <strong>(2p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Entender la lógica del problema</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>¿Qué hay que hacer y por qué?</div>
+      <p>La pista clave es <strong>"percentil 75"</strong>. La estrategia:</p>
+      <ol class="steps">
+        <li>Calcular el <strong>percentil 75</strong> de <u>cada</u> caja (Ica y
+        Tacna).</li>
+        <li>"No supera el percentil 75" significa
+        <span class="mono">1580 ≤ P₇₅</span>.</li>
+        <li>Milagros es cliente de la caja donde se <u>cumpla</u> esa condición. Si
+        en una caja su inversión la supera, queda descartada.</li>
+      </ol>
+      <div class="why"><b>Idea de fondo:</b> es un problema de <em>descarte lógico</em>.
+      No sabemos de qué caja es; lo deducimos viendo en cuál de las dos su inversión
+      de 1580 es consistente con "no superar P₇₅".</div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>¿Qué es un percentil? La fórmula para datos agrupados</div>
+      <p>El <strong>percentil k</strong>, \(P_k\), es el valor que deja por debajo
+      al \(k\%\) de los datos. \(P_{75}\) deja por debajo al 75% (es el tercer
+      cuartil \(Q_3\)). Para datos agrupados:</p>
+      <div class="formula key">
+        \[ P_k=L_i+A\cdot\dfrac{\dfrac{k\cdot n}{100}-F_{i-1}}{f_i} \]
+      </div>
+      <p><strong>Simbología:</strong></p>
+      <ul class="clean">
+        <li><span class="mono">k·n/100</span> = la <em>posición</em> (rango) del
+        dato que buscamos. Para \(P_{75}\): el 75% de \(n\).</li>
+        <li><strong>Clase percentílica</strong> = la primera clase cuya frecuencia
+        acumulada \(F_i\) <u>alcanza o supera</u> esa posición.</li>
+        <li><span class="mono">L<sub>i</sub></span> = límite inferior de esa clase.</li>
+        <li><span class="mono">A</span> = amplitud de esa clase.</li>
+        <li><span class="mono">F<sub>i−1</sub></span> = frecuencia acumulada
+        <u>de la clase anterior</u> (cuántos datos ya quedaron atrás).</li>
+        <li><span class="mono">f<sub>i</sub></span> = frecuencia de la clase
+        percentílica.</li>
+      </ul>
+    </div>
+
+    <div class="box box-demo">
+      <div class="box-title"><span class="ic">∴</span>De dónde sale la fórmula (interpolación lineal)</div>
+      <p>La idea es <strong>interpolar</strong>, suponiendo que dentro de la clase
+      percentílica los datos se reparten de forma uniforme a lo ancho del intervalo.</p>
+      <p>Al llegar a la clase percentílica, ya quedaron atrás \(F_{i-1}\) datos.
+      Necesitamos avanzar hasta la posición \(k n/100\), es decir,
+      \(\left(\dfrac{kn}{100}-F_{i-1}\right)\) datos <em>más</em>, de los \(f_i\) que
+      hay en la clase. Si se reparten uniformemente en el ancho \(A\), avanzamos esa
+      <strong>fracción</strong> del intervalo:</p>
+      <div class="formula">
+        \[ \text{fracción avanzada}=\dfrac{\frac{kn}{100}-F_{i-1}}{f_i}
+           \quad\Longrightarrow\quad
+           P_k=L_i+A\cdot(\text{fracción}) \]
+      </div>
+      <p>Es la misma lógica geométrica de la moda: partir de un límite inferior y
+      avanzar una proporción del ancho.</p>
+    </div>
+
+    <h3>Cálculo del P₇₅ de CMAC Tacna</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Posición del percentil</div>
+      <div class="formula">\[ \dfrac{75\cdot n}{100}=\dfrac{75\cdot 1000}{100}=750 \]</div>
+      <p>Buscamos el dato que ocupa la posición 750 de 1000.</p>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Identificar la clase percentílica</div>
+      <p>Recorremos las frecuencias acumuladas de Tacna: 100, 300,
+      <strong>780</strong>, 880, 960, 1000. La primera que alcanza 750 es
+      <strong>780</strong> → clase <span class="mono">[1450 – 1750)</span>.</p>
+      <div class="why"><b>Por qué esa:</b> antes de [1450–1750) solo había 300
+      clientes; al terminar [1450–1750) ya hay 780. La posición 750 cae, por tanto,
+      <u>dentro</u> de esa clase.</div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Leer valores y sustituir</div>
+      <ul class="clean">
+        <li><span class="mono">L<sub>i</sub> = 1450</span></li>
+        <li><span class="mono">A = 300</span> (amplitud de Tacna)</li>
+        <li><span class="mono">F<sub>i−1</sub> = 300</span> (acumulada de la clase anterior)</li>
+        <li><span class="mono">f<sub>i</sub> = 480</span></li>
+      </ul>
+      <div class="formula">
+        \[ P_{75}=1450+300\cdot\dfrac{750-300}{480}
+                 =1450+300\cdot\dfrac{450}{480} \]
+      </div>
+      <div class="formula">
+        \[ P_{75}=1450+300\cdot 0{,}9375=1450+281{,}25=1731{,}25 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P75</div>
+      <div class="r-text">
+        <div class="r-lbl">Percentil 75 · CMAC Tacna</div>
+        <div class="r-val">P₇₅(Tacna) = <b>US$ 1 731,25</b></div>
+      </div>
+    </div>
+
+    <h3>Cálculo del P₇₅ de CMAC Ica</h3>
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Aquí cambia la amplitud</div>
+      <p>Ica usa <span class="mono">A = 200</span> (no 300) y
+      <span class="mono">n = 800</span> (no 1000). Hay que recalcular todo con los
+      datos de Ica.</p>
+    </div>
+
+    <p>Frecuencias acumuladas de Ica: 120, 520, 680, 760, 792, 800.</p>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Posición del percentil</div>
+      <div class="formula">\[ \dfrac{75\cdot 800}{100}=600 \]</div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Clase percentílica</div>
+      <p>Acumuladas: 120, 520, <strong>680</strong>, … La primera que alcanza 600 es
+      <strong>680</strong> → clase <span class="mono">[1450 – 1650)</span>.</p>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Sustituir</div>
+      <ul class="clean">
+        <li><span class="mono">L<sub>i</sub> = 1450</span>,
+        <span class="mono">A = 200</span>,
+        <span class="mono">F<sub>i−1</sub> = 520</span>,
+        <span class="mono">f<sub>i</sub> = 160</span></li>
+      </ul>
+      <div class="formula">
+        \[ P_{75}=1450+200\cdot\dfrac{600-520}{160}
+                 =1450+200\cdot\dfrac{80}{160} \]
+      </div>
+      <div class="formula">
+        \[ P_{75}=1450+200\cdot 0{,}5=1450+100=1550 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P75</div>
+      <div class="r-text">
+        <div class="r-lbl">Percentil 75 · CMAC Ica</div>
+        <div class="r-val">P₇₅(Ica) = <b>US$ 1 550</b></div>
+      </div>
+    </div>
+
+    <h3>Decisión final — ¿de qué caja es Milagros?</h3>
+    <div class="figure">
+      <div class="fig-title">La inversión de Milagros (1580) frente a cada P₇₅</div>
+      <svg viewBox="0 0 780 300" role="img" aria-label="Comparación de percentiles">
+        <!-- ICA -->
+        <text class="s-txt-b" x="70" y="58" fill="var(--blue)">CMAC Ica</text>
+        <rect class="s-fill-soft" x="330.53" y="78" width="243.15" height="24"/>
+        <line class="s-axis" x1="156.84" y1="90" x2="573.68" y2="90"/>
+        <line x1="156.84" y1="84" x2="156.84" y2="96" stroke="var(--ink-faint)" stroke-width="1.6"/>
+        <text class="s-txt-sm" x="156.84" y="116" text-anchor="middle">1050</text>
+        <line x1="573.68" y1="84" x2="573.68" y2="96" stroke="var(--ink-faint)" stroke-width="1.6"/>
+        <text class="s-txt-sm" x="573.68" y="116" text-anchor="middle">2250</text>
+        <line x1="330.53" y1="70" x2="330.53" y2="110" stroke="var(--gold-deep)" stroke-width="2.6"/>
+        <text class="s-txt-sm" x="330.53" y="64" text-anchor="middle" fill="var(--gold-deep)">P₇₅ = 1550</text>
+        <circle cx="340.95" cy="90" r="6" fill="var(--burgundy)" stroke="var(--bg)" stroke-width="1.5"/>
+        <text class="s-txt-sm" x="340.95" y="138" text-anchor="middle" fill="var(--burgundy)">1580</text>
+        <text class="s-txt-sm" x="420" y="138" text-anchor="start" fill="var(--red)">1580 &gt; 1550 → SÍ supera P₇₅ ✗</text>
+        <!-- TACNA -->
+        <text class="s-txt-b" x="70" y="198" fill="var(--teal)">CMAC Tacna</text>
+        <rect class="s-fill-soft2" x="393.49" y="218" width="319.14" height="24"/>
+        <line class="s-axis" x1="87.37" y1="230" x2="712.63" y2="230"/>
+        <line x1="87.37" y1="224" x2="87.37" y2="236" stroke="var(--ink-faint)" stroke-width="1.6"/>
+        <text class="s-txt-sm" x="87.37" y="256" text-anchor="middle">850</text>
+        <line x1="712.63" y1="224" x2="712.63" y2="236" stroke="var(--ink-faint)" stroke-width="1.6"/>
+        <text class="s-txt-sm" x="712.63" y="256" text-anchor="middle">2650</text>
+        <line x1="393.49" y1="210" x2="393.49" y2="250" stroke="var(--gold-deep)" stroke-width="2.6"/>
+        <text class="s-txt-sm" x="393.49" y="204" text-anchor="middle" fill="var(--gold-deep)">P₇₅ = 1731,25</text>
+        <circle cx="340.95" cy="230" r="6" fill="var(--burgundy)" stroke="var(--bg)" stroke-width="1.5"/>
+        <text class="s-txt-sm" x="340.95" y="278" text-anchor="middle" fill="var(--burgundy)">1580</text>
+        <text class="s-txt-sm" x="420" y="278" text-anchor="start" fill="var(--green)">1580 &lt; 1731,25 → NO supera P₇₅ ✓</text>
+      </svg>
+      <div class="fig-cap">El punto rojo (1580) es la inversión de Milagros. La línea
+      dorada es P₇₅. En Ica, 1580 cae a la derecha de P₇₅ (lo supera); en Tacna, cae
+      a la izquierda (no lo supera).</div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Aplicar la condición del enunciado</div>
+      <p>La condición es: la inversión de Milagros <strong>no supera</strong> el
+      P₇₅, es decir <span class="mono">1580 ≤ P₇₅</span>. Probamos en cada caja:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Caja</th><th>P₇₅</th><th>¿1580 ≤ P₇₅?</th><th>¿Consistente?</th></tr></thead>
+          <tbody>
+            <tr><td class="lab">CMAC Ica</td><td class="mono">1550</td>
+              <td>1580 ≤ 1550 → <strong style="color:var(--red)">FALSO</strong></td>
+              <td style="color:var(--red)">No — la supera</td></tr>
+            <tr class="row-hl"><td class="lab">CMAC Tacna</td><td class="mono">1731,25</td>
+              <td>1580 ≤ 1731,25 → <strong style="color:var(--green)">VERDADERO</strong></td>
+              <td style="color:var(--green)">Sí — no la supera</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">✓</div>
+      <div class="r-text">
+        <div class="r-lbl">Conclusión · Apartado 1c</div>
+        <div class="r-val">Milagros Ruiz es cliente de <b>CMAC Tacna</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>Si Milagros fuera de <strong>CMAC Ica</strong>, su inversión de 1 580
+      dólares <em>superaría</em> el P₇₅ de Ica (1 550): estaría entre el 25% que más
+      invierte. Eso contradice el enunciado. En cambio, en <strong>CMAC Tacna</strong>
+      el P₇₅ es 1 731,25, así que 1 580 <em>no</em> lo supera: queda dentro del 75%
+      inferior, lo cual sí es consistente. Por descarte lógico, Milagros es clienta
+      de <strong>CMAC Tacna</strong>.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 1c (vale 2 p)</div>
+      <ul class="clean">
+        <li>Debes calcular <strong>los dos</strong> percentiles (Ica y Tacna), no
+        solo uno: la comparación es el corazón del problema.</li>
+        <li>Cuida usar <span class="mono">A = 200, n = 800</span> en Ica y
+        <span class="mono">A = 300, n = 1000</span> en Tacna.</li>
+        <li>Explica el razonamiento de descarte: por qué Ica queda eliminada.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== APARTADO 1d ===================== -->
+  <section class="section" id="p1d">
+    <h2>Apartado 1d · Dispersión del 25% superior</h2>
+    <div class="enunciado">
+      <div class="lbl">Enunciado tal como aparece en el examen</div>
+      <p><strong>d)</strong> Responda expresándose adecuadamente y sustentando:
+      ¿en qué CMAC se encuentra <strong>más disperso el 25% superior</strong> de las
+      inversiones mensuales? <strong>(1p)</strong></p>
+    </div>
+
+    <h3>Paso 0 — Entender qué es "el 25% superior"</h3>
+    <div class="box box-identifica">
+      <div class="box-title"><span class="ic">?</span>Traducir el enunciado a estadística</div>
+      <p>El <strong>"25% superior"</strong> son los clientes que más invierten: los
+      que están <u>por encima</u> del percentil 75. Es decir, el tramo de datos que
+      va desde <span class="mono">P₇₅</span> hasta el <strong>valor máximo</strong>.</p>
+      <p><strong>"Más disperso"</strong> = más esparcido, ocupa un rango de dólares
+      más ancho. Como ese tramo contiene <em>la misma proporción</em> de clientes en
+      ambas cajas (25%), la forma natural de medir su dispersión es la
+      <strong>amplitud (rango) del tramo</strong>:</p>
+      <div class="formula key">
+        \[ \text{Amplitud del 25\% superior}=x_{\max}-P_{75} \]
+      </div>
+      <div class="why"><b>La lógica:</b> si el mismo 25% de clientes se reparte en
+      un rango de dólares más ancho, está <u>más disperso</u>. Si se aprieta en un
+      rango angosto, está más concentrado.</div>
+    </div>
+
+    <div class="box box-teoria">
+      <div class="box-title"><span class="ic">T</span>Los datos que ya tenemos</div>
+      <p>Este apartado <strong>reutiliza</strong> los percentiles de 1c. Solo falta
+      el valor máximo de cada caja, que es el límite superior del último intervalo:</p>
+      <ul class="clean">
+        <li><strong>CMAC Ica:</strong> P₇₅ = 1 550 (de 1c); máximo = 2 250 (último
+        intervalo cierra en 2250).</li>
+        <li><strong>CMAC Tacna:</strong> P₇₅ = 1 731,25 (de 1c); máximo = 2 650.</li>
+      </ul>
+    </div>
+
+    <h3>Desarrollo</h3>
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Amplitud del 25% superior — CMAC Ica</div>
+      <div class="formula">\[ A_{\text{sup}}^{\,Ica}=2250-1550=700 \]</div>
+      <p>El 25% de clientes de Ica que más invierte se reparte en un rango de
+      <strong>700 dólares</strong>.</p>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Amplitud del 25% superior — CMAC Tacna</div>
+      <div class="formula">\[ A_{\text{sup}}^{\,Tacna}=2650-1731{,}25=918{,}75 \]</div>
+      <p>El 25% de clientes de Tacna que más invierte se reparte en un rango de
+      <strong>918,75 dólares</strong>.</p>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Comparar</div>
+      <div class="formula">\[ 918{,}75\;(\text{Tacna})\;>\;700\;(\text{Ica}) \]</div>
+      <p>El mismo 25% de clientes ocupa un rango de dólares más ancho en Tacna.</p>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">Comparación del 25% superior en ambas cajas (misma escala)</div>
+      <svg viewBox="0 0 780 270" role="img" aria-label="Comparación de dispersión del 25% superior">
+        <!-- escala de referencia -->
+        <line class="s-grid" x1="87.37" y1="40" x2="712.63" y2="40"/>
+        <text class="s-txt-sm" x="87.37" y="32" text-anchor="middle">1000</text>
+        <text class="s-txt-sm" x="400" y="32" text-anchor="middle">US$</text>
+        <text class="s-txt-sm" x="712.63" y="32" text-anchor="middle">2700</text>
+        <!-- ICA -->
+        <text class="s-txt-b" x="70" y="100" fill="var(--blue)">CMAC Ica</text>
+        <rect x="330.53" y="80" width="243.15" height="36" fill="var(--blue)" opacity="0.85" rx="4"/>
+        <line x1="330.53" y1="72" x2="330.53" y2="124" stroke="var(--gold-deep)" stroke-width="2.4"/>
+        <text class="s-txt-sm" x="330.53" y="66" text-anchor="middle" fill="var(--gold-deep)">P₇₅ = 1550</text>
+        <text class="s-txt-sm" x="573.68" y="66" text-anchor="middle" fill="var(--ink-faint)">máx = 2250</text>
+        <text class="s-txt-b" x="452" y="103" text-anchor="middle" fill="var(--bg)">amplitud = 700</text>
+        <!-- TACNA -->
+        <text class="s-txt-b" x="70" y="190" fill="var(--teal)">CMAC Tacna</text>
+        <rect x="393.49" y="170" width="319.14" height="36" fill="var(--teal)" opacity="0.85" rx="4"/>
+        <line x1="393.49" y1="162" x2="393.49" y2="214" stroke="var(--gold-deep)" stroke-width="2.4"/>
+        <text class="s-txt-sm" x="393.49" y="156" text-anchor="middle" fill="var(--gold-deep)">P₇₅ = 1731,25</text>
+        <text class="s-txt-sm" x="712.63" y="156" text-anchor="middle" fill="var(--ink-faint)">máx = 2650</text>
+        <text class="s-txt-b" x="553" y="193" text-anchor="middle" fill="var(--bg)">amplitud = 918,75</text>
+        <!-- nota -->
+        <text class="s-txt" x="390" y="252" text-anchor="middle" fill="var(--burgundy)">La barra de Tacna es visiblemente más ancha → su 25% superior está más disperso</text>
+      </svg>
+      <div class="fig-cap">Ambas barras representan al 25% de clientes que más
+      invierte, dibujadas a la misma escala de dólares. La de Tacna es más larga:
+      ese 25% ocupa más rango → mayor dispersión.</div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">✓</div>
+      <div class="r-text">
+        <div class="r-lbl">Conclusión · Apartado 1d</div>
+        <div class="r-val">El 25% superior es más disperso en <b>CMAC Tacna</b></div>
+      </div>
+    </div>
+
+    <div class="box box-interpreta">
+      <div class="box-title"><span class="ic">»</span>Interpretación en términos del problema</div>
+      <p>En ambas cajas, el "25% superior" agrupa a la misma <em>proporción</em> de
+      clientes (los que más invierten). Pero en <strong>CMAC Tacna</strong> ese
+      grupo se reparte en un rango de <strong>918,75 dólares</strong>, mientras que
+      en <strong>CMAC Ica</strong> se reparte en solo <strong>700 dólares</strong>.
+      Por lo tanto, <strong>el 25% de clientes con mayores inversiones es más
+      heterogéneo (más disperso) en CMAC Tacna</strong>: entre esos clientes "de
+      inversión alta" hay diferencias más grandes de unos a otros que en Ica.</p>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>Error frecuente</div>
+      <p>No confundir "25% superior" con "el último intervalo de la tabla". El 25%
+      superior <u>empieza en P₇₅</u> (un valor calculado), no en el límite de una
+      clase. Y no es la desviación estándar global de toda la caja: aquí solo
+      interesa el tramo alto.</p>
+    </div>
+
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Para no perder puntos en 1d</div>
+      <ul class="clean">
+        <li>Define qué es "el 25% superior": el tramo \([P_{75},\ x_{\max}]\).</li>
+        <li>Muestra las dos amplitudes y compáralas con números.</li>
+        <li>"Expresándose adecuadamente" (lo pide el enunciado): redacta una
+        conclusión clara en términos de clientes e inversiones.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CORRECTOR ===================== -->
+  <section class="section" id="corrector">
+    <h2>Lo que el corrector exige — checklist global</h2>
+    <p>Las instrucciones del examen son explícitas: penalizan no mostrar
+    procedimiento. Repasa esta lista antes de entregar la Pregunta 1:</p>
+    <div class="box box-corrector">
+      <div class="box-title"><span class="ic">✓</span>Checklist de presentación</div>
+      <ul class="clean">
+        <li><strong>Simbología definida:</strong> antes de cada fórmula, escribe qué
+        es cada letra (\(L_i, A, d_1, d_2, F_{i-1}, f_i, k, \bar{x}, s, n\)).</li>
+        <li><strong>Cálculos visibles:</strong> tablas de marcas de clase, de
+        \(f_ix_i\), de desviaciones, de frecuencias acumuladas. Sin ellas, "se
+        invalidará la respuesta aún sea correcta".</li>
+        <li><strong>Fórmula antes de números:</strong> escribe la fórmula general,
+        luego sustituye.</li>
+        <li><strong>Argumento teórico nombrado:</strong> en 1b di explícitamente
+        "Teorema de Chebyshev".</li>
+        <li><strong>Amplitud correcta:</strong> \(A=300\) para Tacna, \(A=200\) para
+        Ica. Revísalo en cada apartado.</li>
+        <li><strong>Interpretación final:</strong> cada apartado pide interpretar
+        "en términos del problema" — cierra siempre con una frase sobre clientes,
+        inversiones y la CMAC correspondiente.</li>
+        <li><strong>Apartado rotulado:</strong> escribe claramente "a)", "b)", "c)",
+        "d)" — el examen invalida desarrollos no identificados.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== SÍNTESIS ===================== -->
+  <section class="section" id="sintesis">
+    <h2>Síntesis de respuestas — Pregunta 1</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Resultado</th><th>Idea en una línea</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">1a</span></td>
+            <td class="lab">Moda ≈ <span class="mono">US$ 1 577,27</span><br>
+              Desv. estándar ≈ <span class="mono">US$ 352,55</span><br>
+              (media = <span class="mono">US$ 1 594</span>)</td>
+            <td>El valor más típico de inversión ronda 1 577; las inversiones se
+              alejan ~352,55 del promedio.</td></tr>
+          <tr><td><span class="tag-q">1b</span></td>
+            <td class="lab">Intervalo <span class="mono">[927,75 ; 2260,25]</span></td>
+            <td>Por Chebyshev (k ≈ 1,8898), al menos el 72% de clientes invierte en
+              ese rango simétrico.</td></tr>
+          <tr><td><span class="tag-q">1c</span></td>
+            <td class="lab">Milagros es de <strong>CMAC Tacna</strong><br>
+              P₇₅(Ica)=1 550 · P₇₅(Tacna)=1 731,25</td>
+            <td>1 580 superaría el P₇₅ de Ica pero no el de Tacna → debe ser de
+              Tacna.</td></tr>
+          <tr><td><span class="tag-q">1d</span></td>
+            <td class="lab">Más disperso en <strong>CMAC Tacna</strong><br>
+              Amplitud sup.: Ica 700 · Tacna 918,75</td>
+            <td>El 25% que más invierte ocupa un rango de dólares más ancho en
+              Tacna.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-final">
+      <h4 style="margin-top:0">Cómo encajan los cuatro apartados</h4>
+      <p>Esta pregunta enseña que la estadística descriptiva es un conjunto de
+      <em>lentes</em> distintos para mirar los mismos datos:</p>
+      <ul class="clean">
+        <li><strong>1a</strong> mira el <em>centro</em> (moda) y el <em>esparcimiento
+        global</em> (desviación estándar).</li>
+        <li><strong>1b</strong> usa un <em>teorema universal</em> (Chebyshev) para
+        garantizar dónde está la mayoría de los datos, sin suponer forma.</li>
+        <li><strong>1c</strong> usa la <em>posición relativa</em> (percentiles) para
+        ubicar un dato concreto dentro del conjunto.</li>
+        <li><strong>1d</strong> combina lo anterior para comparar la <em>dispersión
+        de una porción específica</em> (el cuartil superior) entre dos grupos.</li>
+      </ul>
+      <p style="margin-bottom:0">La <strong>media</strong> calculada en 1a alimentó
+      a 1b; el <strong>percentil 75</strong> de 1c alimentó a 1d. Resolver en orden
+      no es solo prolijo: es eficiente.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+/* ===== TEMA CLARO / OSCURO ===== */
+(function(){
+  var root=document.documentElement,
+      tBtn=document.getElementById('themeToggle'),
+      tLbl=document.getElementById('themeLabel');
+  var saved=null;
+  try{saved=localStorage.getItem('est1-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function refresh(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    tLbl.textContent=dark?'Modo claro':'Modo oscuro';
+  }
+  refresh();
+  tBtn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var next=dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('est1-theme',next);}catch(e){}
+    refresh();
+  });
+})();
+
+/* ===== PANEL DE NAVEGACIÓN ===== */
+(function(){
+  var nBtn=document.getElementById('navToggle'),
+      nLbl=document.getElementById('navLabel'),
+      body=document.body;
+  var saved=null;
+  try{saved=localStorage.getItem('est1-nav');}catch(e){}
+  if(saved==='collapsed'){body.classList.add('nav-collapsed');}
+  function refresh(){
+    var hidden=body.classList.contains('nav-collapsed');
+    nLbl.textContent=hidden?'Mostrar panel':'Ocultar panel';
+  }
+  refresh();
+  nBtn.addEventListener('click',function(){
+    body.classList.toggle('nav-collapsed');
+    var hidden=body.classList.contains('nav-collapsed');
+    try{localStorage.setItem('est1-nav',hidden?'collapsed':'open');}catch(e){}
+    refresh();
+  });
+})();
+
+/* ===== RESALTADO DE SECCIÓN ACTIVA ===== */
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sidebar a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)map[id]=a;
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var a=map[en.target.id];
+        if(a){a.classList.add('active');}
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+
+/* ===== KATEX ===== */
+window.addEventListener('load',function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'\\[',right:'\\]',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>

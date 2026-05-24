@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparación con la solución oficial · Examen Parcial</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+  --bg:#13171e;--bg-2:#1a202a;--surface:#212a36;--surface-2:#283342;--surface-3:#2f3b4c;
+  --ink:#ecebe3;--ink-soft:#b6b8b0;--ink-faint:#838d99;--line:#36404e;--line-soft:#2a3340;
+  --burgundy:#e58f99;--burgundy-deep:#cf6e7c;--gold:#e3bd72;--gold-deep:#caa356;
+  --teal:#6fbab4;--blue:#8cb0d8;--green:#86c08e;--red:#e8908a;
+  --shadow:rgba(0,0,0,.45);--code-bg:#1b232e;--hl:rgba(227,189,114,.13);
+}
+[data-theme="light"]{
+  --bg:#f1ece0;--bg-2:#f8f4e9;--surface:#fffdf6;--surface-2:#f3ecdb;--surface-3:#ebe3cf;
+  --ink:#222a37;--ink-soft:#525c6a;--ink-faint:#8a93a0;--line:#ddd3bd;--line-soft:#e6ddc8;
+  --burgundy:#8c2f3c;--burgundy-deep:#6f2330;--gold:#9a7320;--gold-deep:#7e5e16;
+  --teal:#2c7873;--blue:#2c5680;--green:#3c7a44;--red:#b23b2f;
+  --shadow:rgba(60,45,30,.13);--code-bg:#f3ecda;--hl:rgba(154,115,32,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:310px;flex-shrink:0;background:var(--bg-2);border-right:1px solid var(--line);
+  height:100vh;position:sticky;top:0;overflow-y:auto;padding:26px 20px 60px;
+  transition:margin-left .28s ease;}
+.sidebar::-webkit-scrollbar{width:9px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.sidebar h2{font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:var(--burgundy);
+  font-weight:700;margin-bottom:3px;line-height:1.2;}
+.sidebar .sub{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;
+  letter-spacing:.13em;margin-bottom:22px}
+.nav-group{margin-bottom:10px}
+.nav-group-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);font-weight:700;margin:14px 0 6px;padding-left:10px;}
+.sidebar a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  padding:7px 11px;border-radius:7px;border-left:2.5px solid transparent;transition:all .15s ease;}
+.sidebar a:hover{background:var(--surface);color:var(--ink)}
+.sidebar a.active{background:var(--surface-2);color:var(--burgundy);
+  border-left-color:var(--burgundy);font-weight:600;}
+.sidebar a.child{font-size:.86rem;padding-left:24px;color:var(--ink-faint)}
+.sidebar a.child:hover,.sidebar a.child.active{color:var(--ink)}
+body.nav-collapsed .sidebar{margin-left:-311px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:11px 30px;}
+.topbar .crumb{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.16rem;
+  color:var(--ink);flex:1;}
+.topbar .crumb b{color:var(--burgundy)}
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:8px 13px;
+  font-family:'Karla',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;
+  transition:all .15s ease;white-space:nowrap;}
+.btn:hover{background:var(--surface-2);color:var(--ink);border-color:var(--burgundy)}
+.btn svg{width:16px;height:16px}
+.content{max-width:980px;margin:0 auto;width:100%;padding:38px 40px 120px;
+  transition:max-width .28s ease;}
+body.nav-collapsed .content{max-width:1200px}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;
+  line-height:1.12;color:var(--ink);margin-bottom:6px;}
+.doc-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);
+  border-radius:30px;padding:4px 14px;margin-bottom:18px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  color:var(--burgundy);margin:8px 0 6px;line-height:1.18;}
+h3{font-family:'Karla',sans-serif;font-size:1.22rem;font-weight:700;color:var(--ink);
+  margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+h4{font-size:1.04rem;font-weight:700;color:var(--gold-deep);margin:20px 0 7px}
+p{margin:11px 0}
+strong{color:var(--ink);font-weight:700}
+em{color:var(--burgundy);font-style:italic}
+.section{margin:50px 0;padding-top:14px;border-top:1px dashed var(--line);}
+.section:first-of-type{border-top:none}
+.box{border-radius:12px;padding:17px 21px;margin:18px 0;border:1px solid var(--line);
+  background:var(--surface);}
+.box .box-title{font-weight:700;font-size:.97rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;}
+.box .box-title .ic{width:25px;height:25px;border-radius:7px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;}
+.box-teoria{border-left:4px solid var(--blue)}
+.box-teoria .ic{background:var(--blue);color:var(--bg)}.box-teoria .box-title{color:var(--blue)}
+.box-intuicion{border-left:4px solid var(--teal)}
+.box-intuicion .ic{background:var(--teal);color:var(--bg)}.box-intuicion .box-title{color:var(--teal)}
+.box-prof{border-left:4px solid var(--green)}
+.box-prof .ic{background:var(--green);color:var(--bg)}.box-prof .box-title{color:var(--green)}
+.box-ojo{border-left:4px solid var(--red)}
+.box-ojo .ic{background:var(--red);color:var(--bg)}.box-ojo .box-title{color:var(--red)}
+.box-interpreta{border-left:4px solid var(--burgundy);
+  background:linear-gradient(180deg,var(--hl),transparent);}
+.box-interpreta .ic{background:var(--burgundy);color:var(--bg)}.box-interpreta .box-title{color:var(--burgundy)}
+.box-clave{border-left:4px solid var(--gold);background:var(--code-bg)}
+.box-clave .ic{background:var(--gold);color:var(--bg)}.box-clave .box-title{color:var(--gold-deep)}
+.step{display:flex;gap:15px;margin:16px 0;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;}
+.step .num{flex-shrink:0;width:33px;height:33px;border-radius:9px;background:var(--burgundy);
+  color:var(--bg);font-weight:800;font-size:1.02rem;display:flex;align-items:center;
+  justify-content:center;font-family:'JetBrains Mono',monospace;}
+.step .step-body{flex:1;min-width:0}
+.step .step-body .st-title{font-weight:700;color:var(--ink);margin-bottom:3px}
+.step .step-body p:first-child{margin-top:0}.step .step-body p:last-child{margin-bottom:0}
+.why{font-size:.93rem;color:var(--ink-soft);background:var(--bg-2);border-radius:8px;
+  padding:9px 13px;margin:9px 0;border-left:3px solid var(--gold);}
+.why b{color:var(--gold-deep)}
+.formula{background:var(--code-bg);border:1px solid var(--line);border-radius:11px;
+  padding:16px 20px;margin:15px 0;overflow-x:auto;text-align:center;}
+.formula.key{border-color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy) inset;}
+.result{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1.5px solid var(--burgundy);border-radius:12px;padding:15px 22px;margin:18px 0;
+  display:flex;align-items:center;gap:14px;}
+.result .r-ic{width:42px;height:42px;border-radius:10px;flex-shrink:0;background:var(--burgundy);
+  color:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.result .r-text{flex:1}
+.result .r-text .r-lbl{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-faint);font-weight:700}
+.result .r-text .r-val{font-size:1.1rem;font-weight:700;color:var(--ink)}
+.result .r-text .r-val b{color:var(--burgundy);font-family:'JetBrains Mono',monospace}
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:11px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 12px;text-align:center;border:1px solid var(--line)}
+thead th{background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.83rem;}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody tr:hover{background:var(--surface)}
+td.lab{text-align:left;font-weight:600}
+.row-hl{background:var(--hl)!important}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.9em}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 18px 12px;margin:22px 0;}
+.figure svg{display:block;width:100%;height:auto}
+.figure .fig-cap{font-size:.85rem;color:var(--ink-faint);text-align:center;
+  margin-top:8px;font-style:italic;}
+.figure .fig-title{font-size:.92rem;font-weight:700;color:var(--gold-deep);
+  text-align:center;margin-bottom:6px;}
+.s-txt{fill:var(--ink-soft);font-family:'Karla',sans-serif;font-size:13px}
+.s-txt-sm{fill:var(--ink-faint);font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.s-txt-b{fill:var(--ink);font-family:'Karla',sans-serif;font-size:14px;font-weight:700}
+ul.clean{list-style:none;margin:11px 0}
+ul.clean li{padding:5px 0 5px 26px;position:relative}
+ul.clean li::before{content:"▸";position:absolute;left:4px;color:var(--burgundy);font-weight:700;}
+ol.steps{margin:11px 0 11px 22px}
+ol.steps li{padding:4px 0;margin-left:6px}
+.tag-q{display:inline-block;background:var(--burgundy);color:var(--bg);font-weight:700;
+  font-size:.8rem;padding:2px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+kbd{font-family:'JetBrains Mono',monospace;font-size:.84em;background:var(--code-bg);
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+.callout-final{background:linear-gradient(135deg,var(--surface-2),var(--surface));
+  border:1px solid var(--burgundy);border-radius:14px;padding:24px 26px;margin:26px 0;}
+/* === COMPARACIÓN === */
+.compare{display:flex;gap:16px;flex-wrap:wrap;margin:18px 0}
+.compare-col{flex:1;min-width:290px;border-radius:12px;padding:15px 18px;
+  border:1px solid var(--line);background:var(--surface);}
+.compare-col .cc-head{font-size:.78rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.compare-col .cc-head .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.col-prof{border-left:4px solid var(--green)}
+.col-prof .cc-head{color:var(--green)}.col-prof .cc-head .dot{background:var(--green)}
+.col-study{border-left:4px solid var(--blue)}
+.col-study .cc-head{color:var(--blue)}.col-study .cc-head .dot{background:var(--blue)}
+.badge{display:inline-block;font-size:.76rem;font-weight:700;padding:3px 11px;
+  border-radius:20px;font-family:'Karla',sans-serif;}
+.b-ok{background:var(--green);color:var(--bg)}
+.b-warn{background:var(--gold);color:var(--bg)}
+.b-diff{background:var(--burgundy);color:var(--bg)}
+.verdict{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:11px;
+  margin:16px 0;font-weight:600;}
+.v-ok{background:color-mix(in srgb,var(--green) 16%,transparent);border:1px solid var(--green)}
+.v-warn{background:color-mix(in srgb,var(--gold) 16%,transparent);border:1px solid var(--gold)}
+.v-diff{background:color-mix(in srgb,var(--burgundy) 16%,transparent);border:1px solid var(--burgundy)}
+@media print{
+  .sidebar,.topbar{display:none!important}
+  body{background:#fff;color:#1a1a1a;font-size:11pt}
+  .content{max-width:100%;padding:0}
+  .section{page-break-inside:avoid;border-top:1px solid #ccc}
+  .figure,.step,.box,.result,.tbl-wrap,.compare,.verdict{page-break-inside:avoid;box-shadow:none}
+}
+@media (max-width:560px){
+  .content{padding:24px 16px 90px}.topbar{padding:10px 14px}
+  h1{font-size:1.8rem}h2{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <h2>Estadística&nbsp;1</h2>
+  <div class="sub">Comparación · Solución oficial</div>
+  <div class="nav-group">
+    <a href="#inicio" class="active">Qué es este documento</a>
+    <a href="#tablero">Tablero general de resultados</a>
+    <a href="#diferencias">★ Las 3 diferencias clave</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Pregunta 1</div>
+    <a href="#p1a" class="child">1a · Moda y desv. estándar</a>
+    <a href="#p1b" class="child">1b · Chebyshev</a>
+    <a href="#p1cd" class="child">1c y 1d</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Pregunta 2</div>
+    <a href="#p2a" class="child">2a · Atípicos</a>
+    <a href="#p2bc" class="child">2b y 2c</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Preguntas 3 y 4</div>
+    <a href="#p3" class="child">3 · Probabilidad (hermanos)</a>
+    <a href="#p4" class="child">4 · Números de 5 cifras</a>
+  </div>
+  <div class="nav-group">
+    <a href="#notacion">Notación del profesor</a>
+    <a href="#sintesis">Síntesis para el estudio</a>
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+  <div class="topbar">
+    <button class="btn" id="navToggle" title="Mostrar / ocultar barra lateral">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <span id="navLabel">Ocultar panel</span>
+    </button>
+    <div class="crumb">Comparación con la <b>solución oficial</b> del profesor</div>
+    <button class="btn" id="themeToggle" title="Cambiar modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke-linecap="round"/>
+      </svg>
+      <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+
+  <main class="content">
+
+  <!-- ===== PORTADA ===== -->
+  <section id="inicio">
+    <div class="doc-tag">Documento de comparación · Examen Parcial</div>
+    <h1>Tu resolución frente a la solución oficial del profesor</h1>
+    <p style="font-size:1.08rem;color:var(--ink-soft)">
+      Llegó la <strong>solución oficial</strong> del Prof. Agurto. Aquí la comparo,
+      parte por parte, con los documentos de estudio que armamos, explico
+      <em>exactamente qué quiere el profesor</em> y muestro su paso a paso. La meta:
+      que sepas con total claridad qué método usar en cada ejercicio.</p>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>La buena noticia primero</div>
+      <p>De los <strong>13 apartados</strong> del examen, <strong>10 coinciden</strong>
+      en método y resultado con la solución oficial — la Pregunta 3 entera coincide
+      al 100%. Hay <strong>3 diferencias</strong>, y todas son <em>decisiones de
+      criterio del curso</em> (no errores de cálculo): qué fórmula de moda usa el
+      curso, qué umbral define un dato atípico, y si en la Pregunta 4 los dígitos se
+      repiten. Dos de esas tres ya las habíamos señalado como alternativas en tus
+      documentos de estudio. Este documento las deja cerradas.</p>
+    </div>
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">i</span>Cómo leer este documento</div>
+      <ul class="clean">
+        <li>Cada apartado tiene un <span class="badge b-ok">Coincide</span>,
+        <span class="badge b-warn">Ajuste menor</span> o
+        <span class="badge b-diff">Difiere</span>.</li>
+        <li>Donde difiere, verás la <strong>solución del profesor paso a paso</strong>,
+        por qué tu material decía otra cosa, y <strong>qué usar en el examen</strong>.</li>
+        <li>Controles arriba: <kbd>Ocultar panel</kbd> y <kbd>Modo claro/oscuro</kbd>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== TABLERO ===== -->
+  <section class="section" id="tablero">
+    <h2>Tablero general de resultados</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>Apartado</th><th>Solución oficial del profesor</th>
+          <th>Tu material de estudio</th><th>Estado</th>
+        </tr></thead>
+        <tbody>
+          <tr class="row-hl"><td class="lab"><span class="tag-q">1a</span> Moda</td>
+            <td class="mono">1600</td><td class="mono">1577,27</td>
+            <td><span class="badge b-diff">Difiere</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">1a</span> Desv. estándar</td>
+            <td class="mono">352,55</td><td class="mono">352,55</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">1b</span> Chebyshev</td>
+            <td class="mono">[927,68 ; 2260,32]</td><td class="mono">[927,75 ; 2260,25]</td>
+            <td><span class="badge b-warn">Ajuste</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">1c</span> Percentil 75</td>
+            <td>Tacna · 1550 / 1731,25</td><td>Tacna · 1550 / 1731,25</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">1d</span> Dispersión 25% sup.</td>
+            <td>Tacna · 700 / 918,75</td><td>Tacna · 700 / 918,75</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr class="row-hl"><td class="lab"><span class="tag-q">2a</span> Atípicos</td>
+            <td><strong>Sí</strong> hay atípico (centro 13)</td>
+            <td>Señalé ambos criterios</td>
+            <td><span class="badge b-diff">Difiere</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">2b</span> Curtosis</td>
+            <td>Leptocúrtica</td><td>Leptocúrtica</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">2c</span> Asimetría</td>
+            <td>Asimetría positiva</td><td>Asimetría positiva</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">3a</span></td>
+            <td class="mono">3/28</td><td class="mono">3/28</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">3b</span></td>
+            <td class="mono">5/28</td><td class="mono">5/28</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">3c</span></td>
+            <td class="mono">3/28</td><td class="mono">3/28</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr><td class="lab"><span class="tag-q">3d</span></td>
+            <td class="mono">1/56</td><td class="mono">1/56</td>
+            <td><span class="badge b-ok">Coincide</span></td></tr>
+          <tr class="row-hl"><td class="lab"><span class="tag-q">4</span></td>
+            <td class="mono">624/2500 = 24,96%</td>
+            <td>Señalé ambas interpretaciones</td>
+            <td><span class="badge b-diff">Difiere</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="why"><b>Lectura del tablero:</b> 10 apartados en verde, 1 en ámbar
+    (diferencia de redondeo, ambas válidas) y 3 en burdeos. Las tres diferencias se
+    explican enseguida — y son lo más importante de este documento.</p>
+  </section>
+
+  <!-- ===== LAS 3 DIFERENCIAS CLAVE ===== -->
+  <section class="section" id="diferencias">
+    <h2>★ Las 3 diferencias clave que debes interiorizar</h2>
+    <p>Antes del detalle de cada pregunta, este es el resumen de las tres decisiones
+    de criterio del curso. Si memorizas estas tres, estás cubierto:</p>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">1</span>La moda con datos agrupados = marca de clase del intervalo modal</div>
+      <p>El curso <strong>no</strong> usa la fórmula de interpolación
+      \(Mo=L_i+A\,d_1/(d_1+d_2)\). El profesor define la moda de datos agrupados,
+      "por concepto", como la <strong>marca de clase del intervalo de mayor
+      frecuencia</strong>. En la Pregunta 1a: intervalo modal [1450–1750),
+      marca de clase \((1450+1750)/2=\textbf{1600}\).</p>
+    </div>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">2</span>Un dato es atípico si |z| ≥ 2</div>
+      <p>El curso usa el umbral <strong>2</strong>, no 3. Textual del profesor: "el
+      valor de un dato es significativamente bajo si su puntuación z es ≤ −2, o
+      significativamente alto si su z es ≥ +2". Por eso, en la Pregunta 2a, el
+      centro 13 (\(z=2{,}358\)) <strong>sí es atípico</strong>.</p>
+    </div>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">3</span>En la Pregunta 4, los dígitos SÍ se repiten</div>
+      <p>El profesor trata la formación del número como 5 elecciones donde cada
+      posición (salvo la primera) admite los 5 dígitos: <strong>con repetición</strong>.
+      Total \(=4\times5^4=2500\); favorables \(=5^4-1=624\); probabilidad
+      \(=624/2500=\textbf{24,96\%}\).</p>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">✓</span>Por qué pasó esto y qué hacer</div>
+      <p>Las tres son <strong>convenciones</strong>: puntos donde existe más de un
+      criterio válido en estadística y cada curso elige uno. En tus documentos de
+      estudio ya habíamos avisado de la nº 2 (umbral de atípicos) y la nº 3
+      (repetición) como escenarios alternativos. La nº 1 (la moda) es la que conviene
+      corregir con más cuidado, porque tu material usó la fórmula de interpolación.</p>
+      <p><strong>Regla práctica:</strong> en el examen manda siempre la convención
+      del profesor. Usa <strong>1600</strong>, <strong>|z| ≥ 2</strong> y
+      <strong>con repetición</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===================== P1a ===================== -->
+  <section class="section" id="p1a">
+    <h2>Pregunta 1a · Moda y desviación estándar</h2>
+
+    <h3>Desviación estándar — coincide</h3>
+    <div class="verdict v-ok"><span class="badge b-ok">Coincide</span>
+      <span>Media 1594 · Varianza 124 288,29 · Desviación estándar 352,55</span></div>
+    <p>El profesor calcula exactamente igual que tu documento de estudio: marca de
+    clase, \(\sum f_ix_i=1\,594\,000\), media \(=1594\); y la varianza
+    <strong>dividiendo entre \(n-1=999\)</strong>:</p>
+    <div class="formula">
+      \[ s^2=\dfrac{124\,164\,000}{1000-1}=124\,288{,}29 \qquad
+         s=\sqrt{124\,288{,}29}=352{,}55 \]
+    </div>
+    <p class="why"><b>Confirmado:</b> el curso usa la varianza <u>muestral</u>
+    (denominador \(n-1\)), tal como anticipamos en el documento de la Pregunta 1.
+    Tu respuesta de desviación estándar es correcta sin cambios.</p>
+
+    <h3>Moda — difiere</h3>
+    <div class="verdict v-diff"><span class="badge b-diff">Difiere</span>
+      <span>Oficial: <b>Mo = 1600</b> &nbsp;·&nbsp; Tu material: 1577,27</span></div>
+
+    <div class="box box-prof">
+      <div class="box-title"><span class="ic">P</span>Lo que hace el profesor (textual)</div>
+      <p><em>"En cuanto a la moda de las inversiones mensuales agrupadas, por
+      concepto sería la marca de clase del intervalo con mayor frecuencia, por tanto
+      la moda de las inversiones mensuales es 1600 dólares."</em></p>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Identificar el intervalo modal</div>
+      <p>Es el de mayor frecuencia: <span class="mono">[1450 – 1750)</span> con
+      \(f=480\). (Esto coincide con tu documento.)</p>
+    </div></div>
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">La moda es la marca de clase de ese intervalo</div>
+      <div class="formula key">
+        \[ Mo = x_c^{\text{(intervalo modal)}}=\dfrac{1450+1750}{2}=1600 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">Mo</div>
+      <div class="r-text">
+        <div class="r-lbl">Moda oficial · CMAC Tacna</div>
+        <div class="r-val">Mo = <b>1600 dólares</b></div>
+      </div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>¿Por qué tu material decía 1577,27?</div>
+      <p>En el documento de la Pregunta 1 usé la <strong>fórmula de interpolación de
+      la moda</strong> (conocida como fórmula de King o de Czuber):</p>
+      <div class="formula">\[ Mo=L_i+A\cdot\dfrac{d_1}{d_1+d_2}=1450+300\cdot\dfrac{280}{660}=1577{,}27 \]</div>
+      <p>Esa fórmula es <u>real y se enseña en muchos textos</u>: afina la moda
+      dentro del intervalo según las frecuencias vecinas. <strong>Pero no es la que
+      usa este curso.</strong> El Prof. Agurto define la moda agrupada de la forma
+      más directa: la marca de clase del intervalo modal. Son dos definiciones
+      distintas del mismo concepto.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Las dos definiciones de moda sobre el intervalo modal [1450 – 1750)</div>
+      <svg viewBox="0 0 700 200" role="img" aria-label="Comparación de las dos modas">
+        <line x1="120" y1="120" x2="580" y2="120" stroke="var(--ink-faint)" stroke-width="2"/>
+        <line x1="120" y1="112" x2="120" y2="128" stroke="var(--ink-faint)" stroke-width="2"/>
+        <line x1="580" y1="112" x2="580" y2="128" stroke="var(--ink-faint)" stroke-width="2"/>
+        <text class="s-txt-sm" x="120" y="146" text-anchor="middle">1450</text>
+        <text class="s-txt-sm" x="580" y="146" text-anchor="middle">1750</text>
+        <text class="s-txt" x="350" y="170" text-anchor="middle">intervalo modal</text>
+        <!-- 1600 marca de clase = profesor -->
+        <line x1="350" y1="60" x2="350" y2="120" stroke="var(--green)" stroke-width="3"/>
+        <circle cx="350" cy="120" r="6.5" fill="var(--green)"/>
+        <text class="s-txt-b" x="350" y="50" text-anchor="middle" fill="var(--green)">Mo = 1600</text>
+        <text class="s-txt-sm" x="350" y="36" text-anchor="middle" fill="var(--green)">marca de clase · OFICIAL</text>
+        <!-- 1577 interpolación -->
+        <line x1="315.1" y1="90" x2="315.1" y2="120" stroke="var(--ink-faint)" stroke-width="2" stroke-dasharray="5 4"/>
+        <circle cx="315.1" cy="120" r="5" fill="none" stroke="var(--ink-faint)" stroke-width="2"/>
+        <text class="s-txt-sm" x="315.1" y="84" text-anchor="middle" fill="var(--ink-faint)">1577,27 · interpolación</text>
+      </svg>
+      <div class="fig-cap">El profesor usa el punto medio del intervalo modal (1600,
+      verde). La fórmula de interpolación lo desplaza un poco (1577,27). Para este
+      examen, vale 1600.</div>
+    </div>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">→</span>Qué usar en el examen</div>
+      <p>Usa <strong>Mo = 1600 dólares</strong>: la marca de clase del intervalo
+      modal. Interpretación oficial: "la inversión mensual más frecuente en la
+      muestra de 1000 clientes de CMAC Tacna es 1600 dólares". Es además el método
+      más rápido — solo identificas el intervalo de mayor frecuencia y tomas su
+      punto medio.</p>
+    </div>
+  </section>
+
+  <!-- ===================== P1b ===================== -->
+  <section class="section" id="p1b">
+    <h2>Pregunta 1b · Intervalo de Chebyshev</h2>
+    <div class="verdict v-warn"><span class="badge b-warn">Ajuste menor</span>
+      <span>Oficial: [927,68 ; 2260,32] &nbsp;·&nbsp; Tu material: [927,75 ; 2260,25]</span></div>
+
+    <div class="compare">
+      <div class="compare-col col-prof">
+        <div class="cc-head"><span class="dot"></span>Solución del profesor</div>
+        <p style="margin-top:4px">Despeja \(k\) y lo <strong>redondea a 1,89</strong>:</p>
+        <div class="formula" style="margin:8px 0">
+          \[ k=\sqrt{1/0{,}28}\approx 1{,}89 \]
+        </div>
+        <p>\(k\cdot s=1{,}89\times 352{,}55=666{,}32\)</p>
+        <p>Intervalo: \([1594-666{,}32\,;\,1594+666{,}32]\)
+        \(=[927{,}68\,;\,2260{,}32]\)</p>
+      </div>
+      <div class="compare-col col-study">
+        <div class="cc-head"><span class="dot"></span>Tu material de estudio</div>
+        <p style="margin-top:4px">Usé \(k\) con más decimales (1,8898):</p>
+        <div class="formula" style="margin:8px 0">
+          \[ k\approx 1{,}8898 \]
+        </div>
+        <p>\(k\cdot s\approx 666{,}25\)</p>
+        <p>Intervalo: \([927{,}75\,;\,2260{,}25]\)</p>
+      </div>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">✓</span>Veredicto: misma teoría, solo redondeo</div>
+      <p>El método es <strong>idéntico</strong>: teorema de Chebyshev,
+      \(0{,}72=1-1/k^2\), intervalo \([\bar x\pm k s]\). La única diferencia es
+      cuántos decimales se conservan en \(k\): el profesor redondea a
+      <strong>1,89</strong>; tu documento usó 1,8898. Eso mueve los extremos del
+      intervalo unos 7 céntimos de dólar — irrelevante en la práctica, pero conviene
+      <strong>imitar al profesor: redondea \(k\) a 1,89</strong> para que tu número
+      calce con el suyo: <strong>[927,68 ; 2260,32]</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===================== P1c y P1d ===================== -->
+  <section class="section" id="p1cd">
+    <h2>Pregunta 1c y 1d · Percentil 75 y dispersión</h2>
+    <div class="verdict v-ok"><span class="badge b-ok">Coinciden</span>
+      <span>Ambos apartados coinciden completamente con la solución oficial</span></div>
+
+    <h3>1c — Percentil 75</h3>
+    <p>El profesor calcula el P₇₅ en cada CMAC, igual que tu documento. Usa el
+    "índice de posición" \(i=(p/100)\cdot n\) y la fórmula del cuartil:</p>
+    <div class="formula">
+      \[ P_{75}=Q_3=l_{Q_3}+\left(\dfrac{\frac{3n}{4}-f_A}{f}\right)\cdot T_{IC} \]
+    </div>
+    <p>Donde \(l_{Q_3}\) = límite inferior de la clase, \(f_A\) = frecuencia
+    acumulada anterior, \(f\) = frecuencia de la clase, \(T_{IC}\) = amplitud. Es la
+    misma fórmula de tu documento, con otra notación. Resultados oficiales:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>—</th><th>Profesor</th><th>Tu material</th></tr></thead>
+        <tbody>
+          <tr><td class="lab">P₇₅ · CMAC Ica</td><td class="mono">1550</td><td class="mono">1550</td></tr>
+          <tr><td class="lab">P₇₅ · CMAC Tacna</td><td class="mono">1731,25</td><td class="mono">1731,25</td></tr>
+          <tr class="row-hl"><td class="lab">Conclusión</td>
+            <td>Milagros → CMAC Tacna</td><td>Milagros → CMAC Tacna</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="why"><b>Detalle de notación del profesor:</b> menciona que, como el
+    índice \(i\) sale entero, "el percentil está entre el término \(i\) y el
+    \(i+1\)". Es una observación sobre cómo ubicar la clase; no cambia el resultado.
+    Tu razonamiento (la clase percentílica es la primera cuya frecuencia acumulada
+    alcanza la posición) llega al mismo intervalo.</p>
+
+    <h3>1d — Dispersión del 25% superior</h3>
+    <p>Idéntico a tu documento. El profesor calcula \(X_{\max}-Q_3\) en cada CMAC:</p>
+    <div class="formula">
+      \[ \text{Ica: }2250-1550=700 \qquad\quad \text{Tacna: }2650-1731{,}25=918{,}75 \]
+    </div>
+    <p>Conclusión oficial: el 25% superior está <strong>más disperso en CMAC
+    Tacna</strong>. Coincide.</p>
+  </section>
+
+  <!-- ===================== P2a ===================== -->
+  <section class="section" id="p2a">
+    <h2>Pregunta 2a · ¿Existen mediciones atípicas?</h2>
+    <div class="verdict v-diff"><span class="badge b-diff">Difiere</span>
+      <span>Oficial: <b>Sí</b>, el centro 13 es atípico &nbsp;·&nbsp; Tu material: señalé los dos criterios</span></div>
+
+    <div class="box box-prof">
+      <div class="box-title"><span class="ic">P</span>Lo que hace el profesor (textual)</div>
+      <p><em>"Como por teoría sabemos que el valor de un dato es significativamente
+      bajo si su puntuación z es menor o igual a −2, o el valor es significativamente
+      alto si su puntuación z es mayor o igual a +2, observamos que la puntuación Z
+      del centro 13… es 2.35828582 y al ser esta mayor que 2, se considera que la
+      cantidad de unidades excedentes del centro 13… es atípica."</em></p>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">El criterio del curso</div>
+      <p>Un dato es <strong>atípico</strong> si su puntuación Z cumple
+      <span class="mono">z ≤ −2</span> o <span class="mono">z ≥ +2</span> — es decir,
+      <strong>|z| ≥ 2</strong>. (No el umbral 3.)</p>
+    </div></div>
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Revisar los z de "después"</div>
+      <p>El valor más extremo es el del centro 13: <span class="mono">z = 2,35828582</span>.</p>
+    </div></div>
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Comparar y concluir</div>
+      <div class="formula">\[ z_{13}=2{,}358\;\ge\;2 \]</div>
+      <p>Como supera el umbral 2, el centro 13 <strong>es una medición atípica</strong>.</p>
+    </div></div>
+
+    <div class="figure">
+      <div class="fig-title">El criterio oficial: umbral en |z| = 2</div>
+      <svg viewBox="0 0 720 190" role="img" aria-label="Recta z con umbral 2">
+        <rect x="612" y="78" width="68" height="44" fill="var(--burgundy)" opacity="0.15"/>
+        <rect x="40" y="78" width="68" height="44" fill="var(--burgundy)" opacity="0.15"/>
+        <line x1="40" y1="100" x2="680" y2="100" stroke="var(--ink-faint)" stroke-width="1.8"/>
+        <!-- umbral ±2 -->
+        <line x1="108" y1="66" x2="108" y2="134" stroke="var(--red)" stroke-width="2.6"/>
+        <line x1="612" y1="66" x2="612" y2="134" stroke="var(--red)" stroke-width="2.6"/>
+        <text class="s-txt-sm" x="108" y="58" text-anchor="middle" fill="var(--red)">z = −2</text>
+        <text class="s-txt-sm" x="612" y="58" text-anchor="middle" fill="var(--red)">z = +2</text>
+        <line x1="360" y1="84" x2="360" y2="116" stroke="var(--ink-faint)" stroke-width="1"/>
+        <text class="s-txt-sm" x="360" y="132" text-anchor="middle">0</text>
+        <!-- nube de puntos normales (esquemática) -->
+        <g fill="var(--teal)">
+          <circle cx="300" cy="100" r="5"/><circle cx="330" cy="100" r="5"/>
+          <circle cx="390" cy="100" r="5"/><circle cx="420" cy="100" r="5"/>
+          <circle cx="255" cy="100" r="5"/><circle cx="470" cy="100" r="5"/>
+          <circle cx="510" cy="100" r="5"/><circle cx="345" cy="100" r="5"/>
+        </g>
+        <!-- centro 13 -->
+        <circle cx="640" cy="100" r="8.5" fill="var(--burgundy)" stroke="var(--bg)" stroke-width="2"/>
+        <line x1="640" y1="91" x2="640" y2="68" stroke="var(--burgundy)" stroke-width="1.5"/>
+        <text class="s-txt-b" x="640" y="60" text-anchor="middle" fill="var(--burgundy)">centro 13</text>
+        <text class="s-txt-sm" x="640" y="124" text-anchor="middle" fill="var(--burgundy)">z = 2,358</text>
+        <text class="s-txt-sm" x="646" y="150" text-anchor="middle" fill="var(--red)">zona atípica (|z| ≥ 2)</text>
+      </svg>
+      <div class="fig-cap">Con el umbral oficial |z| = 2, el centro 13 cae en la
+      zona atípica. Es el único: ningún otro z de "después" llega a 2.</div>
+    </div>
+
+    <div class="result">
+      <div class="r-ic">2a</div>
+      <div class="r-text">
+        <div class="r-lbl">Respuesta oficial · Apartado 2a</div>
+        <div class="r-val"><b>Sí existe una medición atípica:</b> el centro de
+          distribución nº 13</div>
+      </div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>¿Por qué tu material puso "no" como respuesta principal?</div>
+      <p>En el documento de la Pregunta 2 usé como criterio principal
+      <strong>|z| &gt; 3</strong> (la regla de los "tres sigma", el umbral más
+      universal para la palabra <em>outlier</em>), que da "no hay atípicos". Pero
+      <u>sí</u> incluí una caja explícita — "¿Y si tu profesor usó |z| &gt; 2?" —
+      anticipando justo este caso, donde el centro 13 sería el atípico.</p>
+      <p>Ahora la solución oficial lo confirma: <strong>el curso usa |z| ≥ 2</strong>.
+      Tanto el umbral 2 como el 3 existen en la literatura estadística; este curso
+      adoptó el 2. Era una convención, y la solución oficial la fija.</p>
+    </div>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">→</span>Qué usar en el examen</div>
+      <p>Criterio: <strong>un dato es atípico si |z| ≥ 2</strong>. Respuesta de 2a:
+      <strong>sí</strong>, hay una medición atípica — el centro 13, cuya cantidad de
+      unidades excedentes después del algoritmo tiene \(z=2{,}358\ge 2\).</p>
+    </div>
+  </section>
+
+  <!-- ===================== P2b y P2c ===================== -->
+  <section class="section" id="p2bc">
+    <h2>Pregunta 2b y 2c · Curtosis y asimetría</h2>
+    <div class="verdict v-ok"><span class="badge b-ok">Coinciden</span>
+      <span>Ambas conclusiones coinciden con la solución oficial</span></div>
+
+    <h3>2b — Curtosis</h3>
+    <p>El profesor concluye, a partir de <span class="mono">kurtosis(después) =
+    3,083271</span>, que la distribución es <strong>leptocúrtica</strong>. Tu
+    documento llegó a la misma conclusión: <strong>leptocúrtica</strong>.</p>
+    <p class="why"><b>Matiz:</b> tu documento añadió que, al ser 3,083 apenas mayor
+    que 3, la distribución es leptocúrtica <em>muy leve</em> (casi mesocúrtica). Eso
+    es contexto extra correcto; la <u>clasificación que se califica</u> —
+    leptocúrtica — coincide con la oficial. Sin problema.</p>
+
+    <h3>2c — Asimetría</h3>
+    <p>Coincidencia total en método y resultado. El profesor compara la media
+    (49,2, tomada de <span class="mono">scaled:center</span>) con la mediana (48, de
+    <span class="mono">median()</span>):</p>
+    <div class="formula">
+      \[ \bar{x}=49{,}2 \;>\; Me=48 \;\Rightarrow\; \text{asimetría positiva (sesgo a la derecha)} \]
+    </div>
+    <p>Idéntico a tu documento. (Tu material añadió, además, el coeficiente de
+    Pearson \(A_s\approx0{,}48\) como refuerzo cuantitativo; el profesor se queda en
+    la comparación media–mediana, que es suficiente. Tu añadido no contradice nada,
+    solo suma sustento.)</p>
+  </section>
+
+  <!-- ===================== P3 ===================== -->
+  <section class="section" id="p3">
+    <h2>Pregunta 3 · Probabilidad con los 8 hermanos</h2>
+    <div class="verdict v-ok"><span class="badge b-ok">Coincide al 100%</span>
+      <span>Los cuatro apartados coinciden exactamente con la solución oficial</span></div>
+
+    <p>Toda la Pregunta 3 calza perfecto. El profesor usa
+    <span class="mono">8C3 = 56</span> como espacio muestral y, para cada apartado,
+    cuenta los favorables con combinaciones. La única diferencia es de
+    <em>presentación</em>: el profesor escribe explícitamente el factor de la
+    persona o pareja fijada (por ejemplo \({}_2C_2\) o \({}_1C_1\)), que vale 1.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Apartado</th><th>Conteo del profesor</th><th>Tu conteo</th>
+          <th>Probabilidad</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag-q">3a</span></td>
+            <td class="mono">₂C₂ · ₆C₁ = 1·6 = 6</td>
+            <td class="mono">C(6,1) = 6</td>
+            <td class="mono">6/56 = 3/28</td></tr>
+          <tr><td><span class="tag-q">3b</span></td>
+            <td class="mono">₅C₂ · ₁C₁ = 10·1 = 10</td>
+            <td class="mono">C(5,2) = 10</td>
+            <td class="mono">10/56 = 5/28</td></tr>
+          <tr><td><span class="tag-q">3c</span></td>
+            <td class="mono">₄C₂ · ₁C₁ = 6·1 = 6</td>
+            <td class="mono">C(4,2) = 6</td>
+            <td class="mono">6/56 = 3/28</td></tr>
+          <tr><td><span class="tag-q">3d</span></td>
+            <td class="mono">₂C₂ · ₁C₁ = 1·1 = 1</td>
+            <td class="mono">C(2,2) = 1</td>
+            <td class="mono">1/56</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box box-intuicion">
+      <div class="box-title"><span class="ic">✓</span>Detalle de estilo a copiar del profesor</div>
+      <p>El profesor escribe el conteo favorable como un <strong>producto de
+      combinaciones</strong>: por ejemplo en 3a, \({}_2C_2\times{}_6C_1\) — "elegir a
+      Patricia y Fabiola" (\({}_2C_2=1\)) por "elegir 1 de los otros 6"
+      (\({}_6C_1=6\)). Es la misma cuenta que tu documento (\(C(6,1)=6\)), pero
+      mostrar el factor \({}_2C_2\) deja explícito el razonamiento. En el examen,
+      <strong>escribe el producto completo de combinaciones</strong>: es lo que el
+      profesor quiere ver.</p>
+    </div>
+  </section>
+
+  <!-- ===================== P4 ===================== -->
+  <section class="section" id="p4">
+    <h2>Pregunta 4 · Números de cinco cifras mayores que 80000</h2>
+    <div class="verdict v-diff"><span class="badge b-diff">Difiere</span>
+      <span>Oficial: <b>624/2500 = 24,96%</b> (con repetición) &nbsp;·&nbsp; Tu material: 1/4 (sin repetición)</span></div>
+
+    <div class="box box-prof">
+      <div class="box-title"><span class="ic">P</span>Lo que hace el profesor</div>
+      <p>El profesor trata la formación del número como <strong>5 elecciones
+      sucesivas con repetición permitida</strong>: cada posición (salvo la primera)
+      puede tomar cualquiera de los 5 dígitos, aunque ya se haya usado.</p>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="step-body">
+      <div class="st-title">Total de números — espacio muestral</div>
+      <p>Primera cifra: 4 opciones (no puede ser 0). Cifras 2 a 5: 5 opciones cada
+      una (con repetición). Por el principio de multiplicación:</p>
+      <div class="formula">
+        \[ n(\Omega)=4\times 5\times 5\times 5\times 5=4\times 5^4=2500 \]
+      </div>
+    </div></div>
+
+    <div class="step"><div class="num">2</div><div class="step-body">
+      <div class="st-title">Favorables — números &gt; 80000</div>
+      <p>La primera cifra debe ser 8 (1 opción); las cifras 2 a 5, 5 opciones cada
+      una. Eso da los números que <em>empiezan</em> con 8:</p>
+      <div class="formula">\[ 1\times 5^4=625 \]</div>
+      <p>Pero con repetición <strong>sí se puede formar el 80000</strong> (cifras
+      8-0-0-0-0). Como el enunciado pide <em>estrictamente mayor</em> que 80000, hay
+      que <strong>restar ese caso</strong>:</p>
+      <div class="formula">\[ n(A)=5^4-1=625-1=624 \]</div>
+    </div></div>
+
+    <div class="step"><div class="num">3</div><div class="step-body">
+      <div class="st-title">Probabilidad</div>
+      <div class="formula key">
+        \[ P(A)=\dfrac{624}{2500}=0{,}2496 \]
+      </div>
+    </div></div>
+
+    <div class="result">
+      <div class="r-ic">P4</div>
+      <div class="r-text">
+        <div class="r-lbl">Respuesta oficial · Pregunta 4</div>
+        <div class="r-val">P = <b>624/2500 = 0,2496 = 24,96%</b></div>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-title">Las dos interpretaciones del conteo</div>
+      <svg viewBox="0 0 720 230" role="img" aria-label="Comparación con y sin repetición">
+        <!-- panel oficial -->
+        <rect x="20" y="40" width="330" height="160" rx="12" fill="var(--surface-2)"
+              stroke="var(--green)" stroke-width="2"/>
+        <text class="s-txt-b" x="185" y="66" text-anchor="middle" fill="var(--green)">OFICIAL · con repetición</text>
+        <g font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="var(--ink)">
+          <text x="185" y="108" text-anchor="middle">4 × 5 × 5 × 5 × 5</text>
+        </g>
+        <text class="s-txt-sm" x="185" y="132" text-anchor="middle">total = 2500</text>
+        <text class="s-txt-sm" x="185" y="158" text-anchor="middle" fill="var(--green)">favorables = 5⁴ − 1 = 624</text>
+        <text class="s-txt-b" x="185" y="184" text-anchor="middle" fill="var(--green)">P = 624/2500 = 24,96%</text>
+        <!-- panel alternativo -->
+        <rect x="370" y="40" width="330" height="160" rx="12" fill="var(--surface)"
+              stroke="var(--line)" stroke-width="1.6"/>
+        <text class="s-txt-b" x="535" y="66" text-anchor="middle" fill="var(--ink-faint)">alternativa · sin repetición</text>
+        <g font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="var(--ink-soft)">
+          <text x="535" y="108" text-anchor="middle">4 × 4 × 3 × 2 × 1</text>
+        </g>
+        <text class="s-txt-sm" x="535" y="132" text-anchor="middle">total = 96</text>
+        <text class="s-txt-sm" x="535" y="158" text-anchor="middle" fill="var(--ink-faint)">favorables = 4! = 24</text>
+        <text class="s-txt-b" x="535" y="184" text-anchor="middle" fill="var(--ink-faint)">P = 24/96 = 25%</text>
+      </svg>
+      <div class="fig-cap">El curso adopta la interpretación con repetición (panel
+      verde). Por eso la respuesta oficial es 24,96%, no 25%.</div>
+    </div>
+
+    <div class="box box-ojo">
+      <div class="box-title"><span class="ic">!</span>¿Por qué tu material puso 1/4 como respuesta principal?</div>
+      <p>En el documento de la Pregunta 4 tomé como lectura principal "sin
+      repetición" (cada dígito una vez) — habitual cuando se dan exactamente 5
+      dígitos para un número de 5 cifras —, que da el limpio 1/4. Pero incluí una
+      sección explícita, "¿Y si los dígitos se repitieran?", con <u>exactamente</u>
+      el procedimiento del profesor y el resultado <strong>624/2500 = 24,96%</strong>.</p>
+      <p>La solución oficial confirma que <strong>el curso usa la repetición</strong>.
+      Fíjate en un detalle fino que el profesor cuida y que conviene escribir:
+      restar el caso 80000, porque con repetición <u>sí</u> es formable y "mayor que"
+      es estricto.</p>
+    </div>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">→</span>Qué usar en el examen</div>
+      <p>Resuelve la Pregunta 4 <strong>con repetición</strong>: total \(4\times5^4=2500\),
+      favorables \(5^4-1=624\), probabilidad <strong>624/2500 = 0,2496 = 24,96%</strong>.
+      No olvides justificar la resta del 80000.</p>
+    </div>
+  </section>
+
+  <!-- ===================== NOTACIÓN ===================== -->
+  <section class="section" id="notacion">
+    <h2>Notación y lenguaje del profesor</h2>
+    <p>La solución oficial revela cómo nombra el profesor las herramientas. Conviene
+    usar <u>su</u> vocabulario en el examen:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>El profesor dice…</th><th>Significa…</th></tr></thead>
+        <tbody>
+          <tr><td class="lab">"regla de conteo 2"</td>
+            <td>Principio de multiplicación (regla del producto)</td></tr>
+          <tr><td class="lab">"regla de conteo 5"</td>
+            <td>Combinaciones — \({}_nC_r\)</td></tr>
+          <tr><td class="lab">"regla de conteo 1"</td>
+            <td>Aparece en el conteo del caso único 1·1·1·1·1; conteo de una
+              disposición fija. Confirma su número exacto con tus apuntes de clase.</td></tr>
+          <tr><td class="lab">"índice de posición" \(i=(p/100)\cdot n\)</td>
+            <td>La posición del percentil dentro de los datos ordenados</td></tr>
+          <tr><td class="lab">\(l_{Q_3}\), \(f_A\), \(T_{IC}\)</td>
+            <td>Límite inferior de la clase, frecuencia acumulada anterior, amplitud
+              del intervalo de clase</td></tr>
+          <tr><td class="lab">"marca de clase" \(X_c\)</td>
+            <td>Punto medio del intervalo — y también, en este curso, la moda
+              agrupada</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="why"><b>Consejo:</b> el examen penaliza no nombrar los argumentos
+    teóricos. Si en clase el profesor numera las reglas de conteo, cita el número
+    <u>y</u> el nombre ("regla de conteo 5 — combinaciones"). Así no hay ambigüedad.</p>
+  </section>
+
+  <!-- ===================== SÍNTESIS ===================== -->
+  <section class="section" id="sintesis">
+    <h2>Síntesis para el estudio</h2>
+
+    <div class="box box-clave">
+      <div class="box-title"><span class="ic">★</span>Las correcciones para tu examen — versión final</div>
+      <div class="tbl-wrap" style="margin:8px 0">
+        <table>
+          <thead><tr><th>Apartado</th><th>Respuesta a memorizar</th></tr></thead>
+          <tbody>
+            <tr><td class="lab">1a · Moda</td>
+              <td><strong>1600</strong> (marca de clase del intervalo modal)</td></tr>
+            <tr><td class="lab">1a · Desv. estándar</td>
+              <td><strong>352,55</strong> (varianza ÷ n−1) — sin cambios</td></tr>
+            <tr><td class="lab">1b · Chebyshev</td>
+              <td><strong>[927,68 ; 2260,32]</strong> (con k = 1,89)</td></tr>
+            <tr><td class="lab">1c</td><td>Milagros → <strong>CMAC Tacna</strong></td></tr>
+            <tr><td class="lab">1d</td><td>Más disperso en <strong>CMAC Tacna</strong></td></tr>
+            <tr><td class="lab">2a · Atípicos</td>
+              <td><strong>Sí</strong> hay un atípico: el centro 13 (criterio |z| ≥ 2)</td></tr>
+            <tr><td class="lab">2b</td><td><strong>Leptocúrtica</strong></td></tr>
+            <tr><td class="lab">2c</td><td><strong>Asimetría positiva</strong></td></tr>
+            <tr><td class="lab">3a–3d</td>
+              <td><strong>3/28 · 5/28 · 3/28 · 1/56</strong> — sin cambios</td></tr>
+            <tr><td class="lab">4</td>
+              <td><strong>624/2500 = 24,96%</strong> (con repetición)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout-final">
+      <h4 style="margin-top:0">La lección de fondo</h4>
+      <p>La estadística tiene <strong>convenciones</strong>: puntos donde más de un
+      criterio es legítimo y cada curso elige el suyo. Este examen tenía tres:</p>
+      <ol class="steps">
+        <li><strong>La moda agrupada</strong> — definición simple (marca de clase)
+        frente a fórmula de interpolación. El curso usa la simple → 1600.</li>
+        <li><strong>El umbral de atípico</strong> — |z| ≥ 2 frente a |z| &gt; 3. El
+        curso usa 2 → el centro 13 es atípico.</li>
+        <li><strong>Repetición de dígitos</strong> — el curso permite repetir → la
+        Pregunta 4 da 24,96%.</li>
+      </ol>
+      <p>Estudiar bien no es solo saber calcular: es saber <em>qué convención usa tu
+      curso</em>. Tus documentos de estudio te dieron la teoría completa y te
+      avisaron de dos de las tres alternativas; la solución oficial fija cuál
+      eligió el profesor. Con eso, dominas el examen entero — método, número y
+      sustento — y, más importante, entiendes <strong>por qué</strong> cada respuesta
+      es la que es.</p>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement,
+      tBtn=document.getElementById('themeToggle'),
+      tLbl=document.getElementById('themeLabel');
+  var saved=null;
+  try{saved=localStorage.getItem('est1-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function refresh(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    tLbl.textContent=dark?'Modo claro':'Modo oscuro';
+  }
+  refresh();
+  tBtn.addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var next=dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('est1-theme',next);}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var nBtn=document.getElementById('navToggle'),
+      nLbl=document.getElementById('navLabel'),
+      body=document.body;
+  var saved=null;
+  try{saved=localStorage.getItem('est1-nav');}catch(e){}
+  if(saved==='collapsed'){body.classList.add('nav-collapsed');}
+  function refresh(){
+    var hidden=body.classList.contains('nav-collapsed');
+    nLbl.textContent=hidden?'Mostrar panel':'Ocultar panel';
+  }
+  refresh();
+  nBtn.addEventListener('click',function(){
+    body.classList.toggle('nav-collapsed');
+    var hidden=body.classList.contains('nav-collapsed');
+    try{localStorage.setItem('est1-nav',hidden?'collapsed':'open');}catch(e){}
+    refresh();
+  });
+})();
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sidebar a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var el=document.getElementById(id);
+    if(el)map[id]=a;
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active');});
+        var a=map[en.target.id];
+        if(a){a.classList.add('active');}
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px',threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+window.addEventListener('load',function(){
+  if(window.renderMathInElement){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'\\[',right:'\\]',display:true},
+        {left:'\\(',right:'\\)',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+});
+</script>
+</body>
+</html>
