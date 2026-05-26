@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Práctica Calificada N°3 · Resolución Completa · Macroeconomía (Mankiw)</title>
+<style>
+  :root{
+    --paper:#F6F2E9; --paper-2:#FBF8F1; --surface:#FFFFFF;
+    --ink:#1E222C; --muted:#5C616E; --faint:#8A8F9C;
+    --navy:#16263F; --navy-soft:#21385C; --accent:#A9762B; --accent-2:#8A5E1E;
+    --teoria:#33597A; --teoria-bg:#ECF1F6; --teoria-bd:#CBD9E6;
+    --intu:#A9762B; --intu-bg:#F6EEDF; --intu-bd:#E6D2AC;
+    --resp:#3D6B53; --resp-bg:#E9F1EB; --resp-bd:#C3DCCB;
+    --warn:#A8443B; --warn-bg:#F6E9E6; --warn-bd:#E6C5BF;
+    --mankiw:#4A4660; --mankiw-bg:#EFEDF3; --mankiw-bd:#D6D1E0;
+    --line:#E3DCCB; --line-2:#D7CFBC;
+    --serif:"Iowan Old Style","Palatino Linotype","Palatino","Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:"Avenir Next","Avenir","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+    --mono:"SF Mono","Menlo","Monaco",ui-monospace,"Cascadia Mono",monospace;
+    --header-h:66px; --side-w:296px; --content-max:1000px;
+    /* Colores de marca desacoplados (para temas) */
+    --brand-bg:#16263F; --brand-fg:#F4EEDF;
+    --topbar-bg:rgba(246,242,233,.86);
+    /* Colores de los gráficos (se adaptan al tema) */
+    --g-axis:#3a3f4b; --g-grid:#ECE6D8; --g-dash:#9aa0ac; --g-halo:#ffffff;
+    /* Ajustes de accesibilidad */
+    --zoom:1; --lh:1.72; --link-deco:none;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:calc(var(--header-h) + 16px)}
+  body{ margin:0; padding:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16.5px; line-height:var(--lh);
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; padding-top:var(--header-h); }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background:radial-gradient(circle at 18% 12%, rgba(169,118,43,.05), transparent 38%),
+      radial-gradient(circle at 82% 78%, rgba(22,38,63,.045), transparent 40%); }
+  #progress{ position:fixed; top:0; left:0; height:3px; width:0%; z-index:300;
+    background:linear-gradient(90deg,var(--accent),var(--navy)); transition:width .12s linear }
+  #topbar{ position:fixed; top:0; left:0; right:0; height:var(--header-h); z-index:200;
+    display:flex; align-items:center; gap:16px; padding:0 22px;
+    background:var(--topbar-bg); backdrop-filter:saturate(150%) blur(10px);
+    border-bottom:1px solid var(--line-2); transition:transform .35s cubic-bezier(.4,0,.2,1); will-change:transform; }
+  #topbar.hidden{ transform:translateY(-100%) }
+  .burger{ display:inline-flex; flex-direction:column; gap:4px; cursor:pointer;
+    background:none; border:1px solid var(--line-2); border-radius:9px; padding:9px 10px; transition:background .2s,border-color .2s; }
+  .burger:hover{ background:var(--paper-2); border-color:var(--accent) }
+  .burger span{ width:18px; height:2px; background:var(--navy); border-radius:2px; transition:.25s }
+  .brand{ display:flex; flex-direction:column; line-height:1.15 }
+  .brand .t1{ font-family:var(--serif); font-weight:700; font-size:18px; color:var(--navy); letter-spacing:.2px }
+  .brand .t2{ font-size:11.5px; color:var(--muted); letter-spacing:.6px; text-transform:uppercase }
+  .topmeta{ margin-left:auto; display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted) }
+  .pill-course{ background:var(--brand-bg); color:var(--brand-fg); padding:5px 12px; border-radius:999px; font-size:11.5px; letter-spacing:.4px; font-weight:600; white-space:nowrap }
+  #shell{ position:relative; z-index:1 }
+  #sidebar{ position:fixed; top:var(--header-h); bottom:0; left:0; width:var(--side-w); z-index:150;
+    background:linear-gradient(180deg,var(--paper-2),var(--paper)); border-right:1px solid var(--line-2);
+    overflow-y:auto; padding:22px 16px 60px; transition:transform .35s cubic-bezier(.4,0,.2,1); }
+  #sidebar::-webkit-scrollbar{ width:9px } #sidebar::-webkit-scrollbar-thumb{ background:var(--line-2); border-radius:9px }
+  .side-title{ font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--faint); margin:6px 12px 12px; font-weight:700 }
+  .nav-link{ display:flex; align-items:center; gap:11px; padding:9px 12px; margin:2px 0; border-radius:10px;
+    color:var(--ink); text-decoration:none; font-size:14.5px; transition:background .18s,color .18s; border:1px solid transparent; }
+  .nav-link .nidx{ flex:0 0 26px; height:26px; display:grid; place-items:center; border-radius:7px;
+    background:var(--surface); border:1px solid var(--line-2); font-family:var(--mono); font-size:12px; color:var(--navy); font-weight:600; transition:.18s; }
+  .nav-link:hover{ background:var(--paper); border-color:var(--line) }
+  .nav-link.active{ background:var(--brand-bg); color:var(--brand-fg) }
+  .nav-link.active .nidx{ background:var(--brand-fg); color:var(--brand-bg); border-color:var(--brand-fg) }
+  .nav-sep{ height:1px; background:var(--line); margin:14px 12px }
+  #main{ margin-left:var(--side-w); transition:margin-left .35s cubic-bezier(.4,0,.2,1) }
+  #shell.collapsed #sidebar{ transform:translateX(-100%) }
+  #shell.collapsed #main{ margin-left:0 }
+  .wrap{ max-width:var(--content-max); margin:0 auto; padding:46px 40px 120px; zoom:var(--zoom) }
+  .hero{ margin-bottom:18px; opacity:0; transform:translateY(14px); animation:rise .7s .05s forwards }
+  .hero .kicker{ font-size:12.5px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); font-weight:700 }
+  .hero h1{ font-family:var(--serif); font-weight:700; font-size:40px; line-height:1.1; color:var(--navy); margin:10px 0 6px; letter-spacing:.2px }
+  .hero .sub{ color:var(--muted); font-size:17px; max-width:72ch }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px }
+  .chip{ display:inline-flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--line-2); border-radius:999px; padding:6px 13px; font-size:12.5px; color:var(--muted) }
+  .chip b{ color:var(--ink); font-weight:600 }
+  @keyframes rise{ to{ opacity:1; transform:none } }
+  section{ scroll-margin-top:calc(var(--header-h) + 16px) }
+  .qsection{ margin-top:54px; padding-top:30px; border-top:2px solid var(--line-2) }
+  .qhead{ display:flex; align-items:flex-start; gap:16px; margin-bottom:8px }
+  .qnum{ flex:0 0 auto; width:50px; height:50px; border-radius:14px; display:grid; place-items:center;
+    background:var(--brand-bg); color:var(--brand-fg); font-family:var(--serif); font-size:24px; font-weight:700; box-shadow:0 6px 18px -8px rgba(22,38,63,.6) }
+  .qhead h2{ font-family:var(--serif); font-size:27px; line-height:1.18; color:var(--navy); margin:2px 0 0; font-weight:700 }
+  .qpts{ font-size:12.5px; color:var(--accent-2); font-weight:700; letter-spacing:.4px; margin-top:5px }
+  h3{ font-family:var(--serif); font-size:20px; color:var(--navy-soft); margin:34px 0 10px; font-weight:700 }
+  h4{ font-size:15px; letter-spacing:.4px; text-transform:uppercase; color:var(--accent-2); margin:24px 0 8px; font-weight:700 }
+  p{ margin:11px 0 } strong{ color:var(--ink); font-weight:700 } em{ color:var(--navy-soft); font-style:italic } a{ color:var(--accent-2) }
+  .lead{ font-size:17.5px; color:var(--ink) }
+  ul,ol{ margin:11px 0; padding-left:22px } li{ margin:7px 0 }
+  ul.clean{ list-style:none; padding-left:4px } ul.clean li{ position:relative; padding-left:24px }
+  ul.clean li::before{ content:"\25B8"; position:absolute; left:2px; top:0; color:var(--accent); font-size:14px }
+  .enun{ background:var(--surface); border:1px solid var(--line-2); border-left:4px solid var(--navy);
+    border-radius:12px; padding:18px 22px; margin:14px 0 4px; font-size:15.5px; color:var(--ink); position:relative }
+  .enun::before{ content:"ENUNCIADO"; position:absolute; top:-9px; left:18px; background:var(--brand-bg); color:var(--brand-fg);
+    font-size:10px; letter-spacing:1.5px; padding:2px 9px; border-radius:6px; font-weight:700 }
+  .enun .hw{ color:var(--accent-2); font-style:italic; font-size:13.5px }
+  .box{ border-radius:13px; padding:16px 20px 16px 22px; margin:18px 0; position:relative; border:1px solid; }
+  .box .box-tag{ font-size:11px; letter-spacing:1.4px; text-transform:uppercase; font-weight:800; display:block; margin-bottom:6px }
+  .box p:first-of-type{ margin-top:2px } .box p:last-child{ margin-bottom:0 }
+  .box.teoria{ background:var(--teoria-bg); border-color:var(--teoria-bd); border-left:5px solid var(--teoria) } .box.teoria .box-tag{ color:var(--teoria) }
+  .box.intu{ background:var(--intu-bg); border-color:var(--intu-bd); border-left:5px solid var(--intu) } .box.intu .box-tag{ color:var(--accent-2) }
+  .box.resp{ background:var(--resp-bg); border-color:var(--resp-bd); border-left:5px solid var(--resp) } .box.resp .box-tag{ color:var(--resp) }
+  .box.warn{ background:var(--warn-bg); border-color:var(--warn-bd); border-left:5px solid var(--warn) } .box.warn .box-tag{ color:var(--warn) }
+  .box.mankiw{ background:var(--mankiw-bg); border-color:var(--mankiw-bd); border-left:5px solid var(--mankiw) } .box.mankiw .box-tag{ color:var(--mankiw) }
+  .box.resp .verdict{ font-family:var(--serif); font-size:21px; font-weight:700; color:var(--resp); display:block; margin:2px 0 6px }
+  .box.warn .verdict{ font-family:var(--serif); font-size:21px; font-weight:700; color:var(--warn); display:block; margin:2px 0 6px }
+  .steps{ counter-reset:step; margin:18px 0 6px }
+  .step{ position:relative; padding:4px 0 22px 56px; }
+  .step:not(:last-child)::after{ content:""; position:absolute; left:18px; top:38px; bottom:2px; width:2px; background:var(--line-2) }
+  .step .sdot{ counter-increment:step; position:absolute; left:0; top:0; width:38px; height:38px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--accent); color:var(--accent-2); font-weight:800; display:grid; place-items:center; font-size:16px; z-index:1 }
+  .step .sdot::before{ content:counter(step) }
+  .step .stitle{ font-weight:700; color:var(--navy); font-size:16.5px; margin:6px 0 4px } .step p{ margin:6px 0 }
+  .frac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; margin:0 4px; line-height:1.05 }
+  .frac .num{ padding:0 6px 2px } .frac .den{ padding:2px 6px 0; border-top:1.6px solid currentColor }
+  .formula{ background:var(--paper-2); border:1px solid var(--line-2); border-radius:11px; padding:14px 18px;
+    margin:14px 0; font-family:var(--mono); font-size:15.5px; color:var(--navy); overflow-x:auto; line-height:2 }
+  .formula.big{ text-align:center; font-size:17px }
+  .var{ color:var(--accent-2); font-style:normal; font-weight:700 } .res{ color:var(--resp); font-weight:700 }
+  code{ font-family:var(--mono); background:var(--paper-2); border:1px solid var(--line-2); border-radius:6px; padding:1px 6px; font-size:.92em; color:var(--navy-soft) }
+  table{ width:100%; border-collapse:collapse; margin:16px 0; font-size:15px; background:var(--surface); border-radius:12px; overflow:hidden; border:1px solid var(--line-2) }
+  thead th{ background:var(--brand-bg); color:var(--brand-fg); font-weight:600; font-size:13.5px; letter-spacing:.3px; padding:11px 14px; text-align:left }
+  tbody td,tbody th{ padding:10px 14px; border-top:1px solid var(--line) }
+  tbody tr:nth-child(even){ background:var(--paper-2) }
+  tbody th{ font-weight:700; color:var(--navy) }
+  td.num,th.num{ font-family:var(--mono); text-align:right }
+  .hl-row{ background:var(--intu-bg) !important; }
+  .tcaption{ font-size:13px; color:var(--muted); margin:-6px 0 18px; font-style:italic }
+  figure{ margin:22px 0; background:var(--surface); border:1px solid var(--line-2); border-radius:14px; padding:18px 18px 12px; box-shadow:0 10px 30px -22px rgba(22,38,63,.45) }
+  .fig-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:22px 0 }
+  .fig-grid.three{ grid-template-columns:repeat(3,1fr) } .fig-grid figure{ margin:0 }
+  figure svg{ width:100%; height:auto; display:block }
+  figcaption{ font-size:13.5px; color:var(--muted); margin-top:10px; text-align:center; line-height:1.5 } figcaption b{ color:var(--navy-soft) }
+  .fig-title{ font-family:var(--serif); font-size:16px; font-weight:700; color:var(--navy); text-align:center; margin-bottom:6px }
+  .axis{ stroke:var(--g-axis); stroke-width:1.7; fill:none } .grid{ stroke:var(--g-grid); stroke-width:1 }
+  .curve{ fill:none; stroke-width:2.8; stroke-linecap:round }
+  .c-dm{ stroke:var(--teoria) } .c-om{ stroke:var(--accent) } .c-ad{ stroke:var(--navy) }
+  .c-as{ stroke:var(--warn) } .c-inv{ stroke:var(--resp) } .c-sec{ stroke:var(--mankiw) }
+  .c-dash{ stroke:var(--g-dash); stroke-width:1.4; stroke-dasharray:5 5; fill:none }
+  .pt{ fill:var(--warn); stroke:var(--g-halo); stroke-width:1.5 } .pt2{ fill:var(--navy); stroke:var(--g-halo); stroke-width:1.5 }
+  .glab{ font-family:var(--sans); font-size:12.5px; fill:var(--g-axis); font-weight:600 }
+  .glab.sm{ font-size:11px; font-weight:500; fill:var(--muted) }
+  .glab.ax{ font-size:12.5px; fill:var(--navy); font-weight:700 }
+  .gnote{ font-family:var(--sans); font-size:11.5px; fill:var(--accent-2); font-weight:700 }
+  .chain{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:18px 0; padding:16px; background:var(--paper-2); border:1px dashed var(--line-2); border-radius:13px }
+  .chain .node{ background:var(--surface); border:1px solid var(--line-2); border-radius:10px; padding:8px 13px; font-size:14px; font-weight:600; color:var(--navy); box-shadow:0 3px 9px -7px rgba(0,0,0,.4) }
+  .chain .node.up{ border-color:var(--resp-bd) } .chain .node.down{ border-color:var(--warn-bd) }
+  .chain .arr{ color:var(--accent); font-weight:800; font-size:17px }
+  .updn{ font-weight:800 } .up .updn,.u{ color:var(--resp) } .down .updn,.d{ color:var(--warn) }
+  .verdict-grid{ display:grid; gap:14px; margin:18px 0 }
+  .vcard{ border:1px solid var(--line-2); border-radius:13px; overflow:hidden; background:var(--surface) }
+  .vcard .vtop{ padding:12px 18px; font-weight:700; display:flex; align-items:center; gap:10px; font-size:15px }
+  .vcard.no .vtop{ background:var(--warn-bg); color:var(--warn); border-bottom:1px solid var(--warn-bd) }
+  .vcard.si .vtop{ background:var(--resp-bg); color:var(--resp); border-bottom:1px solid var(--resp-bd) }
+  .vcard .vtop .tag{ font-family:var(--serif); font-size:18px }
+  .vcard .vbody{ padding:14px 18px } .vcard .vbody p{ margin:8px 0 }
+  .twoacts{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0 }
+  .act{ border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:14px; background:var(--paper-2) }
+  .act .alab{ font-size:11px; letter-spacing:.6px; text-transform:uppercase; font-weight:800; display:block; margin-bottom:3px }
+  .act.contractiva .alab{ color:var(--resp) } .act.expansiva .alab{ color:var(--warn) }
+  .badge{ display:inline-block; padding:1px 8px; border-radius:6px; font-size:11.5px; font-weight:700 }
+  .badge.c{ background:var(--resp-bg); color:var(--resp); border:1px solid var(--resp-bd) }
+  .badge.e{ background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn-bd) }
+  .map{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0 }
+  .mapnode{ background:var(--surface); border:1px solid var(--line-2); border-radius:13px; padding:15px 17px; transition:transform .2s, box-shadow .2s }
+  .mapnode:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -20px rgba(22,38,63,.5) }
+  .mapnode .mn-k{ font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--accent); font-weight:800 }
+  .mapnode h4{ margin:6px 0 4px; text-transform:none; letter-spacing:0; font-family:var(--serif); font-size:16px; color:var(--navy) }
+  .mapnode p{ margin:0; font-size:13.5px; color:var(--muted) }
+  .foot{ margin-top:70px; padding-top:26px; border-top:2px solid var(--line-2); color:var(--faint); font-size:13px; text-align:center }
+  #toTop{ position:fixed; right:24px; bottom:24px; z-index:160; width:46px; height:46px; border-radius:50%;
+    background:var(--brand-bg); color:var(--brand-fg); border:none; cursor:pointer; font-size:20px; display:grid; place-items:center;
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; box-shadow:0 10px 24px -10px rgba(0,0,0,.6) }
+  #toTop.show{ opacity:1; pointer-events:auto } #toTop:hover{ transform:translateY(-3px) }
+  @media (max-width:1180px){
+    #main{ margin-left:0 }
+    #sidebar{ transform:translateX(-100%); box-shadow:0 0 40px rgba(0,0,0,.18) }
+    #shell.open #sidebar{ transform:translateX(0) }
+    .wrap{ padding:34px 22px 100px }
+    .fig-grid,.fig-grid.three,.map{ grid-template-columns:1fr }
+    .twoacts{ grid-template-columns:1fr } .hero h1{ font-size:31px }
+  }
+
+  /* ===================== TEMAS ===================== */
+  html[data-theme="dark"]{
+    --paper:#13161F; --paper-2:#191D28; --surface:#1F2533;
+    --ink:#E9E5DB; --muted:#A7AEBC; --faint:#7E869A;
+    --navy:#9FC0EE; --navy-soft:#BBD3F5; --accent:#E0A94A; --accent-2:#EBC074;
+    --teoria:#82B2DA; --teoria-bg:#1B2733; --teoria-bd:#2E4254;
+    --intu:#E0A94A; --intu-bg:#2A2417; --intu-bd:#4A3D22;
+    --resp:#83C99D; --resp-bg:#16271D; --resp-bd:#28452F;
+    --warn:#E88E84; --warn-bg:#2A1A18; --warn-bd:#4A2C28;
+    --mankiw:#B6ABDD; --mankiw-bg:#221F2E; --mankiw-bd:#3A3450;
+    --line:#2A2F3D; --line-2:#363D4E;
+    --brand-bg:#2A3D60; --brand-fg:#EAF1FF;
+    --topbar-bg:rgba(19,22,31,.88);
+    --g-axis:#8A93A6; --g-grid:#262C39; --g-dash:#5E6678; --g-halo:#1F2533;
+  }
+  html[data-theme="dark"] body::before{ opacity:.35 }
+  html[data-theme="dark"] figure{ box-shadow:0 10px 30px -20px rgba(0,0,0,.8) }
+
+  html[data-theme="sepia"]{
+    --paper:#ECE0C6; --paper-2:#F2E8D2; --surface:#F8F1E1;
+    --ink:#3C2F1C; --muted:#6B5A3F; --faint:#90805F;
+    --navy:#5A3F1E; --navy-soft:#6E4E29; --accent:#9A6B1E; --accent-2:#7E5616;
+    --teoria:#3F6B7A; --teoria-bg:#E4DEC9; --teoria-bd:#C9BE9F;
+    --intu:#9A6B1E; --intu-bg:#EDE0C0; --intu-bd:#D8C49A;
+    --resp:#43704F; --resp-bg:#E1E6CC; --resp-bd:#BFCBA0;
+    --warn:#9A463A; --warn-bg:#EEDCC9; --warn-bd:#D8B79E;
+    --mankiw:#5B4E6E; --mankiw-bg:#E8E0CF; --mankiw-bd:#CCBE9E;
+    --line:#D8CBA9; --line-2:#C8B98F;
+    --brand-bg:#5A3F1E; --brand-fg:#F4ECD7;
+    --topbar-bg:rgba(236,224,198,.9);
+    --g-axis:#5A4B33; --g-grid:#D8CBA9; --g-dash:#9A8763; --g-halo:#F8F1E1;
+  }
+
+  html[data-theme="contrast"]{
+    --paper:#FFFFFF; --paper-2:#FFFFFF; --surface:#FFFFFF;
+    --ink:#000000; --muted:#1C1C1C; --faint:#333333;
+    --navy:#00204D; --navy-soft:#00204D; --accent:#7A4B00; --accent-2:#6A4100;
+    --teoria:#003A6B; --teoria-bg:#EAF1F8; --teoria-bd:#003A6B;
+    --intu:#6A4100; --intu-bg:#FBF1DE; --intu-bd:#6A4100;
+    --resp:#0A5A2A; --resp-bg:#E6F4EA; --resp-bd:#0A5A2A;
+    --warn:#9A0000; --warn-bg:#FBE9E9; --warn-bd:#9A0000;
+    --mankiw:#3A2A6B; --mankiw-bg:#EFEAF6; --mankiw-bd:#3A2A6B;
+    --line:#000000; --line-2:#000000;
+    --brand-bg:#000000; --brand-fg:#FFFFFF;
+    --topbar-bg:#FFFFFF;
+    --g-axis:#000000; --g-grid:#BBBBBB; --g-dash:#444444; --g-halo:#FFFFFF;
+  }
+  html[data-theme="contrast"] body::before{ display:none }
+  html[data-theme="contrast"] .box,
+  html[data-theme="contrast"] .enun,
+  html[data-theme="contrast"] figure,
+  html[data-theme="contrast"] table,
+  html[data-theme="contrast"] .vcard,
+  html[data-theme="contrast"] .chip{ border-width:2px }
+  html[data-theme="contrast"] .curve{ stroke-width:3.4 }
+
+  /* Subrayado de enlaces opcional + reducir movimiento */
+  a{ text-decoration:var(--link-deco) }
+  html[data-reduce="1"] *{ animation:none !important; transition:none !important; scroll-behavior:auto !important }
+
+  /* ===================== BOTONES SUPERIORES ===================== */
+  .iconbtn{ display:inline-grid; place-items:center; width:40px; height:40px; cursor:pointer;
+    background:none; border:1px solid var(--line-2); border-radius:9px; color:var(--navy);
+    transition:background .2s,border-color .2s,opacity .2s; font-size:17px; line-height:1; padding:0 }
+  .iconbtn:hover{ background:var(--paper-2); border-color:var(--accent) }
+  .iconbtn:disabled{ opacity:.35; cursor:default }
+  .iconbtn svg{ width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+  .topright{ margin-left:auto; display:flex; align-items:center; gap:9px }
+  .topright .pill-course{ margin-right:4px }
+  @media (max-width:720px){ .topright .pill-course{ display:none } }
+
+  /* ===================== PANEL DE ACCESIBILIDAD ===================== */
+  #a11yOverlay{ position:fixed; inset:0; z-index:240; background:rgba(0,0,0,.28);
+    opacity:0; pointer-events:none; transition:opacity .25s }
+  #a11yOverlay.show{ opacity:1; pointer-events:auto }
+  #a11yPanel{ position:fixed; z-index:250; top:calc(var(--header-h) + 10px); right:14px; width:330px; max-width:calc(100vw - 28px);
+    background:var(--surface); border:1px solid var(--line-2); border-radius:16px; padding:18px 18px 20px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.55); transform:translateY(-12px) scale(.98); opacity:0;
+    pointer-events:none; transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .22s; max-height:calc(100vh - var(--header-h) - 30px); overflow-y:auto }
+  #a11yPanel.show{ transform:none; opacity:1; pointer-events:auto }
+  #a11yPanel h5{ font-family:var(--serif); font-size:15px; color:var(--navy); margin:0 0 4px; font-weight:700 }
+  .a11y-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px }
+  .a11y-head .ttl{ font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:var(--accent); font-weight:800 }
+  .a11y-close{ background:none; border:none; color:var(--muted); font-size:20px; cursor:pointer; line-height:1; padding:2px 6px; border-radius:6px }
+  .a11y-close:hover{ background:var(--paper-2); color:var(--ink) }
+  .a11y-group{ margin:14px 0 4px } .a11y-group:first-of-type{ margin-top:4px }
+  .a11y-lab{ font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:8px; display:block }
+  .theme-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px }
+  .theme-opt{ display:flex; align-items:center; gap:9px; border:1.5px solid var(--line-2); border-radius:10px;
+    padding:8px 10px; cursor:pointer; background:var(--paper-2); font-size:13px; color:var(--ink); transition:border-color .15s,background .15s; text-align:left }
+  .theme-opt:hover{ border-color:var(--accent) }
+  .theme-opt.active{ border-color:var(--accent); background:var(--intu-bg) }
+  .sw{ width:20px; height:20px; border-radius:6px; border:1px solid rgba(0,0,0,.18); flex:0 0 auto }
+  .sw.light{ background:linear-gradient(135deg,#F6F2E9 50%,#16263F 50%) }
+  .sw.dark{ background:linear-gradient(135deg,#1F2533 50%,#9FC0EE 50%) }
+  .sw.sepia{ background:linear-gradient(135deg,#ECE0C6 50%,#5A3F1E 50%) }
+  .sw.contrast{ background:linear-gradient(135deg,#FFFFFF 50%,#000000 50%) }
+  .stepper{ display:flex; align-items:center; gap:8px }
+  .stepper button{ width:40px; height:40px; border-radius:10px; border:1.5px solid var(--line-2); background:var(--paper-2);
+    color:var(--navy); font-size:18px; font-weight:700; cursor:pointer; transition:border-color .15s, background .15s }
+  .stepper button:hover{ border-color:var(--accent) } .stepper button:disabled{ opacity:.4; cursor:default }
+  .stepper .val{ flex:1; text-align:center; font-family:var(--mono); font-size:14px; color:var(--ink);
+    border:1.5px solid var(--line-2); border-radius:10px; padding:9px 0; background:var(--surface) }
+  .seg{ display:flex; gap:8px } .seg button{ flex:1; padding:9px 0; border-radius:10px; border:1.5px solid var(--line-2);
+    background:var(--paper-2); color:var(--ink); font-size:13px; cursor:pointer; transition:border-color .15s,background .15s }
+  .seg button:hover{ border-color:var(--accent) } .seg button.active{ border-color:var(--accent); background:var(--intu-bg); font-weight:700 }
+  .toggle-row{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-top:1px solid var(--line) }
+  .toggle-row span{ font-size:13.5px; color:var(--ink) }
+  .switch{ position:relative; width:46px; height:26px; flex:0 0 auto }
+  .switch input{ opacity:0; width:0; height:0 }
+  .switch .track{ position:absolute; inset:0; border-radius:999px; background:var(--line-2); transition:background .2s; cursor:pointer }
+  .switch .track::before{ content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%;
+    background:var(--surface); transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.4) }
+  .switch input:checked + .track{ background:var(--accent) }
+  .switch input:checked + .track::before{ transform:translateX(20px) }
+  .a11y-reset{ width:100%; margin-top:14px; padding:10px; border-radius:10px; border:1px solid var(--line-2);
+    background:none; color:var(--muted); font-size:13px; cursor:pointer; transition:background .15s,color .15s }
+  .a11y-reset:hover{ background:var(--paper-2); color:var(--ink) }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="var(--g-axis)"/></marker>
+</defs></svg>
+<div id="progress"></div>
+<header id="topbar">
+  <button class="iconbtn" id="backBtn" aria-label="Volver a donde estaba" title="Volver a donde estaba" disabled>
+    <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-1"/></svg>
+  </button>
+  <button class="burger" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="brand"><span class="t1">Práctica Calificada N°3</span><span class="t2">Resolución paso a paso · Mankiw</span></div>
+  <div class="topright">
+    <span class="pill-course">Macroeconomía · Economía II · Sec. B</span>
+    <button class="iconbtn" id="themeBtn" aria-label="Cambiar a modo oscuro" title="Modo claro / oscuro">
+      <svg id="themeIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg>
+    </button>
+    <button class="iconbtn" id="a11yBtn" aria-label="Opciones de visualización" title="Opciones de visualización (tamaño, colores)" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><path d="M12 4v16"/><path d="M5 8h14"/><path d="M7 20l5-12 5 12"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="a11yOverlay"></div>
+<aside id="a11yPanel" role="dialog" aria-label="Opciones de visualización">
+  <div class="a11y-head">
+    <span class="ttl">Vista y accesibilidad</span>
+    <button class="a11y-close" id="a11yClose" aria-label="Cerrar">&#215;</button>
+  </div>
+
+  <div class="a11y-group">
+    <span class="a11y-lab">Tema de color</span>
+    <div class="theme-grid" id="themeGrid">
+      <button class="theme-opt" data-theme="light"><span class="sw light"></span>Claro</button>
+      <button class="theme-opt" data-theme="dark"><span class="sw dark"></span>Oscuro</button>
+      <button class="theme-opt" data-theme="sepia"><span class="sw sepia"></span>Sepia</button>
+      <button class="theme-opt" data-theme="contrast"><span class="sw contrast"></span>Alto contraste</button>
+    </div>
+  </div>
+
+  <div class="a11y-group">
+    <span class="a11y-lab">Tamaño del texto</span>
+    <div class="stepper">
+      <button id="fsMinus" aria-label="Reducir texto">&#8722;</button>
+      <div class="val" id="fsVal">100%</div>
+      <button id="fsPlus" aria-label="Aumentar texto">+</button>
+    </div>
+  </div>
+
+  <div class="a11y-group">
+    <span class="a11y-lab">Interlineado</span>
+    <div class="seg" id="lhSeg">
+      <button data-lh="1.55">Compacto</button>
+      <button data-lh="1.72" class="active">Normal</button>
+      <button data-lh="2.05">Amplio</button>
+    </div>
+  </div>
+
+  <div class="a11y-group">
+    <div class="toggle-row">
+      <span>Subrayar enlaces</span>
+      <label class="switch"><input type="checkbox" id="tgUnderline"><span class="track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span>Reducir movimiento</span>
+      <label class="switch"><input type="checkbox" id="tgMotion"><span class="track"></span></label>
+    </div>
+  </div>
+
+  <button class="a11y-reset" id="a11yReset">Restablecer todo</button>
+</aside>
+<div id="shell">
+  <nav id="sidebar">
+    <div class="side-title">Contenido</div>
+    <a class="nav-link" href="#intro"><span class="nidx">0</span><span>Panorama y mapa de temas</span></a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="#p1"><span class="nidx">1</span><span>Nivel de Precios y Exportaciones Netas</span></a>
+    <a class="nav-link" href="#p2"><span class="nidx">2</span><span>Tasa de referencia y compra de bonos</span></a>
+    <a class="nav-link" href="#p3"><span class="nidx">3</span><span>Efecto expulsión: alternativa correcta</span></a>
+    <a class="nav-link" href="#p4"><span class="nidx">4</span><span>Efecto expulsión paso a paso + gráficos</span></a>
+    <a class="nav-link" href="#p5"><span class="nidx">5</span><span>Multiplicador y función de consumo</span></a>
+    <a class="nav-link" href="#p6"><span class="nidx">6</span><span>Medidas para enfriar la economía</span></a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="#formulario"><span class="nidx">&#8721;</span><span>Formulario clave</span></a>
+    <a class="nav-link" href="#glosario"><span class="nidx">A</span><span>Glosario macro</span></a>
+  </nav>
+  <main id="main">
+   <div class="wrap">
+    <section id="intro">
+      <div class="hero">
+        <div class="kicker">Universidad de Piura · Campus Lima · FCEE</div>
+        <h1>Resolución completa y razonada</h1>
+        <p class="sub">Cada ejercicio resuelto <strong>paso a paso</strong>, mostrando el <em>porqué</em> de cada operación, la intuición económica detrás, la interpretación del resultado y la teoría de Mankiw que lo sustenta. Pensado para entender de verdad, no solo para copiar la respuesta.</p>
+        <div class="hero-meta">
+          <span class="chip"><b>Curso:</b> Macroeconomía — Economía II</span>
+          <span class="chip"><b>Examen:</b> Práctica Calificada N°3</span>
+          <span class="chip"><b>Fecha:</b> 28 oct 2025</span>
+          <span class="chip"><b>Texto base:</b> N. G. Mankiw, <em>Principios de Economía</em></span>
+        </div>
+      </div>
+      <div class="box mankiw">
+        <span class="box-tag">El hilo conductor del examen</span>
+        <p>Las seis preguntas giran alrededor de un solo eje: <strong>la Demanda Agregada (DA) y cómo la política monetaria y fiscal la mueven</strong>. Si dominas tres ideas, dominas todo el examen:</p>
+        <ul class="clean">
+          <li><strong>Por qué la DA tiene pendiente negativa</strong> (efecto riqueza, efecto tasa de interés y efecto tipo de cambio) &#8594; Pregunta 1.</li>
+          <li><strong>Cómo el Banco Central y el Gobierno enfrían o calientan la economía</strong> (tasa de referencia, operaciones de mercado abierto, encaje, impuestos, gasto) &#8594; Preguntas 2 y 6.</li>
+          <li><strong>El efecto expulsión</strong> (cómo la política fiscal puede "expulsar" inversión privada vía la tasa de interés) &#8594; Preguntas 3 y 4.</li>
+        </ul>
+        <p>La Pregunta 5 es la parte cuantitativa keynesiana: <strong>multiplicador del gasto y función de consumo</strong>.</p>
+      </div>
+      <div class="map">
+        <div class="mapnode"><div class="mn-k">Demanda Agregada</div><h4>¿Por qué cae al subir P?</h4><p>Tres efectos. El examen pide el del tipo de cambio (P&#8593; &#8594; XN&#8595;).</p></div>
+        <div class="mapnode"><div class="mn-k">Mercado del dinero</div><h4>OM, DM y tasa de interés</h4><p>La preferencia por la liquidez fija la tasa; el BCRP la usa para frenar o impulsar el gasto.</p></div>
+        <div class="mapnode"><div class="mn-k">Efecto expulsión</div><h4>Cuando G&#8593; sube la tasa</h4><p>El alza de la tasa reduce la inversión y "expulsa" parte del estímulo fiscal.</p></div>
+        <div class="mapnode"><div class="mn-k">Multiplicador</div><h4>k = 1 / (1 &#8722; PMC)</h4><p>Una unidad de gasto autónomo genera varias unidades de producto.</p></div>
+        <div class="mapnode"><div class="mn-k">Función de consumo</div><h4>C = C&#8320; + PMC · Yd</h4><p>El consumo depende del ingreso disponible; lo que no se consume, se ahorra.</p></div>
+        <div class="mapnode"><div class="mn-k">Política económica</div><h4>Enfriar = DA&#8595;</h4><p>Contractiva: sube la tasa, vende bonos, sube encaje, sube impuestos.</p></div>
+      </div>
+    </section>
+    <section id="p1" class="qsection">
+      <div class="qhead"><div class="qnum">1</div>
+        <div><h2>El Nivel de Precios y las Exportaciones Netas: una relación inversa</h2>
+        <div class="qpts">3 puntos · Explicación detallada</div></div>
+      </div>
+      <div class="enun">Explique detalladamente cómo es que el Nivel de Precios de una economía tiene una relación inversa con las Exportaciones Netas.</div>
+      <div class="box teoria">
+        <span class="box-tag">Marco teórico — Mankiw</span>
+        <p>La <strong>curva de Demanda Agregada (DA)</strong> tiene pendiente negativa por <strong>tres efectos</strong>: el efecto riqueza, el efecto tasa de interés y el <strong>efecto tipo de cambio</strong>. La pregunta apunta directamente a este tercer efecto, que es <em>precisamente el puente entre el nivel de precios (P) y las exportaciones netas (XN)</em>.</p>
+        <p>Recuerda la definición: &nbsp;<span class="var">XN</span> = Exportaciones &#8722; Importaciones.</p>
+      </div>
+      <h3>La idea central en una frase</h3>
+      <p class="lead">Cuando suben los precios internos, "lo nuestro" se vuelve <strong>caro frente a lo extranjero</strong>: vendemos menos al exterior (exportaciones&#8595;) y compramos más afuera (importaciones&#8593;). Resultado: <strong>las exportaciones netas caen</strong>. Por eso la relación es <em>inversa</em>: <code>P &#8593; &#8658; XN &#8595;</code>.</p>
+      <p>Ahora desarmemos esa frase en sus dos canales. El primero es directo e intuitivo; el segundo es el que Mankiw usa formalmente para explicar la pendiente de la DA (y conecta con todo el modelo de economía abierta: tasa de interés, salida neta de capitales y mercado de divisas).</p>
+      <h3>Canal 1 — Vía precios relativos (la versión intuitiva)</h3>
+      <div class="steps">
+        <div class="step"><div class="sdot"></div><div class="stitle">Sube el nivel de precios interno (P&#8593;)</div>
+          <p>Supón que el tipo de cambio nominal y los precios del exterior (P*) se mantienen fijos por un momento.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Los bienes nacionales se encarecen <em>en términos relativos</em></div>
+          <p>Esto es exactamente el <strong>tipo de cambio real (TCR)</strong>: el precio de nuestros bienes medido en bienes extranjeros. Si P sube y lo demás queda igual, el TCR se <strong>aprecia</strong> (nuestros bienes valen relativamente más).</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Cambian las decisiones de compra a ambos lados de la frontera</div>
+          <p>Los extranjeros, viendo nuestros productos más caros, <strong>compran menos exportaciones nuestras</strong>. Y nosotros, viendo los productos importados relativamente baratos, <strong>importamos más</strong>.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Caen las exportaciones netas</div>
+          <p>Exportaciones&#8595; e Importaciones&#8593; &#8658; <span class="var">XN = X &#8722; M</span> <strong>disminuye</strong>. La relación P&#8211;XN es inversa. &#8718;</p></div>
+      </div>
+      <h3>Canal 2 — Vía tasa de interés y tipo de cambio (el "efecto tipo de cambio" de Mankiw)</h3>
+      <p>Este es el mecanismo formal del capítulo de Demanda y Oferta Agregadas. Es más largo, pero es el que conecta con el modelo de <strong>economía abierta</strong> (mercado de fondos prestables, salida neta de capitales y mercado de divisas).</p>
+      <div class="chain">
+        <span class="node up">P <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">Demanda de dinero <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">Tasa de interés <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node down">Salida neta de capitales (SNC) <span class="updn">&#8595;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">Moneda nacional se <span class="u">aprecia</span></span><span class="arr">&#8594;</span>
+        <span class="node down">XN <span class="updn">&#8595;</span></span>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="sdot"></div><div class="stitle">P&#8593; eleva la demanda de dinero y, con ella, la tasa de interés</div>
+          <p>Al subir los precios, para realizar las mismas transacciones la gente necesita <strong>más dinero</strong>. Con la oferta monetaria fija, esa mayor demanda de dinero <strong>empuja la tasa de interés hacia arriba</strong> (el "efecto tasa de interés" sirviendo de eslabón).</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Una tasa interna más alta reduce la salida neta de capitales (SNC&#8595;)</div>
+          <p>Si invertir <em>dentro</em> del país rinde más, los inversionistas locales sacan menos capital al exterior y, además, <strong>entra</strong> capital extranjero buscando ese mayor rendimiento. La SNC <strong>disminuye</strong>.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Menos SNC &#8658; menos oferta de moneda nacional &#8658; la moneda se aprecia</div>
+          <p>La SNC es justamente la <strong>oferta de moneda nacional</strong> en el mercado de divisas (la moneda que sale a comprar activos afuera). Si sale menos, su oferta cae y su precio sube: <strong>la moneda nacional se aprecia</strong> (tipo de cambio real más fuerte).</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Una moneda apreciada encarece exportaciones y abarata importaciones</div>
+          <p>Con la moneda fuerte, nuestros bienes son más caros para el extranjero (exporta&#8595;) y los importados se vuelven baratos para nosotros (importa&#8593;). Por lo tanto <span class="var">XN &#8595;</span>. &#8718;</p></div>
+      </div>
+      <div class="box intu"><span class="box-tag">Intuición para no olvidarla</span>
+        <p>Si en tu país "todo está caro", <strong>los de afuera dejan de comprarte</strong> y tú prefieres comprar afuera. Sea por el canal directo (precios relativos) o por el canal financiero (tasa &#8594; moneda fuerte), el resultado es el mismo: <strong>precios internos altos &#8658; menos exportaciones netas</strong>.</p></div>
+      <figure>
+        <div class="fig-title">Por qué la curva DA cae: el aporte de las exportaciones netas</div>
+        <svg viewBox="0 0 560 320" role="img">
+          <line class="axis" x1="70" y1="40" x2="70" y2="270" marker-end="url(#arr)"/>
+          <line class="axis" x1="70" y1="270" x2="520" y2="270" marker-end="url(#arr)"/>
+          <text class="glab ax" x="44" y="52">P</text>
+          <text class="glab ax" x="455" y="292">PBI real (Y)</text>
+          <path class="curve c-ad" d="M120,70 C 230,150 330,210 470,255"/>
+          <text class="glab ax" x="476" y="250" fill="var(--navy)">DA</text>
+          <line class="c-dash" x1="70" y1="110" x2="175" y2="110"/><line class="c-dash" x1="175" y1="110" x2="175" y2="270"/>
+          <circle class="pt2" cx="175" cy="110" r="5"/><text class="glab sm" x="150" y="285">Y bajo</text>
+          <line class="c-dash" x1="70" y1="235" x2="405" y2="235"/><line class="c-dash" x1="405" y1="235" x2="405" y2="270"/>
+          <circle class="pt" cx="405" cy="235" r="5"/><text class="glab sm" x="385" y="285">Y alto</text>
+          <text class="glab sm" x="36" y="114">P&#8321; (alto)</text><text class="glab sm" x="36" y="239">P&#8322; (bajo)</text>
+          <text class="gnote" x="240" y="92">P alto &#8594; XN baja &#8594; menos Y demandado</text>
+          <text class="gnote" x="240" y="178" fill="var(--resp)">P bajo &#8594; XN sube &#8594; más Y demandado</text>
+        </svg>
+        <figcaption>Cuando <b>P sube</b> (de P&#8322; a P&#8321;), una de las razones por las que la cantidad demandada de producto cae es que <b>las exportaciones netas disminuyen</b>. Ese es el "efecto tipo de cambio" incorporado en la pendiente negativa de la DA.</figcaption>
+      </figure>
+      <div class="box resp"><span class="box-tag">Respuesta para el examen</span>
+        <p>El nivel de precios y las exportaciones netas se mueven en sentido contrario porque <strong>un nivel de precios interno más alto encarece los bienes nacionales frente a los extranjeros</strong>. Directamente, eso aprecia el tipo de cambio real y reduce X mientras aumenta M. Por el canal financiero (Mankiw), P&#8593; eleva la tasa de interés, lo que reduce la salida neta de capitales, <strong>aprecia la moneda nacional</strong> y vuelve a reducir X y aumentar M. En ambos casos: <span class="res">P &#8593; &#8658; XN &#8595;</span> (relación inversa), uno de los motivos de la pendiente negativa de la DA.</p></div>
+    </section>
+    <section id="p2" class="qsection">
+      <div class="qhead"><div class="qnum">2</div>
+        <div><h2>Tasa de referencia y compra de bonos ante la inflación</h2>
+        <div class="qpts">1.5 puntos cada una · Responder y sustentar</div></div>
+      </div>
+      <div class="box teoria"><span class="box-tag">Marco teórico — la clave para ambas</span>
+        <p>"Enfriar la economía" o "combatir la inflación de demanda" significa <strong>reducir o frenar la Demanda Agregada (DA&#8595;)</strong>. La pregunta clave en cada caso es una sola: <strong>&#191;esta medida hace DA&#8595; (contractiva, correcta) o DA&#8593; (expansiva, equivocada)?</strong> Tu propia anotación lo resume perfecto: <em>"busco DA&#8595;"</em>.</p></div>
+
+      <h3>2a) &#191;Conviene aumentar la tasa de interés de referencia ante un aumento de inflación?</h3>
+      <div class="enun">&#191;Sería conveniente aumentar la tasa de interés de referencia ante un escenario de aumento de inflación? &#191;Por qué? <span class="hw">(anotado: "busco DA&#8595;")</span></div>
+      <div class="chain">
+        <span class="node up">Tasa de referencia <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">Tasas de mercado (crédito) <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node down">Inversión y consumo a crédito <span class="updn">&#8595;</span></span><span class="arr">&#8594;</span>
+        <span class="node down">DA <span class="updn">&#8595;</span></span><span class="arr">&#8594;</span>
+        <span class="node down">Presión inflacionaria <span class="updn">&#8595;</span></span>
+      </div>
+      <p>Subir la tasa de referencia es <strong>política monetaria contractiva</strong>. Por la teoría de la preferencia por la liquidez, encarecer el dinero hace que pedir prestado cueste más: las empresas invierten menos y los hogares posponen consumo financiado con crédito. Eso desplaza la DA hacia la izquierda y alivia la presión sobre los precios. Es exactamente lo que se busca ante inflación de demanda.</p>
+      <div class="box resp"><span class="box-tag">Respuesta 2a</span>
+        <span class="verdict">SÍ, es conveniente.</span>
+        <p>Ante un aumento de la inflación (típicamente por exceso de demanda), subir la tasa de referencia es lo correcto: encarece el crédito, reduce inversión y consumo, <strong>contrae la DA</strong> y frena la subida de precios. Coincide con tu objetivo "busco DA&#8595;". <em>(Matiz: es ideal frente a inflación de demanda; ante un shock de costos puro la decisión es más delicada, pero la respuesta de manual es que sí.)</em></p></div>
+
+      <h3>2b) &#191;Conviene que el BCRP compre bonos del Estado para enfriar la economía?</h3>
+      <div class="enun">&#191;Sería recomendable que el BCRP compre bonos del Estado para enfriar la economía? Sustente su respuesta. <span class="hw">(anotado: "busco DA&#8595;")</span></div>
+      <div class="box warn"><span class="box-tag">Ojo: aquí está la trampa</span>
+        <p>Hay que tener clarísima la dirección de las <strong>operaciones de mercado abierto (OMA)</strong>: <strong>comprar bonos = inyectar dinero (OM&#8593;) = expansivo</strong>; <strong>vender bonos = retirar dinero (OM&#8595;) = contractivo</strong>. Para <em>enfriar</em> hay que vender, no comprar.</p></div>
+      <div class="chain">
+        <span class="node">BCRP <b>compra</b> bonos</span><span class="arr">&#8594;</span>
+        <span class="node up">Oferta monetaria (OM) <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node down">Tasa de interés <span class="updn">&#8595;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">Inversión y consumo <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+        <span class="node up">DA <span class="updn">&#8593;</span> (&#161;calienta!)</span>
+      </div>
+      <p>Cuando el BCRP <strong>compra</strong> bonos, paga con dinero que entra al sistema: aumenta la oferta monetaria, baja la tasa de interés, se reactivan inversión y consumo y la DA <strong>se expande</strong>. Eso es lo contrario de enfriar: agravaría la inflación. La meta es DA&#8595;, pero comprar bonos produce DA&#8593;.</p>
+      <figure>
+        <div class="fig-title">Operaciones de mercado abierto en el mercado del dinero</div>
+        <svg viewBox="0 0 560 320" role="img">
+          <line class="axis" x1="95" y1="40" x2="95" y2="270" marker-end="url(#arr)"/>
+          <line class="axis" x1="95" y1="270" x2="520" y2="270" marker-end="url(#arr)"/>
+          <text class="glab ax" x="58" y="52">Tasa (r)</text><text class="glab ax" x="395" y="292">Cantidad de dinero</text>
+          <path class="curve c-dm" d="M120,75 L480,255"/><text class="glab ax" x="486" y="258" fill="var(--teoria)">DM</text>
+          <line class="curve c-om" x1="265" y1="40" x2="265" y2="270"/><text class="glab" x="248" y="34" fill="var(--accent)">OM&#8320;</text>
+          <line class="curve c-om" x1="195" y1="55" x2="195" y2="270" stroke-dasharray="3 4"/><text class="glab sm" x="120" y="50">vende: contractivo</text>
+          <line class="curve c-om" x1="345" y1="55" x2="345" y2="270" stroke-dasharray="3 4"/><text class="glab sm" x="350" y="50">compra: expansivo</text>
+          <circle class="pt2" cx="265" cy="148" r="5"/><circle class="pt" cx="195" cy="113" r="5"/><circle class="pt" cx="345" cy="188" r="5"/>
+          <line class="c-dash" x1="95" y1="148" x2="265" y2="148"/>
+          <line class="c-dash" x1="95" y1="113" x2="195" y2="113"/><line class="c-dash" x1="95" y1="188" x2="345" y2="188"/>
+          <text class="glab sm" x="74" y="152">r&#8320;</text>
+          <text class="gnote" x="103" y="107">r&#8593; (enfría)</text><text class="gnote" x="103" y="207" fill="var(--warn)">r&#8595; (calienta)</text>
+        </svg>
+        <figcaption><b>Vender</b> bonos corre la OM a la izquierda &#8594; la tasa <b>sube</b> (enfría). <b>Comprar</b> bonos corre la OM a la derecha &#8594; la tasa <b>baja</b> (calienta). Para enfriar, el BCRP debe <b>vender</b>, no comprar.</figcaption>
+      </figure>
+      <div class="box resp"><span class="box-tag">Respuesta 2b</span>
+        <span class="verdict">NO, no es recomendable.</span>
+        <p>Comprar bonos es una operación <strong>expansiva</strong>: inyecta dinero, baja la tasa y expande la DA, es decir, <strong>calienta</strong> la economía justo cuando se la quiere enfriar. Para enfriar, el BCRP debería <strong>vender</strong> bonos del Estado (retirar dinero, subir la tasa, contraer la DA).</p></div>
+    </section>
+    <section id="p3" class="qsection">
+      <div class="qhead"><div class="qnum">3</div>
+        <div><h2>&#191;Cuál alternativa describe correctamente el efecto expulsión?</h2>
+        <div class="qpts">3 puntos · Opción correcta</div></div>
+      </div>
+      <div class="box teoria"><span class="box-tag">Definición precisa — Mankiw</span>
+        <p>El <strong>efecto expulsión</strong> (o desplazamiento) es la <em>reducción de la demanda agregada que se produce cuando una política fiscal expansiva eleva la tasa de interés y, con ello, disminuye la inversión</em>. La cadena es:</p>
+        <div class="chain" style="margin-top:8px">
+          <span class="node up">Política fiscal expansiva (G&#8593;)</span><span class="arr">&#8594;</span>
+          <span class="node up">DA e ingreso <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+          <span class="node up">Demanda de dinero <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+          <span class="node up">Tasa de interés <span class="updn">&#8593;</span></span><span class="arr">&#8594;</span>
+          <span class="node down">Inversión <span class="updn">&#8595;</span></span><span class="arr">&#8594;</span>
+          <span class="node down">DA <span class="updn">&#8595;</span> (retrocede)</span>
+        </div>
+        <p>Lo decisivo: en el efecto expulsión la tasa de interés <strong>SUBE</strong> (no baja) y eso es lo que "expulsa" la inversión privada.</p></div>
+
+      <h3>Evaluación de cada alternativa</h3>
+      <p>Vamos opción por opción. Marcamos en verde la correcta y en rojo las equivocadas, explicando el error de cada una.</p>
+
+      <div class="vcard no"><div class="vtop"><span class="tag">a)</span> &#10007; Incorrecta</div>
+        <div class="vbody"><p><em>"Cuando en una economía baja la tasa de interés debido a una inyección de dinero por parte del Banco Central, hay varios sectores que quedan excluidos del beneficio."</em></p>
+        <p>Esto describe una inyección monetaria que <strong>baja</strong> la tasa (expansión monetaria), no el efecto expulsión. La expulsión nace de la política <em>fiscal</em> que <strong>sube</strong> la tasa y reduce la inversión. No corresponde.</p></div></div>
+
+      <div class="vcard no"><div class="vtop"><span class="tag">b)</span> &#10007; Incorrecta</div>
+        <div class="vbody"><p><em>"Cuando el Banco Central excluye del Sistema Financiero a los bancos ineficientes; eso hace disminuir la DA."</em></p>
+        <p>El "expulsión" del efecto se refiere a <strong>expulsar inversión privada vía la tasa de interés</strong>, no a expulsar bancos del sistema. Concepto totalmente distinto. No corresponde.</p></div></div>
+
+      <div class="vcard si"><div class="vtop"><span class="tag">c)</span> &#10003; CORRECTA</div>
+        <div class="vbody"><p><em>"Cuando la política económica expansiva desplaza la DA y, consecuentemente, a la Demanda Monetaria, esto hace elevar la tasa de interés; lo cual hace retroceder a la DA."</em></p>
+        <p>Esta es la <strong>única</strong> que reproduce la cadena correcta del efecto expulsión: la expansión desplaza la DA &#8594; mayor ingreso desplaza la demanda de dinero &#8594; <strong>la tasa de interés SUBE</strong> &#8594; cae la inversión &#8594; la DA <strong>retrocede</strong> parcialmente. Es exactamente la definición de Mankiw.</p></div></div>
+
+      <div class="vcard no"><div class="vtop"><span class="tag">d)</span> &#10007; Incorrecta</div>
+        <div class="vbody"><p><em>"Cuando la política económica contractiva desplaza la DA y, consecuentemente, a la Demanda Monetaria, lo cual hace elevar la tasa de interés; y esto último hace retroceder a la DA."</em></p>
+        <p>Dos errores: (1) habla de política <strong>contractiva</strong>, cuando la expulsión surge de una <strong>expansión</strong>; (2) una contracción <em>reduce</em> el ingreso y la demanda de dinero, por lo que la tasa <strong>bajaría</strong>, no subiría. No corresponde.</p></div></div>
+
+      <div class="vcard no"><div class="vtop"><span class="tag">e)</span> &#10007; Incorrecta</div>
+        <div class="vbody"><p><em>"Cuando la política fiscal expansiva desplaza la DA y, consecuentemente, a la Demanda Monetaria, lo cual hace disminuir la tasa de interés; y esto último hace retroceder a la DA."</em></p>
+        <p>Acierta en "política fiscal expansiva", pero comete el error <strong>fatal</strong>: dice que la tasa de interés <strong>disminuye</strong>. En el efecto expulsión la tasa <strong>aumenta</strong> (la mayor demanda de dinero con OM fija sube la tasa). Además, si la tasa bajara, la inversión subiría y la DA no retrocedería. Contradictoria. No corresponde.</p></div></div>
+
+      <div class="box intu"><span class="box-tag">El detalle fino que esta pregunta evalúa: económica vs. fiscal</span>
+        <p>La opción (c) dice "política <strong>económica</strong> expansiva" y, en rigor, el efecto expulsión nace de la política <strong>fiscal</strong> (G&#8593;). &#191;Por qué (c) es aun así la correcta? Porque la cadena que describe &#8211;DA&#8593; &#8594; demanda de dinero&#8593; &#8594; tasa<strong>&#8593;</strong>&#8594; DA retrocede&#8211; <em>solo es consistente con una expansión fiscal</em>: una expansión <strong>monetaria</strong> haría <em>bajar</em> la tasa, no subirla. Entre tener el mecanismo correcto (c) o tener la etiqueta correcta pero el mecanismo invertido (e), <strong>el examen premia el mecanismo correcto</strong>. Por eso, la (c) es la respuesta.</p></div>
+
+      <div class="box resp"><span class="box-tag">Respuesta para el examen</span>
+        <p>La alternativa correcta es la <span class="res">(c)</span>: una política expansiva desplaza la DA, eleva la demanda de dinero, <strong>sube la tasa de interés</strong> y esto hace retroceder a la DA (al deprimir la inversión). Es la única que conserva la dirección correcta de la tasa, que es el corazón del efecto expulsión.</p></div>
+    </section>
+    <section id="p4" class="qsection">
+      <div class="qhead"><div class="qnum">4</div>
+        <div><h2>El efecto expulsión, paso a paso (con gráficos)</h2>
+        <div class="qpts">2 + 2 puntos · Explicación detallada + gráficos</div></div>
+      </div>
+      <div class="enun">El gobierno aumenta las Compras del Estado para combatir el desempleo; la DA se expande, pero el efecto sobre producción y empleo fue mucho menor de lo esperado. Los asesores explican: <em>"Aunque la DA se expandió como era esperado (por el multiplicador del gasto), fue el 'efecto expulsión' el causante de que el resultado final sea mucho menor; ya que en el Mercado del Dinero la DM es muy poco elástica frente a la tasa de interés, y la Autoridad Monetaria se negó a incrementar la OM".</em><br><b>a)</b> Explique paso por paso ese efecto expulsión. &nbsp;<b>b)</b> Haga los gráficos pertinentes con las explicaciones.</div>
+
+      <div class="box teoria"><span class="box-tag">Las dos "pistas" del enunciado son la clave</span>
+        <p>El profesor metió dos condiciones que <strong>refuerzan</strong> el efecto expulsión y hay que explicar por qué:</p>
+        <ul class="clean">
+          <li><strong>"La DM es muy poco elástica frente a la tasa de interés"</strong> &#8594; la curva de demanda de dinero es <strong>muy empinada</strong>. Esto hace que la tasa suba <em>mucho</em>.</li>
+          <li><strong>"La Autoridad Monetaria se negó a incrementar la OM"</strong> &#8594; la oferta monetaria queda <strong>fija</strong>. No hay nada que frene el alza de la tasa.</li>
+        </ul>
+        <p>Las dos juntas producen un alza fuerte de la tasa &#8658; una caída fuerte de la inversión &#8658; una expulsión grande &#8658; un efecto neto pequeño. Justo lo que pasó.</p></div>
+
+      <h3>a) Explicación paso a paso</h3>
+      <div class="steps">
+        <div class="step"><div class="sdot"></div><div class="stitle">El gasto público sube y actúa el multiplicador</div>
+          <p>Con G&#8593;, la DA se expande. El <strong>multiplicador del gasto</strong> &#8732; <span class="frac"><span class="num">1</span><span class="den">1 &#8722; PMC</span></span> &#8733; amplifica el impacto inicial: la DA se desplaza a la derecha por <em>multiplicador &#215; &#916;G</em> (de DA&#8320; a DA&#8321;). Primera ronda: más producción, más ingreso. <strong>Hasta aquí, "todo como se esperaba".</strong></p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">El mayor ingreso eleva la demanda de dinero</div>
+          <p>Al subir la producción y el ingreso, familias y empresas realizan más transacciones y <strong>necesitan más dinero</strong> (motivo transacción). La demanda de dinero (DM) se desplaza a la derecha en el mercado del dinero.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Con la OM fija, sube la tasa de interés</div>
+          <p>La Autoridad Monetaria <strong>no aumentó la OM</strong>: la oferta de dinero es una vertical fija. Con DM desplazándose a la derecha y OM fija, el nuevo equilibrio del mercado del dinero exige una <strong>tasa de interés más alta</strong> (de r&#8320; a r&#8321;).</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Como la DM es muy poco elástica, la tasa sube MUCHO</div>
+          <p>Una DM "muy poco elástica" frente a la tasa es una curva <strong>muy empinada</strong> (casi vertical): la cantidad de dinero demandada apenas reacciona a la tasa. Cuando esa curva empinada se desplaza a la derecha y debe volver a cruzar la OM fija, <strong>la tasa tiene que subir mucho</strong> para reducir la cantidad demandada de vuelta al nivel de la oferta. (Si la DM fuera plana/elástica, bastaría una pequeña alza.)</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">La fuerte alza de la tasa reduce mucho la inversión</div>
+          <p>La inversión depende <strong>negativamente</strong> de la tasa de interés. Como r subió mucho, la inversión cae mucho (de I&#8320; a I&#8321;): el crédito se encarece y muchos proyectos dejan de ser rentables.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">La caída de la inversión hace retroceder la DA (la "expulsión")</div>
+          <p>La menor inversión privada desplaza la DA de vuelta a la izquierda (de DA&#8321; a DA&#8322;). El gasto público <strong>"expulsó" inversión privada</strong>. La DA final (DA&#8322;) queda a la derecha de la inicial, pero <strong>mucho menos</strong> de lo que prometía el multiplicador.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Resultado: producción y empleo suben poco; el desempleo persiste</div>
+          <p>Como la expulsión fue intensa (por la DM inelástica y la OM fija), el efecto neto sobre Y y el empleo fue pequeño. Por eso <strong>"el desempleo persistía"</strong>.</p></div>
+      </div>
+
+      <div class="box intu"><span class="box-tag">El papel de la negativa del Banco Central</span>
+        <p>Si el BCRP <em>hubiera</em> acompañado el estímulo aumentando la OM, la tasa no habría subido (o habría subido poco), la inversión no habría caído y la expulsión sería mínima: el multiplicador se habría sentido completo. Al <strong>negarse</strong> a aumentar la OM, dejó que la tasa subiera todo lo necesario, <strong>maximizando la expulsión</strong>.</p></div>
+
+      <h3>b) Los tres gráficos pertinentes</h3>
+      <p>El proceso se ve en tres mercados encadenados: <strong>(1)</strong> el mercado del dinero determina cuánto sube la tasa; <strong>(2)</strong> la curva de inversión traduce esa alza en menos inversión; <strong>(3)</strong> la DA&#8211;OA muestra el retroceso final del producto.</p>
+
+      <div class="fig-grid three">
+        <figure>
+          <div class="fig-title">1. Mercado del dinero</div>
+          <svg viewBox="0 0 460 340" role="img">
+            <line class="axis" x1="70" y1="50" x2="70" y2="305" marker-end="url(#arr)"/>
+            <line class="axis" x1="70" y1="305" x2="430" y2="305" marker-end="url(#arr)"/>
+            <text class="glab ax" x="44" y="44">r</text><text class="glab ax" x="350" y="328">M</text>
+            <line class="curve c-om" x1="250" y1="55" x2="250" y2="305"/>
+            <text class="glab" x="232" y="48" fill="var(--accent)">OM (fija)</text>
+            <line class="curve c-dm" x1="155" y1="80" x2="290" y2="305"/>
+            <text class="glab" x="290" y="300" fill="var(--teoria)">DM&#8320;</text>
+            <line class="curve c-dm" x1="195" y1="51" x2="335" y2="285" stroke-dasharray="2 0"/>
+            <text class="glab" x="335" y="280" fill="var(--teoria)">DM&#8321;</text>
+            <circle class="pt2" cx="250" cy="238" r="5"/><circle class="pt" cx="250" cy="143" r="5"/>
+            <line class="c-dash" x1="70" y1="238" x2="250" y2="238"/><line class="c-dash" x1="70" y1="143" x2="250" y2="143"/>
+            <text class="glab sm" x="46" y="242">r&#8320;</text><text class="glab sm" x="46" y="147">r&#8321;</text>
+            <path class="c-dash" d="M86,238 L86,143" stroke="var(--warn)" marker-end="url(#arr)"/>
+            <text class="gnote" x="92" y="195" fill="var(--warn)">&#916;r grande</text>
+            <text class="gnote" x="150" y="330" fill="var(--accent-2)">DM empinada = inelástica</text>
+          </svg>
+          <figcaption>DM <b>empinada</b> (inelástica) se desplaza a la derecha; con OM fija, la tasa salta de r&#8320; a r&#8321;: <b>un alza grande</b>.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-title">2. Demanda de inversión</div>
+          <svg viewBox="0 0 460 340" role="img">
+            <line class="axis" x1="70" y1="50" x2="70" y2="305" marker-end="url(#arr)"/>
+            <line class="axis" x1="70" y1="305" x2="430" y2="305" marker-end="url(#arr)"/>
+            <text class="glab ax" x="44" y="44">r</text><text class="glab ax" x="380" y="328">Inversión (I)</text>
+            <path class="curve c-inv" d="M110,80 C 200,150 300,240 400,285"/>
+            <text class="glab" x="360" y="270" fill="var(--resp)">I(r)</text>
+            <circle class="pt2" cx="318" cy="238" r="5"/><circle class="pt" cx="190" cy="143" r="5"/>
+            <line class="c-dash" x1="70" y1="238" x2="318" y2="238"/><line class="c-dash" x1="318" y1="238" x2="318" y2="305"/>
+            <line class="c-dash" x1="70" y1="143" x2="190" y2="143"/><line class="c-dash" x1="190" y1="143" x2="190" y2="305"/>
+            <text class="glab sm" x="46" y="242">r&#8320;</text><text class="glab sm" x="46" y="147">r&#8321;</text>
+            <text class="glab sm" x="306" y="325">I&#8320;</text><text class="glab sm" x="178" y="325">I&#8321;</text>
+            <path class="c-dash" d="M312,262 L196,262" stroke="var(--warn)" marker-end="url(#arr)"/>
+            <text class="gnote" x="200" y="282" fill="var(--warn)">caída grande de I</text>
+          </svg>
+          <figcaption>El salto de la tasa (r&#8320;&#8594;r&#8321;) recorre la curva I(r) y <b>reduce fuertemente</b> la inversión (I&#8320;&#8594;I&#8321;).</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-title">3. Demanda y Oferta Agregadas</div>
+          <svg viewBox="0 0 460 340" role="img">
+            <line class="axis" x1="70" y1="50" x2="70" y2="305" marker-end="url(#arr)"/>
+            <line class="axis" x1="70" y1="305" x2="430" y2="305" marker-end="url(#arr)"/>
+            <text class="glab ax" x="44" y="44">P</text><text class="glab ax" x="370" y="328">Y (producto)</text>
+            <line class="curve c-as" x1="90" y1="295" x2="410" y2="80"/>
+            <text class="glab" x="386" y="76" fill="var(--warn)">OA</text>
+            <line class="curve c-ad" x1="110" y1="195" x2="235" y2="290"/><text class="glab sm" x="90" y="190" fill="var(--navy)">DA&#8320;</text>
+            <line class="curve c-ad" x1="320" y1="54" x2="440" y2="146" stroke-dasharray="2 0"/><text class="glab sm" x="424" y="150" fill="var(--navy)">DA&#8321;</text>
+            <line class="curve c-ad" x1="190" y1="135" x2="320" y2="233" stroke-dasharray="2 0"/><text class="glab sm" x="318" y="247" fill="var(--navy)">DA&#8322;</text>
+            <circle class="pt2" cx="170" cy="241" r="5"/><circle class="pt2" cx="255" cy="184" r="5"/><circle class="pt" cx="380" cy="100" r="5"/>
+            <line class="c-dash" x1="170" y1="241" x2="170" y2="305"/><line class="c-dash" x1="255" y1="184" x2="255" y2="305"/><line class="c-dash" x1="380" y1="100" x2="380" y2="305"/>
+            <text class="glab sm" x="161" y="323">Y&#8320;</text><text class="glab sm" x="246" y="323">Y&#8322;</text><text class="glab sm" x="371" y="323">Y&#8321;</text>
+            <path class="c-dash" d="M205,148 L318,94" stroke="var(--resp)" marker-end="url(#arr)"/>
+            <text class="gnote" x="150" y="112" fill="var(--resp)">esperado (multiplicador)</text>
+            <path class="c-dash" d="M362,128 L292,158" stroke="var(--warn)" marker-end="url(#arr)"/>
+            <text class="gnote" x="298" y="182" fill="var(--warn)">expulsión</text>
+          </svg>
+          <figcaption>La DA se expande a DA&#8321; (Y&#8321;, lo esperado), pero la expulsión la regresa a DA&#8322;. El producto real Y&#8322; supera muy poco a Y&#8320;.</figcaption>
+        </figure>
+      </div>
+
+      <div class="box resp"><span class="box-tag">Síntesis de la respuesta</span>
+        <p>G&#8593; expande la DA por el multiplicador (DA&#8320;&#8594;DA&#8321;), pero el mayor ingreso eleva la demanda de dinero; con <strong>OM fija</strong> y una <strong>DM muy inelástica (empinada)</strong>, la tasa de interés <strong>sube mucho</strong> (r&#8320;&#8594;r&#8321;). Esa alza <strong>reduce fuertemente la inversión</strong> (I&#8320;&#8594;I&#8321;), lo que hace <strong>retroceder la DA</strong> (DA&#8321;&#8594;DA&#8322;). El producto final (Y&#8322;) crece mucho menos que lo esperado (Y&#8321;), por lo que <span class="res">el desempleo persiste</span>. Eso es el efecto expulsión, agravado por las dos condiciones del enunciado.</p></div>
+    </section>
+    <section id="p5" class="qsection">
+      <div class="qhead"><div class="qnum">5</div>
+        <div><h2>Multiplicador del gasto y función keynesiana del consumo</h2>
+        <div class="qpts">2 + 2 puntos · &#161;OBLIGATORIO mostrar cálculos!</div></div>
+      </div>
+      <div class="enun">Cuadro en billones de dólares de 2024 (ingreso disponible y ahorro planeado). <b>a)</b> Multiplicador del gasto cuando el ingreso disponible sube de US$ 1.5 a US$ 3 billones (redondear a 2 decimales). <b>b)</b> Determine la Función Keynesiana del Consumo (o por qué no puede determinarse), redondeando a 2 decimales. <span class="hw">Sin cálculos demostrados, el puntaje es CERO.</span></div>
+
+      <table>
+        <thead><tr><th>Situación</th><th class="num">Ingreso disponible (Yd)</th><th class="num">Ahorro planeado (S)</th><th class="num">Consumo C = Yd &#8722; S</th></tr></thead>
+        <tbody>
+          <tr><th>A</th><td class="num">0</td><td class="num">&#8722;1.5</td><td class="num">1.5</td></tr>
+          <tr class="hl-row"><th>B</th><td class="num">1.5</td><td class="num">&#8722;1.0</td><td class="num">2.5</td></tr>
+          <tr class="hl-row"><th>C</th><td class="num">3</td><td class="num">&#8722;0.5</td><td class="num">3.5</td></tr>
+          <tr><th>D</th><td class="num">4.5</td><td class="num">0</td><td class="num">4.5</td></tr>
+          <tr><th>E</th><td class="num">6</td><td class="num">0.5</td><td class="num">5.5</td></tr>
+          <tr><th>F</th><td class="num">7.5</td><td class="num">1.0</td><td class="num">6.5</td></tr>
+        </tbody>
+      </table>
+      <p class="tcaption">La cuarta columna (consumo) la calculamos nosotros con Yd = C + S &#8658; C = Yd &#8722; S. Las filas B y C (resaltadas) son las del intervalo que pide la parte a).</p>
+
+      <h3>a) Multiplicador del gasto</h3>
+      <div class="box teoria"><span class="box-tag">Teoría — qué fórmula usar y por qué</span>
+        <p>El <strong>multiplicador del gasto</strong> mide cuánto producto total genera cada unidad de gasto autónomo. Mankiw:</p>
+        <div class="formula big">k = <span class="frac"><span class="num">1</span><span class="den">1 &#8722; PMC</span></span> = <span class="frac"><span class="num">1</span><span class="den">PMS</span></span></div>
+        <p>donde <span class="var">PMC</span> = propensión marginal a consumir y <span class="var">PMS</span> = propensión marginal a ahorrar, con <strong>PMC + PMS = 1</strong>. Como en la tabla tenemos el <em>ahorro</em>, lo más directo es calcular primero la PMS.</p></div>
+
+      <div class="steps">
+        <div class="step"><div class="sdot"></div><div class="stitle">Identifico el intervalo pedido (B &#8594; C)</div>
+          <p>Yd pasa de 1.5 a 3 (situaciones B y C). El ahorro pasa de &#8722;1.0 a &#8722;0.5.</p>
+          <div class="formula">&#916;Yd = 3 &#8722; 1.5 = <span class="var">1.5</span> &nbsp;&nbsp;|&nbsp;&nbsp; &#916;S = (&#8722;0.5) &#8722; (&#8722;1.0) = <span class="var">0.5</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Calculo la propensión marginal a ahorrar (PMS)</div>
+          <p>La PMS es cuánto del ingreso adicional se ahorra:</p>
+          <div class="formula">PMS = <span class="frac"><span class="num">&#916;S</span><span class="den">&#916;Yd</span></span> = <span class="frac"><span class="num">0.5</span><span class="den">1.5</span></span> = 0.3333... &#8776; <span class="res">0.33</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Obtengo la propensión marginal a consumir (PMC)</div>
+          <div class="formula">PMC = 1 &#8722; PMS = 1 &#8722; 0.33 = <span class="res">0.67</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Aplico la fórmula del multiplicador</div>
+          <div class="formula">k = <span class="frac"><span class="num">1</span><span class="den">1 &#8722; PMC</span></span> = <span class="frac"><span class="num">1</span><span class="den">1 &#8722; 0.67</span></span> = <span class="frac"><span class="num">1</span><span class="den">0.33</span></span> = 3.0303... &#8776; <span class="res">3.03</span></div></div>
+      </div>
+
+      <div class="box warn"><span class="box-tag">Detalle de redondeo (decide cuál escribir)</span>
+        <p>La instrucción dice <em>"redondee cada operación a dos decimales"</em>. Si redondeas la PMS a 0.33 y luego divides, sale <strong>k &#8776; 3.03</strong> (lo que conviene escribir para cumplir la instrucción). Si en cambio usas la fracción exacta (PMS = 1/3), el multiplicador es <strong>exactamente 3.00</strong>. Ambos son defendibles; siguiendo la instrucción al pie de la letra, <strong>la respuesta es 3.03</strong>, pero indica el cálculo exacto para que no te penalicen.</p></div>
+
+      <div class="box intu"><span class="box-tag">Interpretación</span>
+        <p>Un multiplicador de &#8776;3 significa que <strong>cada billón de gasto autónomo nuevo genera unos 3 billones de producto total</strong>. &#191;Por qué? Porque ese gasto es ingreso de alguien, que reconsume el 67% (PMC=0.67), generando otra ronda de gasto, y así sucesivamente: 1 + 0.67 + 0.67&#178; + ... = 1/(1&#8722;0.67) &#8776; 3.</p></div>
+
+      <div class="box resp"><span class="box-tag">Respuesta 5a</span>
+        <p>PMS = 0.5/1.5 = 0.33 &#8658; PMC = 0.67 &#8658; <span class="res">multiplicador k = 1/(1&#8722;0.67) = 1/0.33 &#8776; 3.03</span> (exacto: 3.00).</p></div>
+
+      <h3>b) Función Keynesiana del Consumo</h3>
+      <div class="box teoria"><span class="box-tag">Teoría — forma de la función</span>
+        <p>La función keynesiana del consumo es <strong>lineal</strong>:</p>
+        <div class="formula big">C = <span class="var">C&#8320;</span> + <span class="var">PMC</span> &#183; Yd</div>
+        <p>donde <span class="var">C&#8320;</span> = consumo autónomo (lo que se consume aun con Yd = 0, el intercepto) y <span class="var">PMC</span> = pendiente. Solo necesitamos dos números: la pendiente y el intercepto.</p></div>
+
+      <div class="steps">
+        <div class="step"><div class="sdot"></div><div class="stitle">&#191;Se puede determinar? Verifico que la PMS (y la PMC) sean constantes</div>
+          <p>Reviso la PMS en cada tramo: entre A&#8211;B, B&#8211;C, C&#8211;D, D&#8211;E y E&#8211;F el ahorro siempre sube 0.5 cuando Yd sube 1.5. Entonces <strong>PMS = 0.33 constante</strong> en toda la tabla. Eso prueba que la relación es <strong>lineal</strong> y, por lo tanto, <span class="res">la función SÍ puede determinarse</span>.</p></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">La pendiente es la PMC</div>
+          <p>Ya la tenemos de la parte a) (y se confirma con el consumo: &#916;C/&#916;Yd = 1.0/1.5 = 0.67 en cada tramo):</p>
+          <div class="formula">b = PMC = <span class="res">0.67</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">El intercepto es el consumo autónomo (Yd = 0)</div>
+          <p>En la situación A, Yd = 0 y S = &#8722;1.5, así que C = Yd &#8722; S = 0 &#8722; (&#8722;1.5) = 1.5. Es decir, el consumo autónomo es igual a menos el ahorro autónomo:</p>
+          <div class="formula">C&#8320; = &#8722;S&#8320; = &#8722;(&#8722;1.5) = <span class="res">1.5</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Escribo la función</div>
+          <div class="formula big">C = <span class="res">1.5 + 0.67 &#183; Yd</span></div></div>
+        <div class="step"><div class="sdot"></div><div class="stitle">Verifico con un dato de la tabla</div>
+          <p>Con Yd = 7.5 (situación F): C = 1.5 + 0.67(7.5) = 1.5 + 5.03 = 6.53 &#8776; 6.5. &#10003; Coincide con la tabla (la pequeña diferencia es por el redondeo de 0.67; con 2/3 exacto da 6.5 clavado).</p></div>
+      </div>
+
+      <div class="fig-grid">
+        <figure>
+          <div class="fig-title">Función de ahorro: S = &#8722;1.5 + 0.33&#183;Yd</div>
+          <svg viewBox="0 0 460 340" role="img">
+            <line class="axis" x1="75" y1="60" x2="75" y2="300" marker-end="url(#arr)"/>
+            <line class="axis" x1="75" y1="163" x2="430" y2="163" marker-end="url(#arr)"/>
+            <text class="glab ax" x="50" y="54">S</text><text class="glab ax" x="395" y="156">Yd</text>
+            <line class="curve c-inv" x1="75" y1="266" x2="398" y2="94"/>
+            <circle class="pt2" cx="75" cy="266" r="4.5"/><text class="glab sm" x="82" y="282">A</text>
+            <circle class="pt2" cx="140" cy="231" r="4.5"/><text class="glab sm" x="135" y="248">B</text>
+            <circle class="pt2" cx="204" cy="197" r="4.5"/><text class="glab sm" x="199" y="214">C</text>
+            <circle class="pt" cx="269" cy="163" r="5"/><text class="glab sm" x="272" y="180">D</text>
+            <circle class="pt2" cx="334" cy="129" r="4.5"/><text class="glab sm" x="329" y="122">E</text>
+            <circle class="pt2" cx="398" cy="94" r="4.5"/><text class="glab sm" x="393" y="88">F</text>
+            <line class="c-dash" x1="269" y1="163" x2="269" y2="300"/>
+            <text class="glab sm" x="248" y="316">Yd=4.5</text>
+            <text class="gnote" x="82" y="262">S&#8320; = &#8722;1.5</text>
+            <text class="gnote" x="250" y="120" fill="var(--resp)">pendiente = PMS = 0.33</text>
+          </svg>
+          <figcaption>El ahorro es negativo (desahorro) hasta Yd = 4.5, donde S = 0 (situación D). Su pendiente es la <b>PMS = 0.33</b>; corta el eje vertical en el ahorro autónomo &#8722;1.5.</figcaption>
+        </figure>
+        <figure>
+          <div class="fig-title">Función de consumo: C = 1.5 + 0.67&#183;Yd</div>
+          <svg viewBox="0 0 460 340" role="img">
+            <line class="axis" x1="75" y1="55" x2="75" y2="300" marker-end="url(#arr)"/>
+            <line class="axis" x1="75" y1="300" x2="430" y2="300" marker-end="url(#arr)"/>
+            <text class="glab ax" x="50" y="50">C</text><text class="glab ax" x="395" y="322">Yd</text>
+            <line class="c-dash" x1="75" y1="300" x2="394" y2="70"/>
+            <text class="glab sm" x="396" y="74">C = Yd (45&#176;)</text>
+            <line class="curve c-inv" x1="75" y1="254" x2="394" y2="101"/>
+            <circle class="pt2" cx="75" cy="254" r="4.5"/><text class="glab sm" x="58" y="250">A</text>
+            <circle class="pt2" cx="139" cy="223" r="4.5"/>
+            <circle class="pt2" cx="203" cy="193" r="4.5"/>
+            <circle class="pt" cx="266" cy="162" r="5"/><text class="glab sm" x="270" y="158">D</text>
+            <circle class="pt2" cx="330" cy="132" r="4.5"/>
+            <circle class="pt2" cx="394" cy="101" r="4.5"/><text class="glab sm" x="388" y="96">F</text>
+            <line class="c-dash" x1="266" y1="162" x2="266" y2="300"/>
+            <text class="glab sm" x="245" y="316">Yd=4.5</text>
+            <text class="gnote" x="82" y="250">C&#8320; = 1.5</text>
+            <text class="gnote" x="120" y="135" fill="var(--resp)">pendiente = PMC = 0.67</text>
+          </svg>
+          <figcaption>El consumo corta el eje en el consumo autónomo <b>1.5</b> y crece con pendiente <b>PMC = 0.67</b>. En Yd = 4.5 cruza la recta de 45&#176; (C = Yd): justo donde el ahorro es cero.</figcaption>
+        </figure>
+      </div>
+
+      <div class="box resp"><span class="box-tag">Respuesta 5b</span>
+        <p>La función <strong>sí puede determinarse</strong>, porque la PMS es constante (0.33) en toda la tabla &#8658; la relación es lineal. Con pendiente PMC = 0.67 e intercepto C&#8320; = 1.5: <span class="res">C = 1.5 + 0.67&#183;Yd</span>.</p></div>
+    </section>
+    <section id="p6" class="qsection">
+      <div class="qhead"><div class="qnum">6</div>
+        <div><h2>&#191;Qué medidas convienen para "enfriar" la economía?</h2>
+        <div class="qpts">1 punto c/u · &#8722;0.25 por recomendación equivocada</div></div>
+      </div>
+      <div class="enun">Para evitar un brote inflacionario se quiere <b>enfriar</b> la economía controlando la expansión de la DA. Escriba primero <b>"Sí, es conveniente"</b> o <b>"No, es inconveniente"</b> para cada medida y explique por qué. (Si no indica primero el sentido, la respuesta vale cero.)</div>
+
+      <div class="box teoria"><span class="box-tag">La regla de oro de esta pregunta</span>
+        <p>Enfriar = <strong>DA&#8595;</strong> &#8658; necesitamos medidas <span class="badge c">contractivas</span>. Cada inciso trae <strong>dos acciones</strong>; la medida solo conviene si <strong>las dos</strong> apuntan a contraer. Si una sola es <span class="badge e">expansiva</span>, la medida se descarta. Recuerda las direcciones:</p>
+        <ul class="clean">
+          <li><span class="badge c">Contractivas (DA&#8595;)</span>: subir tasa de referencia · vender bonos · subir encaje · subir impuestos / eliminar exoneraciones · reducir gasto público.</li>
+          <li><span class="badge e">Expansivas (DA&#8593;)</span>: bajar tasa de referencia · comprar bonos · bajar encaje · bajar impuestos / ampliar exoneraciones · subir gasto público · subir la RMV.</li>
+        </ul></div>
+
+      <div class="verdict-grid">
+        <div class="vcard no"><div class="vtop"><span class="tag">a)</span> No, es inconveniente</div>
+          <div class="vbody">
+            <p><em>"El BCRP debería elevar la tasa que los bancos pagan por los depósitos de ahorro; y reducir la tasa de interés de referencia."</em></p>
+            <div class="twoacts">
+              <div class="act contractiva"><span class="alab">Acción 1 &#183; Contractiva &#10003;</span>Subir el rendimiento del ahorro incentiva ahorrar y desincentiva consumir &#8658; <b>DA&#8595;</b>. Va bien.</div>
+              <div class="act expansiva"><span class="alab">Acción 2 &#183; Expansiva &#10007;</span>Reducir la tasa de <b>referencia</b> es el instrumento expansivo por excelencia &#8658; <b>DA&#8593;</b>. Calienta.</div>
+            </div>
+            <p>Las dos acciones <strong>se contradicen</strong>, y la segunda (recortar la tasa de referencia, el instrumento principal del BCRP) empuja a calentar la economía. Por eso la medida <strong>no sirve para enfriar</strong>.</p>
+          </div></div>
+
+        <div class="vcard no"><div class="vtop"><span class="tag">b)</span> No, es inconveniente</div>
+          <div class="vbody">
+            <p><em>"El MEF debería elevar la renta mínima exonerada del impuesto a la renta; y el BCRP debería reducir la tasa de encaje bancario."</em></p>
+            <div class="twoacts">
+              <div class="act expansiva"><span class="alab">Acción 1 &#183; Expansiva &#10007;</span>Elevar el monto exonerado del impuesto = pagar menos impuestos = más ingreso disponible &#8658; más consumo &#8658; <b>DA&#8593;</b>.</div>
+              <div class="act expansiva"><span class="alab">Acción 2 &#183; Expansiva &#10007;</span>Bajar el encaje deja a los bancos prestar más &#8658; sube el multiplicador monetario y la OM &#8658; <b>DA&#8593;</b>.</div>
+            </div>
+            <p>Las <strong>dos acciones son expansivas</strong>: ambas calientan la economía. Es exactamente lo contrario de lo que se busca.</p>
+          </div></div>
+
+        <div class="vcard no"><div class="vtop"><span class="tag">c)</span> No, es inconveniente</div>
+          <div class="vbody">
+            <p><em>"El BCRP debería eliminar algunas exoneraciones tributarias y el MEF debería elevar la remuneración mínima vital (RMV)."</em></p>
+            <div class="twoacts">
+              <div class="act contractiva"><span class="alab">Acción 1 &#183; Contractiva &#10003; (pero mal atribuida)</span>Eliminar exoneraciones = más impuestos = menos ingreso disponible &#8658; <b>DA&#8595;</b>. Pero es atribución del <b>MEF</b>, no del BCRP (el banco central no maneja tributos).</div>
+              <div class="act expansiva"><span class="alab">Acción 2 &#183; Expansiva &#10007;</span>Subir la RMV eleva los ingresos laborales &#8658; más consumo &#8658; <b>DA&#8593;</b> (y presiona costos e inflación).</div>
+            </div>
+            <p>La segunda acción es expansiva (subir la RMV calienta) y la primera está mal asignada al BCRP. La medida <strong>no es adecuada</strong> para enfriar.</p>
+          </div></div>
+      </div>
+
+      <div class="box resp"><span class="box-tag">Resumen de la Pregunta 6</span>
+        <p>Las tres medidas son <span class="res">"No, es inconveniente"</span>, porque cada una contiene al menos una acción <strong>expansiva</strong> (que calienta) cuando lo que se necesita es contraer la DA: en (a) reducir la tasa de referencia; en (b) las dos acciones; en (c) subir la RMV (más la atribución equivocada al BCRP). Recuerda escribir <strong>primero</strong> "No, es inconveniente" y luego la explicación, o la respuesta vale cero.</p></div>
+    </section>
+
+    <section id="formulario" class="qsection">
+      <div class="qhead"><div class="qnum">&#8721;</div>
+        <div><h2>Formulario clave</h2><div class="qpts">Todo lo que se usa en este examen</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Concepto</th><th>Fórmula / relación</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><th>Exportaciones netas</th><td><code>XN = X &#8722; M</code></td><td>P&#8593; &#8658; XN&#8595; (relación inversa)</td></tr>
+          <tr><th>Multiplicador del gasto</th><td><code>k = 1/(1&#8722;PMC) = 1/PMS</code></td><td>Amplifica el gasto autónomo</td></tr>
+          <tr><th>Propensiones</th><td><code>PMC = &#916;C/&#916;Yd</code> &#183; <code>PMS = &#916;S/&#916;Yd</code></td><td><code>PMC + PMS = 1</code></td></tr>
+          <tr><th>Función de consumo</th><td><code>C = C&#8320; + PMC&#183;Yd</code></td><td>C&#8320; = consumo autónomo (intercepto)</td></tr>
+          <tr><th>Función de ahorro</th><td><code>S = &#8722;C&#8320; + PMS&#183;Yd</code></td><td>Se deduce de <code>Yd = C + S</code></td></tr>
+          <tr><th>Mercado del dinero</th><td>DM&#8593; con OM fija &#8658; r&#8593;</td><td>DM inelástica (empinada) &#8658; r sube mucho</td></tr>
+          <tr><th>Efecto expulsión</th><td>G&#8593; &#8658; r&#8593; &#8658; I&#8595; &#8658; DA retrocede</td><td>El alza de r "expulsa" inversión privada</td></tr>
+        </tbody>
+      </table>
+      <div class="box intu"><span class="box-tag">Mnemotecnia de política económica</span>
+        <p><strong>Enfriar (DA&#8595;, anti-inflación)</strong>: subir tasa de referencia · <strong>vender</strong> bonos · subir encaje · subir impuestos. &nbsp; <strong>Calentar (DA&#8593;, anti-recesión)</strong>: bajar tasa · <strong>comprar</strong> bonos · bajar encaje · bajar impuestos · subir gasto/RMV.</p></div>
+    </section>
+
+    <section id="glosario" class="qsection">
+      <div class="qhead"><div class="qnum">A</div>
+        <div><h2>Glosario macro</h2><div class="qpts">Los términos del examen, en una línea</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Término</th><th>Significado breve</th></tr></thead>
+        <tbody>
+          <tr><th>DA / OA</th><td>Demanda Agregada / Oferta Agregada (gasto total y producción a cada nivel de precios).</td></tr>
+          <tr><th>DM / OM</th><td>Demanda de dinero / Oferta monetaria. Su cruce fija la tasa de interés (preferencia por liquidez).</td></tr>
+          <tr><th>Tasa de referencia</th><td>Tasa de política del BCRP; subirla es contractivo, bajarla expansivo.</td></tr>
+          <tr><th>OMA</th><td>Operaciones de mercado abierto: comprar bonos inyecta dinero (expansivo); vender retira dinero (contractivo).</td></tr>
+          <tr><th>Encaje</th><td>% de depósitos que los bancos guardan obligatoriamente. Subirlo frena el crédito (contractivo).</td></tr>
+          <tr><th>Efecto expulsión</th><td>Caída de inversión privada cuando una expansión fiscal sube la tasa de interés.</td></tr>
+          <tr><th>Multiplicador</th><td>Veces que se multiplica el gasto autónomo en el producto: 1/(1&#8722;PMC).</td></tr>
+          <tr><th>PMC / PMS</th><td>Propensión marginal a consumir / a ahorrar. Suman 1.</td></tr>
+          <tr><th>Consumo autónomo (C&#8320;)</th><td>Consumo cuando el ingreso disponible es cero.</td></tr>
+          <tr><th>SNC</th><td>Salida neta de capitales; es la oferta de moneda nacional en el mercado de divisas.</td></tr>
+          <tr><th>TCR</th><td>Tipo de cambio real: precio de los bienes nacionales en términos de bienes extranjeros.</td></tr>
+          <tr><th>RMV</th><td>Remuneración mínima vital; subirla eleva ingresos y consumo (expansivo).</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="foot">
+      <p>Guía de estudio · Práctica Calificada N°3 · Macroeconomía (Economía II) · Basada en N. G. Mankiw, <em>Principios de Economía</em>.<br>
+      Material de repaso construido a partir del examen. Revisa siempre tus cálculos y la redacción: el profesor no interpreta respuestas ambiguas.</p>
+    </div>
+
+   </div>
+  </main>
+</div>
+<button id="toTop" aria-label="Subir">&#8593;</button>
+<script>
+(function(){
+  var root    = document.documentElement;
+  var topbar  = document.getElementById('topbar');
+  var progress= document.getElementById('progress');
+  var shell   = document.getElementById('shell');
+  var toTop   = document.getElementById('toTop');
+  var navToggle = document.getElementById('navToggle');
+  var backBtn = document.getElementById('backBtn');
+  var lastScroll = 0, ticking = false;
+
+  function isMobile(){ return window.matchMedia('(max-width:1180px)').matches; }
+  function motionReduced(){ return root.getAttribute('data-reduce') === '1'; }
+
+  /* ---------- Scroll: progreso, barra que se oculta, botón subir ---------- */
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progress.style.width = (docH > 0 ? (y / docH * 100) : 0) + '%';
+    if (y > lastScroll && y > 120){ topbar.classList.add('hidden'); }
+    else { topbar.classList.remove('hidden'); }
+    lastScroll = y <= 0 ? 0 : y;
+    if (y > 500){ toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ window.requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+
+  /* ---------- Menú retráctil ---------- */
+  navToggle.addEventListener('click', function(){
+    if (isMobile()){ shell.classList.toggle('open'); }
+    else { shell.classList.toggle('collapsed'); }
+  });
+
+  /* ---------- Sección activa ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  function linkFor(id){ return document.querySelector('.nav-link[href="#'+id+'"]'); }
+  if ('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          links.forEach(function(l){ l.classList.remove('active'); });
+          var l = linkFor(e.target.id);
+          if (l) l.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ observer.observe(s); });
+  }
+
+  /* ---------- Botón de RETROCESO (volver a donde estabas) ---------- */
+  var jumpHistory = [];
+  function pushPosition(){ jumpHistory.push(window.scrollY || 0); if(jumpHistory.length>50) jumpHistory.shift(); updateBack(); }
+  function updateBack(){ backBtn.disabled = jumpHistory.length === 0; }
+  backBtn.addEventListener('click', function(){
+    if (!jumpHistory.length) return;
+    var pos = jumpHistory.pop();
+    window.scrollTo({ top: pos, behavior: motionReduced() ? 'auto' : 'smooth' });
+    updateBack();
+  });
+
+  // Cada salto por el menú guarda la posición previa
+  links.forEach(function(l){
+    l.addEventListener('click', function(){
+      pushPosition();
+      if (isMobile()){ shell.classList.remove('open'); }
+    });
+  });
+  toTop.addEventListener('click', function(){
+    pushPosition();
+    window.scrollTo({ top:0, behavior: motionReduced() ? 'auto' : 'smooth' });
+  });
+
+  /* ===================== AJUSTES DE VISTA ===================== */
+  var FS = [0.9, 1.0, 1.1, 1.25, 1.4];
+  var settings = { theme:'light', fsIdx:1, lh:'1.72', underline:false, motion:false };
+
+  function save(){ try{ localStorage.setItem('pc3_a11y', JSON.stringify(settings)); }catch(e){} }
+  function load(){ try{ var s = JSON.parse(localStorage.getItem('pc3_a11y')); if(s){ for(var k in s) if(k in settings) settings[k]=s[k]; } }catch(e){} }
+
+  // Tema
+  var themeIcon = document.getElementById('themeIcon');
+  var sun = '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/>';
+  var moon = '<path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/>';
+  function applyTheme(){
+    root.setAttribute('data-theme', settings.theme);
+    themeIcon.innerHTML = (settings.theme === 'dark') ? sun : moon;
+    document.getElementById('themeBtn').setAttribute('aria-label', settings.theme==='dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    Array.prototype.forEach.call(document.querySelectorAll('.theme-opt'), function(b){
+      b.classList.toggle('active', b.getAttribute('data-theme') === settings.theme);
+    });
+  }
+  // Tamaño de texto
+  function applyFont(){
+    root.style.setProperty('--zoom', FS[settings.fsIdx]);
+    document.getElementById('fsVal').textContent = Math.round(FS[settings.fsIdx]*100) + '%';
+    document.getElementById('fsMinus').disabled = settings.fsIdx === 0;
+    document.getElementById('fsPlus').disabled = settings.fsIdx === FS.length-1;
+  }
+  // Interlineado
+  function applyLh(){
+    root.style.setProperty('--lh', settings.lh);
+    Array.prototype.forEach.call(document.querySelectorAll('#lhSeg button'), function(b){
+      b.classList.toggle('active', b.getAttribute('data-lh') === settings.lh);
+    });
+  }
+  // Subrayado + movimiento
+  function applyToggles(){
+    root.style.setProperty('--link-deco', settings.underline ? 'underline' : 'none');
+    document.getElementById('tgUnderline').checked = settings.underline;
+    if (settings.motion){ root.setAttribute('data-reduce','1'); } else { root.removeAttribute('data-reduce'); }
+    document.getElementById('tgMotion').checked = settings.motion;
+  }
+  function applyAll(){ applyTheme(); applyFont(); applyLh(); applyToggles(); }
+
+  // Eventos del panel
+  document.getElementById('themeGrid').addEventListener('click', function(e){
+    var b = e.target.closest('.theme-opt'); if(!b) return;
+    settings.theme = b.getAttribute('data-theme'); applyTheme(); save();
+  });
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    settings.theme = (settings.theme === 'dark') ? 'light' : 'dark'; applyTheme(); save();
+  });
+  document.getElementById('fsMinus').addEventListener('click', function(){ if(settings.fsIdx>0){ settings.fsIdx--; applyFont(); save(); } });
+  document.getElementById('fsPlus').addEventListener('click', function(){ if(settings.fsIdx<FS.length-1){ settings.fsIdx++; applyFont(); save(); } });
+  document.getElementById('lhSeg').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    settings.lh = b.getAttribute('data-lh'); applyLh(); save();
+  });
+  document.getElementById('tgUnderline').addEventListener('change', function(e){ settings.underline = e.target.checked; applyToggles(); save(); });
+  document.getElementById('tgMotion').addEventListener('change', function(e){ settings.motion = e.target.checked; applyToggles(); save(); });
+  document.getElementById('a11yReset').addEventListener('click', function(){
+    settings = { theme:'light', fsIdx:1, lh:'1.72', underline:false, motion:false }; applyAll(); save();
+  });
+
+  /* ---------- Apertura del panel ---------- */
+  var panel = document.getElementById('a11yPanel');
+  var overlay = document.getElementById('a11yOverlay');
+  var a11yBtn = document.getElementById('a11yBtn');
+  function openPanel(){ panel.classList.add('show'); overlay.classList.add('show'); a11yBtn.setAttribute('aria-expanded','true'); }
+  function closePanel(){ panel.classList.remove('show'); overlay.classList.remove('show'); a11yBtn.setAttribute('aria-expanded','false'); }
+  a11yBtn.addEventListener('click', function(){ panel.classList.contains('show') ? closePanel() : openPanel(); });
+  document.getElementById('a11yClose').addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePanel(); });
+
+  /* ---------- Inicio ---------- */
+  load(); applyAll(); updateBack(); onScroll();
+})();
+</script>
+</body>
+</html>
